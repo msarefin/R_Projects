@@ -21,7 +21,8 @@ print(seq(5,9, by = 0.4))
 s <- c('apple','red',5,TRUE)
 print(s)
 
-
+#index numbers starts from 1 
+#Elements can be accessed using index numbers
 t <- c("sun","mon","tue","wed","thu","fri","sat")
 u <- t[c(2,3,6)]
 print(u)
