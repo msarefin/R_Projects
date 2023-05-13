@@ -36,3 +36,27 @@ print(result)
 result <- emp.data[c(3,4),c(2,4)]
 print(result)
 
+#add the dept column 
+
+emp.data$dept <- c("IT","Operations","IT","HR","Finance")
+v <- emp.data
+print(v)
+
+#creating a second data frame to merge 
+
+emp.newdata <- data.frame(
+	emp_id =c(6:8),
+	emp_name =c("Rasmi","Pranab","Tusar"),
+	salary = c(578.0,722.5,632.8),
+	start_date = as.Date(c("2013-05-21","2013-07-30","2014-06-17")),
+	dept =c("IT","Operations","Finance"),
+	stringsAsFactors = FALSE
+)
+
+emp.finalbind <- rbind(emp.data, emp.newdata)
+print(emp.data)
+print(emp.newdata)
+print(emp.finalbind)
+
+
+
