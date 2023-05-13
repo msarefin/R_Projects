@@ -30,3 +30,9 @@ info <- data.frame(height, weight, gender)
 print(info)
 
 print(is.factor(info$gender))
+
+
+#generate vector lables
+
+v <- gl(3,4,labels = c("Tampa","Seattle","Boston"))
+print(v)
