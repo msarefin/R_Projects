@@ -10,3 +10,5 @@ print(nrow(csv.data))
 
 max.crash <- max(csv.data$Number.of.Crashes)
 print(max.crash)
+
+retval <- subset(csv.data, crashes == max(csv.data$Number.of.Crashes)
