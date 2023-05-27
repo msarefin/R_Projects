@@ -23,5 +23,5 @@ print(retval)
 
 print("********* Started on and after 2014 *********")
 
-retval <- subset(data, as.Date(start_date) > as.Date("2014-01-01"))
+retval <- subset(csv.data, as.Date(start_date) > as.Date("2014-01-01"))
 print(retval)
