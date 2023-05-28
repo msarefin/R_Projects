@@ -41,6 +41,13 @@ print(retval)
 
 #Write  Filterd date into new file
 print(paste(star, "Writing to csv file",star))
+filename <- "output.csv"
+if(file.exists(filename)){
+  file.remove(filename)
+  print(paste(filename,"has been removed"))
+}else{
+  print("file not found!!")
+}
 
 write.csv(retval,"output.csv")
 newdata <- read.csv("output.csv")
