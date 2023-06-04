@@ -12,7 +12,7 @@ print(bool)
 #load excel packages
 
 library("readxl")
-library("writexl")
+
 
 excelData <- read_excel("input.xlsx", sheet = "sheet1")
 print(excelData)
@@ -25,5 +25,8 @@ print(read_excel("input.xlsx",sheet = "city"))
 print(read_excel("input.xlsx",col_names = FALSE))
 
 ################ Write Excel files ###############
+excel_data <- read_excel("input.xlsx", sheet = 2)
+print(excel_data)
 
-write_xlsx()
+library("writexl")
+write_xlsx(excel_data,"output.xlsx")
