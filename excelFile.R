@@ -22,4 +22,7 @@ print(data)
 
 print(read.xlsx("input.xlsx",sheetName = "city"))
 
+x <- read.xlsx("input.xlsx", sheetName = "city")
+print(x)
 
+write.xlsx(x,"output.xlsx",sheetName = "City")
