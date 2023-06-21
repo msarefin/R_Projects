@@ -1,3 +1,5 @@
+#install.packages("rjson")
+
 library("rjson")
 
 result <- fromJSON(file = "./input.json")

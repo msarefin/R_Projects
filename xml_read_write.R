@@ -1,3 +1,5 @@
+#install.packages("XML")
+
 library("XML")
 library("methods")
 result <- xmlParse(file = "input.xml")
