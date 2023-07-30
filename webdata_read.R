@@ -1,10 +1,14 @@
-install.packages("tidyverse")
+install.packages("RCurl")
+install.packages("XML")
+install.packages("stringr")
+install.packages("plyr")
 install.packages("rvest")
-library(tidyverse)
+
+library(RCurl)
+library(XML)
+library(stringr)
+library(plyr)
 library(rvest)
 
-url = "https://en.wikipedia.org/wiki/World_Happiness_Report"
-
-happy = read_html(url)%>%
-  html_element('tables.wikitable')%>%
-  html_table()
+url <- "http://www.geos.ed.ac.uk/~weather/jcmb_ws/"
+link <- getHTMLLinks(url)
