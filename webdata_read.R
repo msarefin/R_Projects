@@ -22,9 +22,24 @@ head(summaries_xpath)
 
 
 
-####################
+#################### From tutorials point - keeps failing on the given website
 
-install.packages("RCurl")
+
+#install.packages("RCurl")
 library(RCurl)
 
-sample
+myfile <- getURL("https://www.geos.ed.ac.uk/~weather/jcmb_ws/JCMB_2006_Aug.csv")
+mydata <- read.csv(textConnection(myfile),header = T)
+head(mydata)
+
+install.packages("XML")
+install.packages("stringr")
+install.packages("plyr")
+library(XML)
+library(stringr)
+library(plyr)
+
+url <- "http://www.geos.ed.ac.uk/~weather/jcmb_ws/"
+links <- getHTMLLinks(url,externalOnly = TRUE)
+
+
