@@ -30,3 +30,18 @@ info <- data.frame(height, weight, gender)
 print(info)
 
 print(is.factor(info$gender))
+
+
+
+data <- c("East","West","East","North","North","East","West",
+          "West","West","East","North")
+
+
+#create factors
+factor_data <- factor(data)
+print(factor_data)
+
+#apply new factor function
+
+new_order_data <- factor(factor_data, levels = c("East","West","North"))
+print(new_order_data)

@@ -89,6 +89,15 @@ print("*************remove all variables")
 rm(list = ls())
 print(ls())
 
+################################################################
 
+height <- c(132,151,162,139,166,147,122)
+weight <- c(48,49,66,53,67,52,40)
+gender <- c("male","male","female","female","male","female","male")
 
+input_data <- data.frame(height, weight, gender)
+print(input_data)
 
+print(is.factor(input_data$gender))
+
+print(input_data$gender)
