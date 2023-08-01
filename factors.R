@@ -32,6 +32,7 @@ print(info)
 print(is.factor(info$gender))
 
 
+<<<<<<< HEAD
 
 data <- c("East","West","East","North","North","East","West",
           "West","West","East","North")
@@ -45,3 +46,9 @@ print(factor_data)
 
 new_order_data <- factor(factor_data, levels = c("East","West","North"))
 print(new_order_data)
+=======
+#generate vector lables
+
+v <- gl(3,4,labels = c("Tampa","Seattle","Boston"))
+print(v)
+>>>>>>> d77bf2210262a5d19150f907d573e5364e3d75eb
