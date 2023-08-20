@@ -6,3 +6,6 @@ project.Rproj
 .Rhistory
 .Rapp.history
 *.png
+*.jpg
+*.jpeg
+*.gif
