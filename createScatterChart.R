@@ -18,7 +18,7 @@ plot(x=input$wt,y=input$mpg,
 
 dev.off()
 
-
+#pairs(formula, data)
 png(file="Scatterplot_matrices.png")
 pairs(~wt+mpg+disp+cyl,data=mtcars, main = "Scatterplot Matrix")
 dev.off()
