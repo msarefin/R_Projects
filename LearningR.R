@@ -93,3 +93,12 @@ rm(list= ls())
 # Trying to save this file from getting deleted from my work 
 # But how come I don't see this file on my mac R IDE?
 #help
+
+v <- c( 2,5.5,6)
+t <- c(8, 3, 4)
+
+v+t
+v-t
+v*t
+v/t
+v%%t
