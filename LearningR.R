@@ -102,3 +102,52 @@ v-t
 v*t
 v/t
 v%%t
+v%/%t
+
+#the switch points to the 3rd case on the list
+switch(
+  3, 
+  "first",
+  "second",
+  "third",
+  "fourth"
+)
+
+#the switch points to the case by name
+a = 3
+b = 4
+c = "m"
+
+switch(
+  c, 
+  "a" = cat(a+b),
+  "s" = cat(a-b),
+  "m"  = cat(a*b),
+  "d" = cat(a/b)
+)
+
+#loop - repeat
+c <- 0
+repeat{
+  cat("*")
+  c= c+1; 
+  if(c>=10){ 
+    c= 0 
+    break}
+  
+}
+
+#while loop 
+c <- 0
+while(c<=10){
+  cat("+",c,"\n")
+  c = c+1;
+}
+
+#For loop 
+
+for(i in c(1:4)){
+  print(letters[i])
+  print(LETTERS[i])
+}
+
