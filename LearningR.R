@@ -151,3 +151,35 @@ for(i in c(1:4)){
   print(LETTERS[i])
 }
 
+#Function
+fn <- function(a, b){
+  
+  c = a+b
+  c
+}
+
+#String
+
+a <- "Hello"
+b <- "darkness"
+c <- "my old friend"
+
+paste(a,b,c)
+paste(a,b,c, sep = "-")
+paste(a,b,c, sep = "", collapse = "")
+
+format(6)
+format(60000.123456, digits = 2)
+format(60000.123456, scientific = TRUE)
+format(60000.123456, nsmall = 3)
+format(6.123, width = 9 )
+
+format(a, width = 8, justify = "l")
+format(a, width = 8, justify = "r")
+format(a, width = 8, justify = "c")
+
+nchar(a)
+toupper(a)
+tolower(a)
+
+substring("I am learning R to become a Data analyst!!", 10,15)
