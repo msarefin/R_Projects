@@ -194,11 +194,17 @@ substring("I am learning R to become a Data analyst!!", 10,15)
 data <- read.csv("input.csv")
 print(data)
 
-print(is.data.frame(data))
-print(ncol(data))
-print(nrow(data))
+print(is.data.frame(data)) # Check if the variable contains data frames
+print(ncol(data)) # number of columns 
+print(nrow(data)) # number of rows
 
-data$salary
+data$salary # all data under salary column
+sal.list <- data$salary
+print(sal.list)
+class(sal.list)
 
 sal <- max(data$salary)
 print(sal)
+
+subset(data, salary == max(salary))
+subset(data, salary)
