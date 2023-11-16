@@ -15,8 +15,9 @@ if(FALSE){
 #Data types in R
 
 
-# This is just a multi line comment 
-# all i have to put in s a hash tag using \
+# This is just a multi-line comment 
+# all i have to put in is a hash tag using #
+# keyboard shortcuts for R studio is Ctrl + Shift + C
 
 
 #vector
@@ -183,3 +184,21 @@ toupper(a)
 tolower(a)
 
 substring("I am learning R to become a Data analyst!!", 10,15)
+
+
+#Data Interface
+
+#CSV files
+
+#read csv data and store in a variable 
+data <- read.csv("input.csv")
+print(data)
+
+print(is.data.frame(data))
+print(ncol(data))
+print(nrow(data))
+
+data$salary
+
+sal <- max(data$salary)
+print(sal)
