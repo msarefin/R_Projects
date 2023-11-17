@@ -15,8 +15,9 @@ if(FALSE){
 #Data types in R
 
 
-# This is just a multi line comment 
-# all i have to put in s a hash tag using \
+# This is just a multi-line comment 
+# all i have to put in is a hash tag using #
+# keyboard shortcuts for R studio is Ctrl + Shift + C
 
 
 #vector
@@ -102,3 +103,108 @@ v-t
 v*t
 v/t
 v%%t
+v%/%t
+
+#the switch points to the 3rd case on the list
+switch(
+  3, 
+  "first",
+  "second",
+  "third",
+  "fourth"
+)
+
+#the switch points to the case by name
+a = 3
+b = 4
+c = "m"
+
+switch(
+  c, 
+  "a" = cat(a+b),
+  "s" = cat(a-b),
+  "m"  = cat(a*b),
+  "d" = cat(a/b)
+)
+
+#loop - repeat
+c <- 0
+repeat{
+  cat("*")
+  c= c+1; 
+  if(c>=10){ 
+    c= 0 
+    break}
+  
+}
+
+#while loop 
+c <- 0
+while(c<=10){
+  cat("+",c,"\n")
+  c = c+1;
+}
+
+#For loop 
+
+for(i in c(1:4)){
+  print(letters[i])
+  print(LETTERS[i])
+}
+
+#Function
+fn <- function(a, b){
+  
+  c = a+b
+  c
+}
+
+#String
+
+a <- "Hello"
+b <- "darkness"
+c <- "my old friend"
+
+paste(a,b,c)
+paste(a,b,c, sep = "-")
+paste(a,b,c, sep = "", collapse = "")
+
+format(6)
+format(60000.123456, digits = 2)
+format(60000.123456, scientific = TRUE)
+format(60000.123456, nsmall = 3)
+format(6.123, width = 9 )
+
+format(a, width = 8, justify = "l")
+format(a, width = 8, justify = "r")
+format(a, width = 8, justify = "c")
+
+nchar(a)
+toupper(a)
+tolower(a)
+
+substring("I am learning R to become a Data analyst!!", 10,15)
+
+
+#Data Interface
+
+#CSV files
+
+#read csv data and store in a variable 
+data <- read.csv("input.csv")
+print(data)
+
+print(is.data.frame(data)) # Check if the variable contains data frames
+print(ncol(data)) # number of columns 
+print(nrow(data)) # number of rows
+
+data$salary # all data under salary column
+sal.list <- data$salary
+print(sal.list)
+class(sal.list)
+
+sal <- max(data$salary)
+print(sal)
+
+subset(data, salary == max(salary))
+subset(data, salary)
