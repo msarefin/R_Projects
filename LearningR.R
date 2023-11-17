@@ -207,4 +207,14 @@ sal <- max(data$salary)
 print(sal)
 
 subset(data, salary == max(salary))
-subset(data, salary)
+subset(data, salary < ave(salary))
+
+
+#write csv files 
+output <- subset(data, salary < ave(salary))
+
+# To remove the x column set the row.names = FALSE
+write.csv(output, "output.csv", row.names = FALSE)
+
+
+read.csv("output.csv")
