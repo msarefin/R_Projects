@@ -185,6 +185,38 @@ tolower(a)
 
 substring("I am learning R to become a Data analyst!!", 10,15)
 
+#vectors
+
+v <- 5:13
+
+print(v)
+
+v1 = seq(1,10, by = 0.5)
+
+show(v1)
+
+#LIst 
+
+list_dta <- list("red","green",v1, FALSE,3.14)
+print(list_dta)
+print(list_dta[4])
+
+#matrix
+
+m<- matrix(c(1:15),nrow = 3, byrow = TRUE)
+show(m)
+
+#Arrays
+
+vector1 <- c(5,9,3)
+vector2 <- c(seq(10,15, by = 1))
+column.names <- c("col1","col2","col3")
+row.names <- c("row1","row2","row3")
+matrix.name <- c("Matrix1","Matrix2")
+
+result<- array(c(vector1,vector2), dim = c(3,3,2),dimnames = list(row.names, column.names,matrix.name))
+print(result)
+
 
 #Data Interface
 
