@@ -266,8 +266,8 @@ write.xlsx(data,"output.xlsx",sheetName = "sheetname", append = TRUE)
 
 #Binary Files
 
+#Retrieve data and write it to csv file
 write.table(mtcars, file = "mtcars.csv", row.names = FALSE, na="",col.names = TRUE, sep = ",")
-new.mtcars <- read.table("mtcars.csv",sep = ",", header = TRUE, sep = ",")
 
 new.mtcars <- read.table("mtcars.csv", sep = ",", header = TRUE, nrow = 5)
 
