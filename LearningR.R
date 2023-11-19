@@ -250,3 +250,16 @@ write.csv(output, "output.csv", row.names = FALSE)
 
 
 read.csv("output.csv")
+
+#excel reader and writer
+
+install.packages("xlsx")
+any(grepl("xlsx",installed.packages()))
+library(xlsx)
+
+# reading input.xlsx sheet1 (sheet index 1)
+
+dataBySheetIndex <- read.xlsx("input.xlsx", sheetIndex = 1 )
+dataBySheetName <- read.xlsx("input.xlsx", sheetName = "Sheet1") # The sheet name is case sensetive
+
+write.xlsx(data,"output.xlsx",sheetName = "sheetname")
