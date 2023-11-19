@@ -262,4 +262,12 @@ library(xlsx)
 dataBySheetIndex <- read.xlsx("input.xlsx", sheetIndex = 1 )
 dataBySheetName <- read.xlsx("input.xlsx", sheetName = "Sheet1") # The sheet name is case sensetive
 
-write.xlsx(data,"output.xlsx",sheetName = "sheetname")
+write.xlsx(data,"output.xlsx",sheetName = "sheetname", append = TRUE)
+
+#Binary Files
+
+write.table(mtcars, file = "mtcars.csv", row.names = FALSE, na="",col.names = TRUE, sep = ",")
+new.mtcars <- read.table("mtcars.csv",sep = ",", header = TRUE, sep = ",")
+
+new.mtcars <- read.table("mtcars.csv", sep = ",", header = TRUE, nrow = 5)
+
