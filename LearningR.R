@@ -266,8 +266,18 @@ write.xlsx(data,"output.xlsx",sheetName = "sheetname", append = TRUE)
 
 #Binary Files
 
-#Retrieve data and write it to csv file
-write.table(mtcars, file = "mtcars.csv", row.names = FALSE, na="",col.names = TRUE, sep = ",")
+write.table(mtcars, file = "mtcars.csv", row.name = FALSE, col.name = TRUE, na = "", sep = ",")
+new.mtcars <- read.table("mtcars.csv", sep = ",",header = TRUE, nrow = 5)
+write.filename = file("binaryfile.dat", "wb")
+writeBin(colnames(new.mtcars), write.filename)
+writeBin(c(new.mtcars$cyl, new.mtcars$am, new.mtcars$gear), write.filename)
+close(write.filename)
 
-new.mtcars <- read.table("mtcars.csv", sep = ",", header = TRUE, nrow = 5)
+read.filename <- file("binaryfile.dat", "rb")
+column.names <- readBin(read.filename, character(), n=3)
+read.filename <- file("binaryfile.dat", "rb")
+bindata <- readBin(read.filename, integer(), n=18)
+print(bindata)
 
+cyldata = bindata[4:8]
+print(cyldata)
