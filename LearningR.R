@@ -281,3 +281,10 @@ print(bindata)
 
 cyldata = bindata[4:8]
 print(cyldata)
+
+
+# Workin with XML files
+
+install.packages("XML")
+library("XML")
+
