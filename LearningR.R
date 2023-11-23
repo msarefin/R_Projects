@@ -242,6 +242,7 @@ subset(data, salary == max(salary))
 subset(data, salary < ave(salary))
 
 subset(data, salary > 600 & dept == "IT")
+subset(data, salary > 600 & dept != "IT")
 subset(data, salary > 800 | dept == "IT")
 
 #write csv files 
