@@ -9,3 +9,6 @@ project.Rproj
 *.jpg
 *.jpeg
 *.gif
+.Rprofile
+.replit
+replit.nix
