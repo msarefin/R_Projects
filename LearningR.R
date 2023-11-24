@@ -265,7 +265,11 @@ library(xlsx)
 dataBySheetIndex <- read.xlsx("input.xlsx", sheetIndex = 1 )
 dataBySheetName <- read.xlsx("input.xlsx", sheetName = "Sheet1") # The sheet name is case sensetive
 
-write.xlsx(data,"output.xlsx",sheetName = "sheetname", append = TRUE)
+data <- subset(dataBySheetName, salary > 600 & dept != "IT"); 
+
+write.xlsx(data,"output.xlsx",sheetName = "sheetname", append = FALSE)
+write.xlsx(dataBySheetName, "output.xlsx",sheetName = "emp", append = TRUE)
+write.xlsx(data, "output.xlsx", sheetName ="filtered emp")
 
 #Binary Files
 
