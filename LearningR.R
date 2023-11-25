@@ -272,6 +272,7 @@ write.xlsx(dataBySheetName, "output.xlsx",sheetName = "emp", append = TRUE)
 write.xlsx(data, "output.xlsx", sheetName ="filtered emp")
 
 #Binary Files
+#This doesn't work while retrieving the data from the binary file 
 
 write.table(mtcars, file = "mtcars.csv", row.name = FALSE, col.name = TRUE, na = "", sep = ",")
 new.mtcars <- read.table("mtcars.csv", sep = ",",header = TRUE, nrow = 5)
@@ -290,8 +291,30 @@ cyldata = bindata[4:8]
 print(cyldata)
 
 
-# Workin with XML files
+# Working with XML files
+# the xml file is read but only displayed in xml format. 
 
 install.packages("XML")
 library("XML")
 
+data <- xmlParse(file = "input.xml")
+show(data)
+rootnode <- xmlRoot(data)
+rootsize <- xmlSize(rootnode)
+print(rootsize)
+
+print(rootnode[1])
+print(rootnode[1][1])
+print(rootnode[1][[1]])
+
+
+#working with JSON file
+#This doesnt work at all - the JSON file is not read
+
+install.packages("rjson")
+library("rjson")
+
+data <- fromJSON("input.json")
+print(data)
+
+fromJSON("input.json")
