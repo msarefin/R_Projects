@@ -318,3 +318,19 @@ data <- fromJSON("input.json")
 print(data)
 
 fromJSON("input.json")
+
+
+#Working with web data
+
+install.packages("RCurl")
+install.packages("XML")
+install.packages("stringr")
+install.packages("plyr")
+
+library("RCurl")
+library("XML")
+library("stringr")
+library("plyr")
+
+url <- "http://www.geos.ed.ac.uk/~weather/jcmb_ws/"
+links <- getHTMLLinks(url)
