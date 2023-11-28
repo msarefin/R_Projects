@@ -334,3 +334,9 @@ library("plyr")
 
 url <- "http://www.geos.ed.ac.uk/~weather/jcmb_ws/"
 links <- getHTMLLinks(url)
+
+
+x <- c(10,15,25,35)
+l <- c("math", "english","science", "social science")
+colors = heat.colors(length(x))
+pie(x,l)
