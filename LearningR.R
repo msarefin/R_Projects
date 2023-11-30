@@ -344,3 +344,7 @@ x <- c(10,15,25,35)
 l <- c("math", "english","science", "social science")
 colors = heat.colors(length(x))
 pie(x,l,col = colors)
+
+pie(x, l, col = FALSE)
+pie(x,l,col = TRUE)
+pie(x,l, col = heat.colors(length(x)))
