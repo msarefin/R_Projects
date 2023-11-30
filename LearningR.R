@@ -338,6 +338,7 @@ links <- getHTMLLinks(url)
 #Charts and Graphs
 
 #Pie Chart
+# pie(x, labels, radius, main, col, clockwise)
 
 x <- c(10,15,25,35)
 l <- c("math", "english","science", "social science")
