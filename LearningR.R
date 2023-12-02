@@ -341,10 +341,44 @@ links <- getHTMLLinks(url)
 # pie(x, labels, radius, main, col, clockwise)
 
 x <- c(10,15,25,35)
-l <- c("math", "english","science", "social science")
-colors = heat.colors(length(x))
-pie(x,l,col = colors)
+l <- c("Asia", "Europe","Africa", "North America")
+title <- "Continent"
+heatcolors <- c(heat.colors(length(x)))
+terraincolors <- c(terrain.colors(length(x)))
+topocolors <- c(topo.colors(length(x)))
+cmcolors <- c(cm.colors(length(x)))
+rainbowcolors = c(rainbow(length(x)))
+
+
+pie(x,l)
 
 pie(x, l, col = FALSE)
 pie(x,l,col = TRUE)
 pie(x,l, col = heat.colors(length(x)))
+
+
+pie(x,l, main = title, col= heatcolors)
+pie(x, l, main = title, col = terraincolors)
+pie(x,l,main = title, col = topocolors)
+pie(x,l, main = title, col = cmcolors, clockwise = FALSE)
+legend("topright",l, cex = 0.8, fill = cmcolors)
+
+#percentage form 
+pipercent <- round(100*x/sum(x),1)
+
+pie(pipercent, labels = pipercent, main = title, col= topocolors)
+
+#3D pie charts
+
+library(plotrix)
+
+pie3D(x,labels = l,explode = 0.1, main = title, col = heatcolors)
+
+
+#Bar Charts
+#barplot(x,xlab,ylab, main , names.arg, col)
+
+
+barplot(x)
+barplot(x, col = cmcolors)
+barplot(x, xlab = l, col=topocolors)
