@@ -388,9 +388,10 @@ barplot(s, names.arg = n, xlab = "Months", ylab = "Profit", main = "Monthly Prof
 
 #Stacked BarChart
 
-colors <- c(rainbow(3))
 months <- c("Mar","Apr","May","Jun","Jul")
 regions <- c("East","West","North")
-Values <- matrix(c(2,9,3,11,9,4,8,7,3,12,5,2,8,10,11), nrow=3, byrow = TRUE)
+colors <- c(topo.colors(length(regions)))
+V <- matrix(c(2,9,3,11,9,4,8,7,3,12,5,2,8,10,11), nrow=3, byrow = TRUE)
 
-barplot(Values, main = "Total Revenues", names.arg = months, xlab = "Months", ylab = "Revenues", col = colors)
+barplot(V, names.arg = months, xlab = "Months", ylab = "Revenues",main = "Total Revenues", col = colors)
+barplot(s, names.arg = months, xlab = "Months", ylab = "Revenues",main = "Total Revenues", col = topo.colors(length(n)))
