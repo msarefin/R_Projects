@@ -378,7 +378,8 @@ pie3D(x,labels = l,explode = 0.1, main = title, col = heatcolors)
 #Bar Charts
 #barplot(x,xlab,ylab, main , names.arg, col)
 
-
-barplot(x)
-barplot(x, col = cmcolors)
-barplot(x, xlab = l, col=topocolors)
+s <- c(7,12,28,3,41)
+n = c("Jan","Feb","Mar","Apr","May")
+barplot(s)
+barplot(s, col = cmcolors)
+barplot(s, names.arg = n, col=topo.colors(length(s)), xlab ="Months",ylab = "Revenue", main = "Revenue chart", border = "Black")
