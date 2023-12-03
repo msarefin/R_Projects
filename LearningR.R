@@ -383,3 +383,14 @@ n = c("Jan","Feb","Mar","Apr","May")
 barplot(s)
 barplot(s, col = cmcolors)
 barplot(s, names.arg = n, col=topo.colors(length(s)), xlab ="Months",ylab = "Revenue", main = "Revenue chart", border = "Black")
+
+barplot(s, names.arg = n, xlab = "Months", ylab = "Profit", main = "Monthly Profit", col = topo.colors(length(s)))
+
+#Stacked BarChart
+
+colors <- c(rainbow(3))
+months <- c("Mar","Apr","May","Jun","Jul")
+regions <- c("East","West","North")
+Values <- matrix(c(2,9,3,11,9,4,8,7,3,12,5,2,8,10,11), nrow=3, byrow = TRUE)
+
+barplot(Values, main = "Total Revenues", names.arg = months, xlab = "Months", ylab = "Revenues", col = colors)
