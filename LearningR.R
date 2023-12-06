@@ -395,3 +395,11 @@ V <- matrix(c(2,9,3,11,9,4,8,7,3,12,5,2,8,10,11), nrow=3, byrow = TRUE)
 
 barplot(V, names.arg = months, xlab = "Months", ylab = "Revenues",main = "Total Revenues", col = colors)
 barplot(s, names.arg = months, xlab = "Months", ylab = "Revenues",main = "Total Revenues", col = topo.colors(length(n)))
+
+#Boxplot - boxplot(x, data, notch, varwidth, names, main)
+
+input<- mtcars[,c('mpg','cyl')]
+
+print(head(input))
+
+boxplot(mpg ~ cyl, data = mtcars, xlab = "No od Cylinders", "Milage Data")
