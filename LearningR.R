@@ -397,7 +397,7 @@ barplot(V, names.arg = months, xlab = "Months", ylab = "Revenues",main = "Total 
 barplot(s, names.arg = months, xlab = "Months", ylab = "Revenues",main = "Total Revenues", col = topo.colors(length(n)))
 
 #Boxplot - boxplot(x, data, notch, varwidth, names, main)
-
+# Box plot measueres how well data distributed in a set by dividing each data sets into 3 qualities - min, max and median 
 input<- mtcars[,c('mpg','cyl')]
 
 print(head(input))
