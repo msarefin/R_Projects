@@ -403,3 +403,9 @@ input<- mtcars[,c('mpg','cyl')]
 print(head(input))
 
 boxplot(mpg ~ cyl, data = mtcars, xlab = "No od Cylinders", "Milage Data")
+
+#boxplot with notch - drawn to measure how the medians of different data groups match with one another
+
+boxplot(mpg ~ cyl, data = mtcars, xlab = "Cylinders", ylab = "Miles per gallons", main = "Cylinders vs MPG",
+        notch = TRUE, varwidth = TRUE, col = rainbow(3), names = c("High", "Medium","Low"))
+
