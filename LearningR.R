@@ -429,3 +429,11 @@ dev.off()
 v <-  c(9,13,21,8,36,22,12,41,31,33,19)
 
 hist(v, xlab = "Weight", col = "yellow", borders = "black")
+
+hist(v, xlab = "Weight", col = "yellow", border = "black", xlim = c(0,40), ylim = c(0,5), breaks = 5)
+
+#line Graph 
+
+v <- c(7,12,28,3,41)
+
+plot(v,type = "o", col = "red", xlab = "years", ylab = "Profit", main ="Profit over the years")
