@@ -406,6 +406,24 @@ boxplot(mpg ~ cyl, data = mtcars, xlab = "No od Cylinders", "Milage Data")
 
 #boxplot with notch - drawn to measure how the medians of different data groups match with one another
 
-boxplot(mpg ~ cyl, data = mtcars, xlab = "Cylinders", ylab = "Miles per gallons", main = "Cylinders vs MPG",
-        notch = TRUE, varwidth = TRUE, col = rainbow(3), names = c("High", "Medium","Low"))
+png(file = "Boxplot_with_notch.png")
+
+boxplot(
+  mpg ~ cyl, 
+  data = mtcars, 
+  xlab = "Cylinders", 
+  ylab = "Miles per gallons", 
+  main = "Cylinders vs MPG",
+  notch = TRUE , 
+  varwidth = TRUE, 
+  col = rainbow(3), 
+  names = c("High", "Medium","Low")
+  )
+
+legend("topright", legend = c("High", "Medium", "Low"), cex = 1.0, fill = rainbow(3) )
+
+dev.off()
+
+#Histogram 
+
 
