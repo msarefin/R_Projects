@@ -470,4 +470,4 @@ mean(x)
 #to drop missing values while calculating the mean 
 
 mean(x, na.rm = TRUE)
-
+median(x, na.rm = TRUE)
