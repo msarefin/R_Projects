@@ -456,3 +456,18 @@ plot(x= input$wt, y = input$mpg,
      col = "black")
 
 pairs(~wt+mpg+disp+cyl, data = mtcars, main = "Scatterplot Matrix")
+
+
+#mean median mode
+
+x <- c(12,7,3,4.2,18,2,54,-21,8,-5)
+mean(x, trim = 0.3)
+
+x <- c(12,7,3,4.2,18,2,54,-21,8,-5,NA)
+
+mean(x)
+
+#to drop missing values while calculating the mean 
+
+mean(x, na.rm = TRUE)
+
