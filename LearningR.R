@@ -435,5 +435,24 @@ hist(v, xlab = "Weight", col = "yellow", border = "black", xlim = c(0,40), ylim 
 #line Graph 
 
 v <- c(7,12,28,3,41)
+t <- c(14,7,6,19,3)
 
-plot(v,type = "o", col = "red", xlab = "years", ylab = "Profit", main ="Profit over the years")
+plot(v,type = "o", col = "red", xlab = "Months", ylab = "Profit", main ="Profit over the years", sub = "Financial year 2020")
+
+plot(v, type = "o", main = "Monthly Profit", xlab = "month", ylab = "Profit", col = "red")
+lines(t, type = "o", col = "blue")
+legend("topleft", legend = c(2020,2021), cex = 1.0, fill = c("red","blue"))
+
+#Scattered Plot
+
+input <- mtcars[,c('wt', 'mpg')]
+
+plot(x= input$wt, y = input$mpg, 
+     xlab = "Weight", 
+     ylab = "Milage",
+     xlim = c(2.5, 5),
+     ylim = c(15,30),
+     main = "Weight vs Milage", 
+     col = "black")
+
+pairs(~wt+mpg+disp+cyl, data = mtcars, main = "Scatterplot Matrix")
