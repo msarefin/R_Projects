@@ -484,3 +484,7 @@ getmode(v)
 charv <- c("o","it","the","it","it")
 
 getmode(charv)
+
+#Regression Analysis
+
+
