@@ -496,7 +496,29 @@ print(relation)
 
 print(summary(relation))
 
+a<- data.frame(x = 170)
+
+a
+
+predict(relation, a)
+
+plot(x,y, col = "blue", main = "Height vs. Weight Regression", abline(lm(y~x)), cex = 1.3, pch = 15, xlab = "Weight in kg", ylab = "Height in cm")
+
 x <- c(34,108,64,88,99,51)
 y <- c(5,17,11,8,14,5)
 
-lm(y~x)
+relation <- lm(y~x)
+plot(x,y, col="red", main = "Meal Value vs Tips regression", xlab = "Meal value", ylab = "Tip Amount", abline(lm(y~x)), cex = 1.3, pch = 15)
+# Call:
+#   lm(formula = y ~ x)
+# 
+# Coefficients:
+#   (Intercept)            x  
+# -0.8203       0.1462 
+
+#Y = B0+B1X
+#y = 0.1462x - 0.8203
+
+
+print(summary(relation))
+
