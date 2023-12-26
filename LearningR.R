@@ -495,3 +495,8 @@ relation <- lm(y~x)
 print(relation)
 
 print(summary(relation))
+
+x <- c(34,108,64,88,99,51)
+y <- c(5,17,11,8,14,5)
+
+lm(y~x)
