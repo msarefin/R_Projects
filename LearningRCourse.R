@@ -46,3 +46,7 @@ data.frame(x = c(1, 2, 3) , y = c(1.5, 5.5, 7.5))
 dir.create("sample")
 #Copy a file to the sample directory
 file.copy("LearningRCourse.R","sample")
+
+#Delete a file in R using unlink()
+
+unlink("sample/LearningRCourse.R")
