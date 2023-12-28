@@ -522,3 +522,33 @@ plot(x,y, col="red", main = "Meal Value vs Tips regression", xlab = "Meal value"
 
 print(summary(relation))
 
+#R - Multiple Regression
+
+input<- mtcars[,c("mpg","disp","hp","wt")]
+model <- lm(mpg~disp+hp+wt, data = input)
+print(model)
+cat("# # # # The Coefficient Values # # # ","\n")
+a<- coef(model)[1]
+print(a)
+
+Xdisp <- coef(model)[2]
+Xhp <- coef(model)[3]
+Xwt <- coef(model)[4]
+
+print(Xdisp)
+print(Xhp)
+print(Xwt)
+
+#y = a+ Xdisp *x1 + Xhp*x2 + Xwt*x3
+
+y = a+Xdisp *x1+Xhp *x2+Xwt*x3
+
+
+#R - Logistic Regression
+
+input <- mtcars[,c("am","cyl","hp","wt")]
+print(head(input))
+
+am.data = glm(formula = am~cyl+ hp +wt, data = input, family = binomial)
+
+print(summary(am.data))
