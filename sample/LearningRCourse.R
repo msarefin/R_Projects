@@ -42,7 +42,5 @@ force_tz(now(), "America/Chicago")
 
 data.frame(x = c(1, 2, 3) , y = c(1.5, 5.5, 7.5))
 
-#Create new directory in the current directory 
 dir.create("sample")
-#Copy a file to the sample directory
 file.copy("LearningRCourse.R","sample")
