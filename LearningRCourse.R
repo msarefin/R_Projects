@@ -50,3 +50,16 @@ file.copy("LearningRCourse.R","sample")
 #Delete a file in R using unlink()
 
 unlink("sample/LearningRCourse.R")
+
+
+install.packages("tidyverse")
+
+library(tidyverse)
+tidyverse_update()
+
+#data analysts: ggplot2, dplyr, tidyr and readr. 
+
+# tibble - data frame 
+# purrr - Purrr works with functions and  vectors helping make your code easier to write and more expressive. 
+# stringr - works with strings
+# forcats - Solve common problems with factors
