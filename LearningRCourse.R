@@ -63,3 +63,37 @@ tidyverse_update()
 # purrr - Purrr works with functions and  vectors helping make your code easier to write and more expressive. 
 # stringr - works with strings
 # forcats - Solve common problems with factors
+
+
+# Pipe operator  - A tool is R for expressing a sequence of multiple operations, represented with %>%
+
+data("ToothGrowth") # loading the data set
+View(ToothGrowth)
+install.packages('dplyr')
+library(dplyr)
+
+# Filter Data
+filtered_tg <- filter(ToothGrowth, dose == 0.5)
+head(filtered_tg)
+
+#Sort data in descending order
+arrange(filtered_tg, len)
+
+#nested functions - sorting the filtered data set
+arrange(filter(ToothGrowth, dose == 0.5), len)
+
+#Pipe functions %>% 
+
+filtered_tooth_growth <- ToothGrowth %>% # Data set
+  filter(dose == 0.5) %>% # Filter data
+  arrange(len) # Sort the data
+
+View(filtered_tooth_growth)
+
+
+filtered_tooth_growth_group_by_supp <- ToothGrowth %>% 
+  filter(dose == 0.5) %>% 
+  group_by(supp) %>% 
+  summarize(mean_len = mean(len, na.rm = T), group = "drop" )
+
+View(filtered_tooth_growth_group_by_supp)
