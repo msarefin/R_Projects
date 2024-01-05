@@ -82,7 +82,7 @@ arrange(filtered_tg, len)
 #nested functions - sorting the filtered data set
 arrange(filter(ToothGrowth, dose == 0.5), len)
 
-#Pipe functions %>% 
+#Pipe functions %>%  - Ctrl|Cmd +Shift +m 
 
 filtered_tooth_growth <- ToothGrowth %>% # Data set
   filter(dose == 0.5) %>% # Filter data
@@ -97,3 +97,21 @@ filtered_tooth_growth_group_by_supp <- ToothGrowth %>%
   summarize(mean_len = mean(len, na.rm = T), group = "drop" )
 
 View(filtered_tooth_growth_group_by_supp)
+
+library(ggplot2)
+data("diamonds")
+
+head(diamonds)
+str(diamonds)
+colnames(diamonds)
+glimpse(diamonds)
+
+mutate(diamonds, carat_2 = carat*100)
+
+as_tibble(diamonds)
+
+#get the dististict cuts and the count of each cuts
+diamonds %>% group_by(cut) %>% summarize(n())
+
+#get the distict number of cut 
+diamonds %>% summarize(n_distinct(cut))
