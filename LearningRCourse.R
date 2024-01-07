@@ -115,3 +115,8 @@ diamonds %>% group_by(cut) %>% summarize(n())
 
 #get the distict number of cut 
 diamonds %>% summarize(n_distinct(cut))
+
+
+
+
+
