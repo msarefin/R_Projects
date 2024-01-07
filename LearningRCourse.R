@@ -116,7 +116,7 @@ diamonds %>% group_by(cut) %>% summarize(n())
 #get the distict number of cut 
 diamonds %>% summarize(n_distinct(cut))
 
-
+d2 <- mutate(diamonds, carat2 = carat*100)
 
 
 
