@@ -126,3 +126,26 @@ d2 <- mutate(diamonds, carat2 = carat*100)
 #read_log(): web log files
 
 readr_example()
+
+read_csv(readr_example("challenge.csv"))
+spec(read_csv(readr_example("challenge.csv")))
+
+read_tsv(readr_example("epa78.txt"))
+readr_example("epa78.txt")
+
+read_fwf(readr_example("fwf-sample.txt"))
+read_table(readr_example("massey-rating.txt"))
+
+library(readxl)
+readxl_example()
+
+read_xlsx(readxl_example("type-me.xlsx"))
+read_excel(readxl_example("type-me.xlsx"))
+
+excel_sheets(readxl_example("datasets.xlsx")) # List all the excel sheets with extension xlsx 
+excel_sheets(readxl_example("datasets.xls")) # List all the excel sheets with extension xls
+
+path <- readxl_example("datasets.xlsx")
+path
+typeof(path)
+lapply(excel_sheets(path), read_excel, path = path)
