@@ -148,4 +148,5 @@ excel_sheets(readxl_example("datasets.xls")) # List all the excel sheets with ex
 path <- readxl_example("datasets.xlsx")
 path
 typeof(path)
+# lapply reads all the sheets from the Excel Wrokbook
 lapply(excel_sheets(path), read_excel, path = path)
