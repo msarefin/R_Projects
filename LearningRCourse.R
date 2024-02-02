@@ -136,6 +136,7 @@ readr_example("epa78.txt")
 read_fwf(readr_example("fwf-sample.txt"))
 read_table(readr_example("massey-rating.txt"))
 
+#Read Excel Files
 library(readxl)
 readxl_example()
 
@@ -148,5 +149,64 @@ excel_sheets(readxl_example("datasets.xls")) # List all the excel sheets with ex
 path <- readxl_example("datasets.xlsx")
 path
 typeof(path)
+
+#list the name of all the sheets in the Workbook
+excel_sheets(path)
+
+# Read an individual sheet in a Workbook
+read_excel(path, sheet = "iris")
+
 # lapply reads all the sheets from the Excel Wrokbook
 lapply(excel_sheets(path), read_excel, path = path)
+
+mypath <- "input.xlsx"
+lapply(excel_sheets(mypath), read_excel, path = mypath)
+
+##### here, skimr & janitor
+# here - makes referenceing files easier
+# skimr - makes summarizing data eaier
+# janitor - makes data cleaning easier
+
+library("here")
+library("skimr")
+library("janitor")
+
+install.packages("palmerpenguins")
+library("palmerpenguins")
+
+skim_without_charts(penguins)
+glimpse(penguins)
+head(penguins)
+
+View(filter(penguins, sex == "male"))
+
+# using pipe to filter data
+
+# get the data set with specific columns
+penguins %>% 
+  select(species, island)
+
+# Get the data set excluding sepcific columns 
+penguins %>%  
+  select(-species, -sex)
+
+#Rename the column name of a specific column
+penguins %>% 
+  rename(gender = sex)
+
+View(penguins %>% rename(gender = sex))
+
+rename_with(penguins, toupper)
+rename_with(penguins, tolower)
+
+
+clean_names(penguins)
+
+penguins %>% arrange(bill_length_mm)
+penguins %>% arrange(-bill_length_mm)
+
+penguins2 <- penguins %>% arrange(-bill_length_mm)
+head(penguins2)
+
+
+penguins %>% group_by(island) %>% drop_na() %>%  summarize(mean_bill_length_mm = mean(bill_length_mm))
