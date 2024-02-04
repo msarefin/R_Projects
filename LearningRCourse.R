@@ -302,3 +302,14 @@ print(employee)
 #separete()
 
 separate(employee, name, into = c("first_name","last_name"), sep = ' ')
+
+
+
+#unite()
+
+unite(emp1, name, First_Name, Last_Name, sep = ' ')
+
+# mutate()
+
+penguins %>% mutate(body_mass_kg = body_mass_g/1000, flipper_length_m = flipper_length_mm/1000)
+
