@@ -101,10 +101,10 @@ View(filtered_tooth_growth_group_by_supp)
 library(ggplot2)
 data("diamonds")
 
-head(diamonds)
-str(diamonds)
-colnames(diamonds)
-glimpse(diamonds)
+head(diamonds) # Generate only the first 10 data frame
+str(diamonds) # Structure of the date frame
+colnames(diamonds) # Column names
+glimpse(diamonds) # Gives you a glimpse of the high level info
 
 mutate(diamonds, carat_2 = carat*100)
 
@@ -196,20 +196,109 @@ penguins %>%
 
 View(penguins %>% rename(gender = sex))
 
+# To rename all the columns of the dataset to either upper or lower 
 rename_with(penguins, toupper)
 rename_with(penguins, tolower)
 
+penguins %>% rename_with(toupper)
+penguins %>% rename_with(tolower)
 
+# Ensure that the columns names only has letteres, number and underscores in them
 clean_names(penguins)
 
+penguins %>% clean_names()
+
+
+#Organizing your data
+#using arrange(), group_by(), filter()
+
+#arrange()
 penguins %>% arrange(bill_length_mm)
 penguins %>% arrange(-bill_length_mm)
 
 penguins2 <- penguins %>% arrange(-bill_length_mm)
 head(penguins2)
 
-
+#group_by()
 penguins %>% 
   group_by(island) %>% 
   drop_na() %>%  
   summarize(mean_bill_length_mm = mean(bill_length_mm))
+
+penguins %>% 
+  group_by(island) %>% 
+  drop_na() %>% 
+  summarize(n())
+
+
+penguins %>% 
+  group_by(island) %>% 
+  drop_na() %>% 
+  summarize(max_bill_length_mm = max(bill_length_mm))
+
+penguins %>% 
+  group_by(island,species) %>% 
+  drop_na() %>% 
+  summarize(max_bl = max(bill_length_mm),mean_bl = mean(bill_length_mm))
+
+#filter
+
+penguins %>% filter(species=="Adelie")
+
+
+## doing the exercise - Hotel booking from csv file
+library(tidyverse)
+library(skimr)
+library(janitor)
+
+bookings_df <- read_csv(file ="sample/hotel.csv")
+
+head(bookings_df)
+str(bookings_df)
+glimpse(bookings_df)
+colnames(bookings_df)
+skim_without_charts(bookings_df)
+
+
+#cleaning the data 
+
+trimmed_df <- bookings_df %>% select(hotel, is_canceled, lead_time)
+
+#renaming hotel to hotel type
+trimmed_df <- bookings_df %>%  select(hotel, is_canceled, lead_time) %>%  rename(hotel_type = hotel)
+
+# Uniting the two columns
+
+example_df <- bookings_df %>% 
+  select(arrival_date_year, arrival_date_month) %>% 
+  unite(arrival_month_year, c("arrival_date_month","arrival_date_year"), sep = " ")
+
+#mutate
+
+example_df <- bookings_df %>% 
+  mutate(guests = adults+children+babies)
+
+# Calculate the total number of canceled bookings and average lead time booking
+
+example_df <- bookings_df %>% 
+  summarize(number_canceled  =sum(is_canceled),average_lead = mean(lead_time))
+
+head(example_df)
+
+
+#Manually creating data frame
+
+id <- c(1:10)
+name <- c("John Mendes", "Rob Stewart", "Rachel Abrahamson", "Christy Hickman", "Johnson Harper", "Candace Miller", "Carlson Landy", "Pansy Jordan", "Darius Berry", "Claudia Garcia")
+job_title <- c("Professional", "Programmer", "Management", "Clerical", "Developer", "Programmer", "Management", "Clerical", "Developer", "Programmer")
+employee <- data.frame(id, name, job_title)
+
+print(employee)
+
+# Transforming Data 
+#separete(), unite(), mutate()
+
+
+#separete()
+
+separate(employee, name, into = c("first_name","last_name"), sep = ' ')
