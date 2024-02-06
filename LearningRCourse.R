@@ -174,9 +174,20 @@ library("janitor")
 install.packages("palmerpenguins")
 library("palmerpenguins")
 
+#Get the list od all data sources in R - data()
+
+data()
+
+# To load the data of the penguins in the dataset 
+
+data("penguins")
+
 skim_without_charts(penguins)
 glimpse(penguins)
 head(penguins)
+
+
+# Filter data from he penguins dataset - filter
 
 View(filter(penguins, sex == "male"))
 
@@ -295,6 +306,7 @@ employee <- data.frame(id, name, job_title)
 
 print(employee)
 
+
 # Transforming Data 
 #separete(), unite(), mutate()
 
@@ -303,13 +315,65 @@ print(employee)
 
 separate(employee, name, into = c("first_name","last_name"), sep = ' ')
 
+emp <- separate(employee, name, into = c("First_Name", "Last_Name"), sep = ' ')
 
+print(emp)
 
 #unite()
 
-unite(emp1, name, First_Name, Last_Name, sep = ' ')
+unite(emp, Name, First_Name, Last_Name, sep = ' ')
 
 # mutate()
 
 penguins %>% mutate(body_mass_kg = body_mass_g/1000, flipper_length_m = flipper_length_mm/1000)
+
+
+#Pivot and Unpivot tables - pivot_longer(), pivot_wider()
+
+pivot_longer(relig_income, cols = !religion, names_to = "income", values_to = "count")
+
+relig_income %>% 
+  pivot_longer(
+    cols = !religion, 
+    names_to = "income", 
+    values_to="count"
+    )
+
+
+billboard %>% 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "count", 
+    values_drop_na = TRUE
+    )
+
+
+billboard %>% 
+  pivot_longer(
+    cols = starts_with("wk"),
+    names_to = "week", 
+    names_prefix = "wk",
+    names_transform = as.integer, 
+    values_to = "rank",
+    values_drop_na = TRUE
+  )
+
+billboard %>% 
+  pivot_longer(
+    cols = starts_with("wk"),
+    names_to = "week",
+    names_transform = readr::parse_number,
+    values_to = "rank",
+    values_drop_na = TRUE
+  )
+
+who %>% 
+  pivot_longer(
+    cols = new_sp_m014:newrel_f65,
+    names_to = c("diagnosis", "gender", "age"), 
+    names_pattern = "new_?(.*)_(.)(.*)",
+    values_to = "count"
+  )
+
 
