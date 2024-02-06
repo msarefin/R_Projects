@@ -368,12 +368,46 @@ billboard %>%
     values_drop_na = TRUE
   )
 
-who %>% 
+whod<- who %>% 
   pivot_longer(
     cols = new_sp_m014:newrel_f65,
     names_to = c("diagnosis", "gender", "age"), 
     names_pattern = "new_?(.*)_(.)(.*)",
-    values_to = "count"
+    values_to = "count", 
+    #values_drop_na = TRUE
   )
 
 
+#Same Data, different outcome
+
+install.packages("Tmisc")
+library(Tmisc)
+data("quartet")
+print(quartet)
+
+quartet %>%  
+  group_by(set) %>% 
+  summarize(mean(x), sd(x),mean(y),sd(y), cor(x,y))
+
+ggplot(quartet, aes(x,y))+geom_point()+geom_smooth(method=lm, se = FALSE)+facet_wrap(~set)
+
+install.packages('datasauRus') 
+
+library('datasauRus')
+
+ggplot(datasaurus_dozen,aes(x=x,y=y,colour=dataset))+geom_point()+theme_void()+theme(legend.position = "none")+facet_wrap(~dataset,ncol=3)
+
+#The Bias Function 
+
+install.packages("SimDesign")
+library(SimDesign)
+
+
+actual_temp <- c(68.3,70,72.4,71,67,70)
+predicted_temp <- c(67.9,69,71.5,70,67,69)
+bias(actual_temp, predicted_temp)
+
+
+actual_sales <- c(150,203,137,247,116,287)
+predicted_sales <- c(200,300,150,250,150,300)
+bias(actual_sales, predicted_sales)
