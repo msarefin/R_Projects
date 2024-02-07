@@ -412,6 +412,35 @@ anscombe %>%
     names_pattern = "(.)(.)",
   )
 
+pnl <- tibble(
+  x = 1:4,
+  a = c(1, 1,0, 0),
+  b = c(0, 1, 1, 1),
+  y1 = rnorm(4),
+  y2 = rnorm(4),
+  z1 = rep(3, 4),
+  z2 = rep(-2, 4),
+)
+
+print(pnl)
+
+pnl %>% 
+  pivot_longer(
+    cols = !c(x,a,b),
+    names_to = c(".value","time"),
+    names_pattern = "(.)(.)"
+  )
+
+##pivot_wider() - the opposite of pivot_longer()
+
+fish_encounters
+
+fish_encounters %>% 
+  pivot_wider(
+    names_from = station, 
+    values_from = seen,
+    values_fill = 0
+  )
 
 #Same Data, different outcome
 
