@@ -404,7 +404,13 @@ household %>% pivot_longer(
   values_drop_na = TRUE
 )
 
-
+anscombe %>% 
+  pivot_longer(
+    cols = everything(), 
+    cols_vary = "slowest",
+    names_to = c(".value","set"),
+    names_pattern = "(.)(.)",
+  )
 
 
 #Same Data, different outcome
