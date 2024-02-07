@@ -377,6 +377,35 @@ whod<- who %>%
     #values_drop_na = TRUE
   )
 
+who %>% 
+  pivot_longer(
+    cols = new_sp_m014:newrel_f65,
+    names_to = c("diagnosis","gender","age"), 
+    names_pattern = "new_?(.*)_(.)(.*)",
+    names_transform = list(
+      gender = ~ readr::parse_factor(.x,levels = c("f","m")),
+      age = ~ readr::parse_factor(
+        .x,
+        levels= c("014", "1524", "2534", "3544", "4554", "5564", "65"),
+        ordered = TRUE
+      )
+    ),
+    values_to = "count"
+  )
+
+#multiple observations per row
+
+print(household) # This data set has 2 observations per row
+
+household %>% pivot_longer(
+  cols = !family,
+  names_to = c(".value","child"), #.value tells that there is part of the col specifies the value being measured
+  names_sep = "_",
+  values_drop_na = TRUE
+)
+
+
+
 
 #Same Data, different outcome
 
