@@ -334,9 +334,9 @@ pivot_longer(relig_income, cols = !religion, names_to = "income", values_to = "c
 
 relig_income %>% 
   pivot_longer(
-    cols = !religion, 
-    names_to = "income", 
-    values_to="count"
+    cols = !religion, # Every columns except religion will be pivoted from columns to rows
+    names_to = "income", # Pivoted columns will be placed under the column "income"
+    values_to="count"  # Values from the pivoted columns will be placed under the column "count"
     )
 
 
