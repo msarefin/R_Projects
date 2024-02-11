@@ -1,3 +1,5 @@
+source('Package list.R')
+
 #Learning R from Google Analytics
 
 x <- c(1,3,5)
