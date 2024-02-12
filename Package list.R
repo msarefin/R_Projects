@@ -1,8 +1,5 @@
 #library List 
 
-
-
-library(tidyverse)
 library(ggplot2)
 library(tidyverse)
 library(tidyr)
