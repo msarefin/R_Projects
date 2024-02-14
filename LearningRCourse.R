@@ -370,6 +370,8 @@ billboard %>%
     values_drop_na = TRUE
   )
 
+# Many variable in column names
+
 whod<- who %>% 
   pivot_longer(
     cols = new_sp_m014:newrel_f65,
@@ -378,6 +380,7 @@ whod<- who %>%
     values_to = "count", 
     #values_drop_na = TRUE
   )
+
 
 who %>% 
   pivot_longer(
@@ -399,11 +402,28 @@ who %>%
 
 print(household) # This data set has 2 observations per row
 
+print(household)
+
 household %>% pivot_longer(
   cols = !family,
   names_to = c(".value","child"), #.value tells that there is part of the col specifies the value being measured
   names_sep = "_",
   values_drop_na = TRUE
+)
+
+hh <- household %>% 
+  rename(
+    children1_dob = dob_child1, 
+    children2_dob = dob_child2, 
+    children1_name = name_child1, 
+    children2_name = name_child2
+    )
+
+hh %>% pivot_longer(
+  cols = !family, 
+  names_to = c("children",".value"), 
+  names_sep = "_",
+  values_drop_na = T
 )
 
 anscombe %>% 
