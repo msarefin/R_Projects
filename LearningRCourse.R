@@ -431,7 +431,7 @@ anscombe %>%
     cols = everything(), 
     cols_vary = "slowest",
     names_to = c(".value","set"),
-    names_pattern = "(.)(.)",
+    names_pattern = "(.)(.)"
   )
 
 pnl <- tibble(
