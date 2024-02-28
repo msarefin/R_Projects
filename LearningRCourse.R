@@ -464,6 +464,12 @@ fish_encounters %>%
     values_fill = 0
   )
 
+#Aggrigation with pivot_wider
+
+warpgrakes <- warpbreaks %>% tibble() %>% select(wool, tension, breaks)
+
+warpbreaks
+
 #Same Data, different outcome
 
 install.packages("Tmisc")
