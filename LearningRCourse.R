@@ -466,9 +466,29 @@ fish_encounters %>%
 
 #Aggrigation with pivot_wider
 
-warpgrakes <- warpbreaks %>% tibble() %>% select(wool, tension, breaks)
+warpbrakes <- warpbreaks %>% tibble() %>% select(wool, tension, breaks)
 
-warpbreaks
+warpbrakes %>% count(wool, tension)
+
+warpbrakes %>% pivot_wider(names_from = wool, values_from = breaks, values_fn = mean)
+warpbrakes %>% pivot_wider(names_from = wool, values_from = breaks, values_fn = median)
+warpbrakes %>% pivot_wider(names_from = wool, valeus_from = breaks, values_fn = sum)
+
+#Create a function for mode
+getmode <- function(v){
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+warpbrakes %>% pivot_wider(names_from = wool, values_from = breaks, values_fn = getmode)
+
+# Generate column names from multiple variables
+
+production <- expand_grid(
+  product = c("A","B"),
+  Country = c("AI","EI"), 
+  year = 2000:2014
+) %>% filter((product = "A"))
 
 #Same Data, different outcome
 
