@@ -484,11 +484,25 @@ warpbrakes %>% pivot_wider(names_from = wool, values_from = breaks, values_fn = 
 
 # Generate column names from multiple variables
 
-production <- expand_grid(
-  product = c("A","B"),
-  Country = c("AI","EI"), 
-  year = 2000:2014
-) %>% filter((product = "A"))
+#Data Combination Product, country, year
+         
+production <- 
+  expand_grid(
+    product = c("A", "B"), 
+    country = c("AI", "EI"), 
+    year = 2000:2014
+  ) %>%
+  filter((product == "A" & country == "AI") | product == "B") %>% 
+  mutate(production = rnorm(nrow(.)))
+
+production
+
+production %>% 
+  pivot_wider(
+    names_from = c(product, country), 
+    values_from = production
+    )
+
 
 #Same Data, different outcome
 
