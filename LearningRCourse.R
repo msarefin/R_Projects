@@ -503,6 +503,19 @@ production %>%
     values_from = production
     )
 
+production %>%  pivot_wider(
+  names_from = c(product, country), 
+  names_sep = ".", 
+  names_prefix = "prod.",
+  values_from = production
+)
+
+production %>% pivot_wider(
+  names_from = c(product, country), 
+  values_from = production,
+  names_glue = "prod_{product}_{country}"
+)
+
 
 #Same Data, different outcome
 
