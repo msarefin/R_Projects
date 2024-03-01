@@ -516,6 +516,9 @@ production %>% pivot_wider(
   names_glue = "prod_{product}_{country}"
 )
 
+us_rent_income %>% pivot_wider(names_from = variable, values_from = c(estimate, moe))
+
+us_rent_income %>% pivot_wider(names_from = variable, values_from = c(estimate, moe), names_sep = ".", names_prefix = "Hist.")
 
 #Same Data, different outcome
 
