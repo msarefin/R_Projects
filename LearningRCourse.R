@@ -520,6 +520,22 @@ us_rent_income %>% pivot_wider(names_from = variable, values_from = c(estimate, 
 
 us_rent_income %>% pivot_wider(names_from = variable, values_from = c(estimate, moe), names_sep = ".", names_prefix = "Hist.")
 
+
+#implicite missing values  - Occasionally you will come across data where the name variables are encoded but not all not all the data is represented
+# In this case the week day is encoded but not all days of the week are presented or has values against them.
+weekday <- c("Mon","Tue","Wed","Thu","Fri","Sat","Sun")
+
+daily <-tibble(
+  day= factor(c("Tue","Thu","Fri","Mon"),levels = weekday),
+  values = c(2,3,1,5)
+)
+
+daily %>% pivot_wider(names_from = day, values_from = values)
+
+# In some cases it is prefered to expand the data to get a better representation of the data. This is done by setting names_expand to TRUE.
+
+daily %>% pivot_wider(names_from = day, values_from = values, names_expand = T)
+
 #Same Data, different outcome
 
 install.packages("Tmisc")
