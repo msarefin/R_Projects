@@ -540,6 +540,41 @@ daily %>% pivot_wider(names_from = day, values_from = values, names_expand = T)
 
 daily %>%  pivot_wider(names_from = day, values_from = values, names_expand = T, values_fill = 0)
 
+percentages <- tibble(
+  year = c(2018,2019,2020,2020),
+  type = factor(c("A","B","A","B"), levels = c("A","B")),
+  percentage = c(100,100,40,60)
+)
+
+percentages %>% pivot_wider(
+  names_from = c(year, type),
+  values_from = percentage,
+  names_expand = T, 
+  values_fill = 0
+)
+
+daily <- mutate(daily, type = factor(c("A", "B", "B", "A")))
+daily
+
+daily %>%  pivot_wider(
+  names_from = type, 
+  values_from = values, 
+  values_fill = 0
+)
+
+daily %>% pivot_wider(
+  names_from = type, 
+  values_from = values, 
+  values_fill = 0, 
+  id_expand = T
+)
+
+daily %>%  pivot_wider(
+  names_from = day, 
+  values_from = values, 
+  values_fill = 0,
+  names_expand = T
+)
 
 
 #Same Data, different outcome
