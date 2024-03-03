@@ -576,6 +576,36 @@ daily %>%  pivot_wider(
   names_expand = T
 )
 
+#Unused Columns 
+
+update <- tibble(
+  county = c("Wake","Wake","Wake","Guilford","Guilford"), 
+  date = c(as.Date("2020-01-01")+0:2, as.Date("2020-01-03")+0:1), 
+  system = c("A","B","C","A","C"), 
+  value = c(3.2,4,5.5,2,1.2)
+)
+
+update %>% pivot_wider(
+  id_cols = county, 
+  names_from = system,
+  values_from = value
+)
+
+update %>%  pivot_wider(
+  id_cols = county, 
+  names_from = system,
+  values_from = value, 
+  values_fill = 0, 
+  unused_fn = list(date = max)
+)
+
+update %>%  pivot_wider(
+  id_cols = county, 
+  names_from = system, 
+  values_from = value
+)
+
+
 
 #Same Data, different outcome
 
