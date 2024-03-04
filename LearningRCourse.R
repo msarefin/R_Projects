@@ -602,10 +602,29 @@ update %>%  pivot_wider(
 update %>%  pivot_wider(
   id_cols = county, 
   names_from = system, 
-  values_from = value
+  values_from = value,
+  values_fill = 0, 
+  unused_fn = list(date = list)
 )
 
+contacts <- tribble(
+  ~field, ~value, 
+  "name","Jiena McLellan",
+  "company","Toyota",
+  "name","John Smith",
+  "company","google",
+  "email","john@google.com",
+  "name", "Huxkey Ratcliffe"
+)
 
+contacts <- contacts %>% 
+  mutate(person_id = cumsum(field == "name"))
+
+contacts %>%  pivot_wider(
+  names_from = field, 
+  values_from = value, 
+  #values_fill = "None"
+)
 
 #Same Data, different outcome
 
