@@ -626,6 +626,30 @@ contacts %>%  pivot_wider(
   #values_fill = "None"
 )
 
+#Using both Longer() and wider() to represent data
+
+# The data set used here is world_bank_pop
+world_bank_pop
+
+# In the data set the years are spread out. 
+#So, we will use pivot_longer to put all the years in the year column and the values in the value column
+
+pop2 <- world_bank_pop %>% 
+  pivot_longer(
+    cols = `2000`:`2017`,
+    names_to = "year",
+    values_to = "value"
+  )
+
+#count the number of indicators
+pop2 %>% count(indicator,name = "Number of indicators")
+
+#split the values into to separate columns - area and variable
+pop3 <- pop2 %>%  separate(indicator, c(NA, "area","variable"))
+
+#pivot wider to conver the the variable to columns
+pop3 %>% pivot_wider(names_from = variable, values_from = value)
+
 #Same Data, different outcome
 
 install.packages("Tmisc")
