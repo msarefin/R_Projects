@@ -650,6 +650,35 @@ pop3 <- pop2 %>%  separate(indicator, c(NA, "area","variable"))
 #pivot wider to conver the the variable to columns
 pop3 %>% pivot_wider(names_from = variable, values_from = value)
 
+#Multi-choice 
+
+multi <- tribble(
+  ~id, ~choice1, ~choice2, ~choice3,
+  1, "A", "B", "C",
+  2, "C", "B",  NA,
+  3, "D",  NA,  NA,
+  4, "B", "D",  NA
+)
+
+multi
+
+multi2 <- multi %>% 
+  pivot_longer(
+    cols = !id, 
+    values_drop_na = T
+  ) %>% mutate(checked = T)
+
+multi2
+
+multi2 %>%  pivot_wider(
+  id_cols = id,
+  names_from = name, 
+  values_from = checked,
+  values_fill = FALSE
+)
+
+
+
 #Same Data, different outcome
 
 install.packages("Tmisc")
