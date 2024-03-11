@@ -650,6 +650,7 @@ pop3 <- pop2 %>%  separate(indicator, c(NA, "area","variable"))
 #pivot wider to conver the the variable to columns
 pop3 %>% pivot_wider(names_from = variable, values_from = value)
 
+
 #Multi-choice 
 
 multi <- tribble(
@@ -678,6 +679,53 @@ multi2 %>%  pivot_wider(
 )
 
 
+spec <- relig_income %>% build_longer_spec(
+  cols = !religion, 
+  names_to = "income", 
+  values_to = "count"
+)
+spec 
+pivot_longer_spec(relig_income, spec)
+
+us_rent_income
+
+us_rent_income %>% pivot_wider(
+  names_from = variable, 
+  values_from = c(estimate, moe)
+)
+
+spec1 <- us_rent_income %>% 
+  build_wider_spec(
+    names_from = variable, 
+    values_from = c(estimate, moe)
+  )
+
+spec1
+
+us_rent_income %>%  pivot_wider_spec(spec1)
+
+spec2 <- spec1 %>%  mutate(.name = paste0(variable, ifelse(.value == "moe","_moe","")))
+
+spec2  
+
+us_rent_income %>%  pivot_wider_spec(spec2)
+
+#By hand
+
+construction
+
+spec <- tribble(
+  ~.name,            ~.value, ~units,  ~region,     
+  "1 unit",          "n",     "1",     NA,          
+  "2 to 4 units",    "n",     "2-4",   NA,          
+  "5 units or more", "n",     "5+",    NA,          
+  "Northeast",       "n",     NA,      "Northeast", 
+  "Midwest",         "n",     NA,      "Midwest",   
+  "South",           "n",     NA,      "South",     
+  "West",            "n",     NA,      "West",      
+)
+
+#######################################
 
 #Same Data, different outcome
 
