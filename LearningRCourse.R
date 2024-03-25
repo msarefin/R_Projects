@@ -760,3 +760,17 @@ bias(actual_temp, predicted_temp)
 actual_sales <- c(150,203,137,247,116,287)
 predicted_sales <- c(200,300,150,250,150,300)
 bias(actual_sales, predicted_sales)
+
+penguins %>% tibble()
+
+p <- penguins %>% mutate(
+  bill_length_mm = ifelse(is.na(bill_length_mm),0, bill_length_mm),
+  bill_depth_mm = ifelse(is.na(bill_depth_mm), 0 , bill_depth_mm), 
+  flipper_length_mm = ifelse(is.na(flipper_length_mm),0, flipper_length_mm),
+  body_mass_g = ifelse(is.na(body_mass_g), 0, body_mass_g)
+  )
+p
+
+
+ggplot(data = penguins) + geom_point(mapping = aes(x = flipper_length_mm, y = body_mass_g))
+
