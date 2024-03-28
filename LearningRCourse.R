@@ -763,6 +763,7 @@ bias(actual_sales, predicted_sales)
 
 penguins %>% tibble()
 
+
 p <- penguins %>% mutate(
   bill_length_mm = ifelse(is.na(bill_length_mm),0, bill_length_mm),
   bill_depth_mm = ifelse(is.na(bill_depth_mm), 0 , bill_depth_mm), 
