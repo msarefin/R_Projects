@@ -775,3 +775,4 @@ p
 
 ggplot(data = penguins) + geom_point(mapping = aes(x = flipper_length_mm, y = body_mass_g))
 
+ggplot(data=penguins, aes(x = flipper_length_mm, y = body_mass_g))+geom_point(aes(color = species))+facet_wrap(~species)+labs(title = "Palmer Penguins:Body Mass vs. Flipper Length")
