@@ -775,4 +775,17 @@ p
 
 ggplot(data = penguins) + geom_point(mapping = aes(x = flipper_length_mm, y = body_mass_g))
 
-ggplot(data=penguins, aes(x = flipper_length_mm, y = body_mass_g))+geom_point(aes(color = species))+facet_wrap(~species)+labs(title = "Palmer Penguins:Body Mass vs. Flipper Length")
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g))+geom_point()
+
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g))+geom_point(aes(color = species))+facet_wrap(~species)+labs(title = "Palmer Penguins:Body Mass vs. Flipper Length")
+
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g))
++geom_point(aes(color = species))
++facet_wrap(~species)
++labs(title = "Palmer Penguins: Body mass vs Flipper Length")
+
+# Lerning from https://ggplot2.tidyverse.org/
+
+
+ggplot(mpg, aes(displ, hwy, colour = class))+geom_point()
+ggplot(data = mpg, aes(x = displ, y = hwy, colour = class),facet_wrap(~class),labs(title = "Class of cars - hwy vs displ"))+geom_point()
