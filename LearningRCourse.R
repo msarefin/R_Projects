@@ -813,3 +813,15 @@ ggplot(data = penguins)+
 
 
 ggplot()+geom_point(data = penguins, mapping = aes(x = flipper_length_mm, y = body_mass_g, color = species, shape = sex), show.legend = T)+facet_wrap(~species ~sex)
+
+
+ggplot(data = penguins)+
+  geom_point(
+    mapping = aes(
+      x = flipper_length_mm, 
+      y = body_mass_g, 
+      color = species, shape = sex, size = sex, alpha = species),
+    color = "maroon")+
+  facet_wrap(~species)
+
+
