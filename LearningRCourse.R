@@ -841,3 +841,8 @@ ggplot(data = diamonds)+geom_bar(mapping = aes(x = cut, fill = clarity))
 
 ggplot(data = diamonds)+geom_bar(mapping = aes(x = cut, fill = clarity))+facet_wrap(~clarity)
 ggplot(data = diamonds)+geom_bar(mapping = aes(x = cut, fill = clarity))+facet_grid(cut~clarity)
+
+#Learning rmarkdown
+install.packages("rmarkdown")
+library(rmarkdown)
+
