@@ -824,4 +824,20 @@ ggplot(data = penguins)+
     color = "maroon")+
   facet_wrap(~species)
 
+ggplot(data = penguins, aes(x= flipper_length_mm, y = body_mass_g, color = species ))+geom_smooth()
 
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) + geom_point()+geom_smooth()
+
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g,linetype = species))+ geom_smooth()
+
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g,linetype = species))+ geom_point()
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g,linetype = species))+ geom_jitter()
+
+
+ggplot(data = diamonds)+geom_bar(mapping = aes(x = cut))
+ggplot(data = diamonds)+geom_bar(mapping = aes(x = cut, color = cut))
+ggplot(data = diamonds)+geom_bar(mapping = aes(x = cut, fill = cut))
+ggplot(data = diamonds)+geom_bar(mapping = aes(x = cut, fill = clarity))
+
+ggplot(data = diamonds)+geom_bar(mapping = aes(x = cut, fill = clarity))+facet_wrap(~clarity)
+ggplot(data = diamonds)+geom_bar(mapping = aes(x = cut, fill = clarity))+facet_grid(cut~clarity)

@@ -552,3 +552,5 @@ print(head(input))
 am.data = glm(formula = am~cyl+ hp +wt, data = input, family = binomial)
 
 print(summary(am.data))
+
+install.packages("rmarkdown")
