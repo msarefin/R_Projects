@@ -1,0 +1,33 @@
+---
+title: "ggplot_hook"
+author: "Mohammed"
+date: "2024-04-19"
+output: html_document
+---
+
+## Setting up my environement
+Note: Setting up my environement by loading the 'tidyverse' and 'palmer penguins' package
+
+```{r loading packages, echo = TRUE}
+library(tidyverse)
+library(palmerpenguins)
+```
+
+```{r ggplot for penguin data}
+library(ggplot2)
+library(DT)
+library(palmerpenguins)
+
+data(penguins)
+
+datatable(penguins)
+```
+
+
+```{r ggplot for penguins data visualization}
+ggplot(data = penguins)+
+  geom_point(mapping = aes(x = flipper_length_mm, y = body_mass_g))
+```
+
+
+
