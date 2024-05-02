@@ -56,5 +56,5 @@ ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g, color = spec
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
 You can also embed images like this 
-
-![Plot this way](r-project.org/logo/Rlogo.png)
+![Dotted line Divider](https://commondatastorage.googleapis.com/codeskulptor-assets/asteroid1.opengameart.warspawn.png)
+![Plot this way](https://r-project.org/logo/Rlogo.png)
