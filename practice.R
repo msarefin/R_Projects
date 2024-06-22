@@ -81,4 +81,49 @@ print(class(apple))
 v <- c(1,2,3,4,5+2i)
 print(class(v))
 
+################### List ################### 
 
+list1 <- list(c(1,2,3,4), "Just a list", 23.5, sin)
+print(list1)
+
+x <- list("a")
+x <- list(x)
+
+print(x)
+
+
+################### Matrix ###################
+
+m1 <- matrix(c('a','a','b','b','c','b','a'), nrow = 2, ncol = 3, byrow = TRUE)
+print(m1)
+
+m2 <- matrix(c('a','a','b','b','c','b','a'), nrow = 2, ncol = 3, byrow = FALSE)
+print(m2)
+
+m3 <- matrix(c('a','a','b','b','c','b','a'), nrow = 2, ncol = 3)
+print(m3)
+
+################### Array ################### 
+
+a <- array(c("green","blue"),dim = c(3,3,2))
+print(a)
+
+################### Factors ###################
+
+apple_colors <- c('green','green','yellow','red','red','red','green')
+factor_color <- factor(apple_colors)
+print(factor_color)
+print(nlevels(factor_color))
+print(apple_colors)
+
+################### Data Frames  ###################
+
+BMI <- data.frame(
+  gender = c("male","male","female"),
+  height = c(152, 171.5, 165),
+  weight = c(81,93, 78),
+  Age = c(42,38,26)
+)
+
+print(BMI)
+print(class(BMI))
