@@ -250,9 +250,21 @@ new.fn1(6,2)
   print(paste(a,b,c))
   
   msg <- function(a,b,c){
-    out <- paste(a,b,c)
+    out <- paste(a,b,c, sep = "-", collapse = " ")
     return (out)
   }
   
-  print(msg(a,b,c))
-  
+print(msg(a,b,c))
+
+#format(x, digits, nsmall, scientific, width, justify = c("left", "right", "centre", "none")) 
+
+print(format(24.654984654984, digits = 6))
+print(format(c(12,54.984), scientific = T))  
+print(format(354.5, nsmall = 3))
+
+a <- format(34.8, width = 4)  
+print(a)
+
+print(format("Hello", width = 8 , justify = "r"))
+print(format("Hello", width = 8 , justify = "l"))
+print(format("Hello", width = 8 , justify = "c"))
