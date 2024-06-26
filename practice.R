@@ -183,3 +183,76 @@ TimeOfTheYear <- switch(month(Sys.Date()),
 
 print(TimeOfTheYear)
 
+#Loops - repeat, while, for
+
+#Repeat loop
+cnt <- 0;
+repeat{
+  cnt <- cnt+1;
+  cat("Repeat Count: ",cnt,"\n");
+  
+  if(cnt>=5){
+    cnt <- 0
+    break;
+  }
+}
+
+#While loop
+cnt <- 0
+while(cnt<5){
+  cnt <- cnt +1
+  cat("while count: ",cnt,"\n")
+}
+
+#For loop
+
+small_alphabets <- letters[1:26]
+capital_letters <- LETTERS[1:26]
+
+for(a in small_alphabets){
+  print(a)
+}
+
+for(A in capital_letters){
+  print(A)
+}
+
+#Functions
+
+print(seq(1:25))
+print(mean(1:100))
+print(sum(1:100))
+
+#User defeined Function
+
+new.fn <- function(a){
+  for(i in 1:a){
+      output <- i^2;
+      print(output)
+  }
+}
+new.fn(25)
+
+
+new.fn1<- function(a = 2, b = 3){
+  output <- a^b
+  print(output)
+}
+new.fn1(6,2)
+
+
+#string function
+
+  a = "Hello"
+  b = "and welcome"
+  c = "Stranger!"
+  
+  print(paste(a,b,c))
+  
+  msg <- function(a,b,c){
+    out <- paste(a,b,c)
+    return (out)
+  }
+  
+  print(msg(a,b,c))
+  
