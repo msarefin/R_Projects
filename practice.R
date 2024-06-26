@@ -127,3 +127,41 @@ BMI <- data.frame(
 
 print(BMI)
 print(class(BMI))
+
+################### Decision Making  ###################
+
+x<- 30L
+
+if(is.integer(x)){
+  cat(x," is an integer!")
+}else{
+  cat(x," is not an integer!!")
+}
+
+x<- switch(2, "First","Second","Third")
+print(x)
+
+day <- 3
+
+weekday <- switch(day, "Sunday", "Monday","Tuesday","Wednesday","Thursday","Friday")
+print(weekday)
+
+
+### Weekday or Weekend ?
+day.work <- c("Monday", "Tuesday","Wednesday","Thursday","Friday")
+today <- weekdays(Sys.Date())
+daycheck <- toString(today %in% day.work)
+output <- switch(
+  daycheck,
+  "TRUE" = "Weekday - Time to work!!", 
+  "Weekend - Time to relax!!"
+  )
+
+print(output)
+
+### What is the season?
+
+month <- c("January","February","March","April","May", "June","July","August","September","October","November","December")
+season <- c("Spring","Summer","Fall","Winter")
+
+month()
