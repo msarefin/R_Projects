@@ -167,7 +167,19 @@ season <- c("Spring","Summer","Fall","Winter")
 
 
 TimeOfTheYear <- switch(month(Sys.Date()), 
-                        
+                        "January",
+                        "February",
+                        "March",
+                        "April",
+                        "May",
+                        "June",
+                        "July",
+                        "August",
+                        "September",
+                        "October",
+                        "November",
+                        "December" 
   )
 
 print(TimeOfTheYear)
+
