@@ -81,6 +81,20 @@ print(class(apple))
 v <- c(1,2,3,4,5+2i)
 print(class(v))
 
+#vector manipulation
+
+d <- c("sun","mon","tue","wed","thu","fri","sat")
+print(d[c(2,3,6)])
+print(d[c(TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE)])
+print(d[c(T,T,F,F,T,F,T)])
+print(d[c(-2,-5)])
+print(d[c(0,0,1,0,1,1,0)])
+
+v1 <- c(3,8,4,5,0,11)
+v2 <- c(4,11,0,8,1,2)
+
+print(v1+v2)
+
 ################### List ################### 
 
 list1 <- list(c(1,2,3,4), "Just a list", 23.5, sin)
@@ -268,3 +282,15 @@ print(a)
 print(format("Hello", width = 8 , justify = "r"))
 print(format("Hello", width = 8 , justify = "l"))
 print(format("Hello", width = 8 , justify = "c"))
+
+str <- "when you have eleminated the impossible, what remains however imporbable must be the turth"
+
+nchar(str)
+
+toupper("This string will be capitalized")
+tolower("ALL LOWER CASE")
+
+substring("QA testing involves a lot of effort to detect functional and non-functional defects in a system",10,22)
+
+
+#Vector 
