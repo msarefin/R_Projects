@@ -94,6 +94,28 @@ v1 <- c(3,8,4,5,0,11)
 v2 <- c(4,11,0,8,1,2)
 
 print(v1+v2)
+print(v1-v2)
+print(v1/v2)
+print(v1*v2)
+
+#vector element recycling
+
+v1 <- c(3,8,4,5,0,11)
+v2 <- c(4,11)
+#v2 becomes c(4,11,4,11,4,11)
+
+print(v1+v2)
+print(v1-v2)
+
+#vector sorting
+v <- c(3,8,4,5,0,11, -9, 304)
+
+print(sort(v))
+print(sort(v, decreasing = T))
+
+v <- c("Red ","Blue","yellow","violet")
+print(sort(v))
+print(sort(v, decreasing = T))
 
 ################### List ################### 
 
@@ -105,6 +127,8 @@ x <- list(x)
 
 print(x)
 
+list_data <- list("Red", "Green", c(21,32,11), TRUE, 51.23, 119.1)
+print()
 
 ################### Matrix ###################
 
