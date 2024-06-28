@@ -128,8 +128,48 @@ x <- list(x)
 print(x)
 
 list_data <- list("Red", "Green", c(21,32,11), TRUE, 51.23, 119.1)
-print()
+print(list_data)
 
+list_data <- list(month.name,c(1:12),matrix(c(1:28),nrow = 4, ncol =7, byrow = TRUE),matrix(c(1:28),nrow = 7, ncol =4, byrow = FALSE) )
+names(list_data) <- c("Months", "number sequence","4x7 Matrix","7x4 Matrix")
+
+print(list_data)
+
+print(list_data$`7x4 Matrix`)
+print(list_data$`4x7 Matrix`)
+
+#Manipulating List Element
+list_data1 <- list(c("Jan","Feb","Mar"), matrix(c(3,9,5,1,-2,8), nrow = 2),list("green",12.3))
+names(list_data1)<- c("1st Quarter", "A_Matrix", "A Inner list")
+
+#list leangth 
+
+length(list_data)
+v<-list(c(seq(1,100, by = 8)))
+
+list_data1[5] <- v
+names(list_data1[5])<- c("1 to 100 by 8")
+
+list_data1
+
+#merged list
+l1 <- list(2,4,5,6)
+l2 <- list("jan", "feb", "mar")
+
+l3 <- c(l1, l2)
+
+l3
+
+#Converting list to vector
+
+unlist(list_data[1])
+unlist(list_data$`7x4 Matrix`)
+
+list_data1
+
+list_data1$`A Inner list`
+transpose(list_data1$`A Inner list`)
+  
 ################### Matrix ###################
 
 m1 <- matrix(c('a','a','b','b','c','b','a'), nrow = 2, ncol = 3, byrow = TRUE)
@@ -141,10 +181,95 @@ print(m2)
 m3 <- matrix(c('a','a','b','b','c','b','a'), nrow = 2, ncol = 3)
 print(m3)
 
+##
+
+M <- matrix(c(3:14),nrow = 4, byrow = TRUE)
+N <- matrix(c(13:24), nrow = 4, byrow = FALSE)
+M
+N
+
+#add 
+
+result <- M+N
+result
+
+#subtract
+result <- M-N
+result
+
+#multiply
+
+result <- M*N
+result
+
+#divide 
+
+result  = M/N
+result
+
+rownames <- c("Row1","Row2","Row3","Row4")
+colnames <- c("col1", "col2", "col3")
+
+x <- matrix(c(3:14), nrow = 4, byrow = TRUE, dimnames = list(rownames, colnames))
+x
+
+x[1,3]
+x[,2]
+x[1,]
+
+
+
 ################### Array ################### 
 
 a <- array(c("green","blue"),dim = c(3,3,2))
 print(a)
+
+vector1 <- c(5,9,3)
+vector2 <- c(10:15)
+
+arr <- array(c(vector1, vector2), dim = c(3,3,2))
+arr
+
+#Naming Columns and Rown
+
+vector1 <- c(5,9,3)
+vector2 <- c(10,11,12,13,14,15)
+vector3 <- c(9,1,0)
+vector4 <- c(6,0,11,3,14,1,2,6,9)
+column.names <- c("COL1","COL2","COL3")
+row.names <- c("ROW1","ROW2","ROW3")
+matrix.names <- c("Matrix1","Matrix2")
+
+result <- array(c(vector1,vector2),dim = c(3,3,2),dimnames = list(row.names,column.names,matrix.names))
+
+result
+
+result[2,2,2]
+result[,2,2]
+result[2,,2]
+result[2,2,]
+result[,,2]
+
+array1 <- array(c(vector1,vector2),dim = c(3,3,2))
+array2 <- array(c(vector1,vector2),dim = c(3,3,2))
+
+array1
+array2
+
+matrix1 <- array1[,,2]
+matrix2 <- array2[,,2]
+
+matrix1
+matrix2
+
+result <- matrix1+matrix2
+print(result)
+
+#calclate accross array elements
+
+apply(array1, c(1),sum) # sum of rows
+apply(array1, c(2),sum) # sum of columns
+
 
 ################### Factors ###################
 
