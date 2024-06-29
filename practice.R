@@ -279,6 +279,38 @@ print(factor_color)
 print(nlevels(factor_color))
 print(apple_colors)
 
+levels(factor_color) # factor
+nlevels(factor_color) # number of factors
+is.factor(factor_color)
+
+
+## Factors in data frame
+
+height <- c(132,151,162,139,166,147,122)
+weight <- c(48,49,66,53,67,52,40)
+gender <- c("male","male","female","female","male","female","male")
+
+sex <- factor(gender)
+table <- data.frame(height, weight, sex)
+table
+
+is.factor(table$sex)
+table$sex
+
+# Chnage the order of factors
+
+data <- c("East","West","East","North","North","East","West","West","West","East","North")
+f1 <- factor(data)
+f1
+f2 <- factor(f1, levels = c("North", "East","West"))
+f2
+
+#Generating Factor labels
+
+gl <- gl(4,2,labels = c("Tampa", "Seattle","New York","Boston"))
+gl
+
+
 ################### Data Frames  ###################
 
 BMI <- data.frame(
@@ -290,6 +322,22 @@ BMI <- data.frame(
 
 print(BMI)
 print(class(BMI))
+
+
+#Employee Data
+
+emp.data <- data.frame(
+  emp_id = c (1:5), 
+  emp_name = c("Rick","Dan","Michelle","Ryan","Gary"),
+  salary = c(623.3,515.2,611.0,729.0,843.25), 
+  start_date = as.Date(c("2012-01-01", "2013-09-23", "2014-11-15", "2014-05-11","2015-03-27")),
+  stringsAsFactors = FALSE
+)
+
+emp.data
+emp.data$start_date
+str(emp.data) #get the structure of the data frame
+summary(emp.data) # summary of the data
 
 ################### Decision Making  ###################
 
