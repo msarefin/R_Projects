@@ -217,7 +217,7 @@ x[1,3]
 x[,2]
 x[1,]
 
-
+1
 
 ################### Array ################### 
 
@@ -338,6 +338,10 @@ emp.data
 emp.data$start_date
 str(emp.data) #get the structure of the data frame
 summary(emp.data) # summary of the data
+
+# Extract Data from data frame
+
+
 
 ################### Decision Making  ###################
 
