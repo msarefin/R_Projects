@@ -341,6 +341,65 @@ summary(emp.data) # summary of the data
 
 # Extract Data from data frame
 
+emp.data <- data.frame(
+  emp_id = c (1:5),
+  emp_name = c("Rick","Dan","Michelle","Ryan","Gary"),
+  salary = c(623.3,515.2,611.0,729.0,843.25),
+  start_date = as.Date(c("2012-01-01","2013-09-23","2014-11-15","2014-05-11","2015-03-27")),
+  stringsAsFactors = FALSE
+)
+
+result <- data.frame(emp.data$emp_name, emp.data$salary)
+result
+
+result<- emp.data[1:2,]
+result
+
+emp.data[,1:2]
+emp.data[1:2]
+emp.data[1:2,]
+
+emp.data[c(3,5),c(2,4)]
+
+#Adding a column to the data frame
+emp.data$Dep <- c("IT","Operations","IT","HR","Finance")
+
+emp.data
+
+#adding row to the data frame
+# to combine the new data sets use rbind()
+emp.data <- data.frame(
+  emp_id = c (1:5), 
+  emp_name = c("Rick","Dan","Michelle","Ryan","Gary"),
+  salary = c(623.3,515.2,611.0,729.0,843.25), 
+  start_date = as.Date(c("2012-01-01", "2013-09-23", "2014-11-15", "2014-05-11","2015-03-27")),
+  dept = c("IT","Operations","IT","HR","Finance"),
+  stringsAsFactors = FALSE
+)
+
+emp.newdata <- 	data.frame(
+  emp_id = c (6:8), 
+  emp_name = c("Rasmi","Pranab","Tusar"),
+  salary = c(578.0,722.5,632.8), 
+  start_date = as.Date(c("2013-05-21","2013-07-30","2014-06-17")),
+  dept = c("IT","Operations","Fianance"),
+  stringsAsFactors = FALSE
+)
+
+emp.data
+emp.newdata
+
+emp.final <- rbind(emp.data, emp.newdata)
+
+emp.final
+
+# to combine the new data sets use cbind()
+
+country <- c("USA", "Canada","India","USA", "Canada","India","USA", "Canada")
+
+emp.byCountry <- cbind(emp.final, country)
+
+emp.byCountry
 
 
 ################### Decision Making  ###################
