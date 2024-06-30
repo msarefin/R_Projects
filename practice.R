@@ -367,7 +367,8 @@ emp.data$Dep <- c("IT","Operations","IT","HR","Finance")
 emp.data
 
 #adding row to the data frame
-# to combine the new data sets use rbind()
+
+# to combine the new row data sets use rbind()
 emp.data <- data.frame(
   emp_id = c (1:5), 
   emp_name = c("Rick","Dan","Michelle","Ryan","Gary"),
@@ -393,7 +394,7 @@ emp.final <- rbind(emp.data, emp.newdata)
 
 emp.final
 
-# to combine the new data sets use cbind()
+# to combine the new column data sets use cbind()
 
 country <- c("USA", "Canada","India","USA", "Canada","India","USA", "Canada")
 
