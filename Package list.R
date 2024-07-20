@@ -1,4 +1,11 @@
+
+#This is a package manager
+# install.packages("pacman"); 
+
+
 #library List 
+
+library(pacman)
 
 library(ggplot2)
 library(tidyverse)
