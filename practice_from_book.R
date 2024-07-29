@@ -69,6 +69,6 @@ ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = body_mass_g))+
     tag = "Exhibit A",
     alt = "Penguins Data",
     alt_insight = "Penguins Data 2007-09"
-  )
+  )+geom_smooth(method = "lm")
 
 
