@@ -46,3 +46,29 @@ ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = body_mass_g))+
     x = "Flipper length (m)", y = "Body mass (g)",
     color = "species", shape = "species"
   )
+
+#
+
+ggplot(data = penguins, mapping = aes(x = species, y = bill_depth_mm))+
+  geom_col(mapping = aes(color = species))+
+  labs(
+    title = "Penguins Data",
+    subtitles = "Species vs Bill Debth",
+    x = "Species", y = "Bill Depth (mm)",
+  )
+
+# na.rm = T will remove all rows and columns with missing values.
+ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = body_mass_g))+
+  geom_point(na.rm = T, mapping = aes(color = species, shape = species))+
+  labs(
+    title = "Palmer Penguins Data",
+    subtitle = "Flipper length vs Body mass",
+    x = "Flipper Length (mm)", y = "Body mass (g)",
+    color = "Species", shape = "species",
+    caption = "(Data is bases on a study conducted between 2007-09)",
+    tag = "Exhibit A",
+    alt = "Penguins Data",
+    alt_insight = "Penguins Data 2007-09"
+  )
+
+
