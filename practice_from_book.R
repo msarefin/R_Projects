@@ -71,4 +71,13 @@ ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = body_mass_g))+
     alt_insight = "Penguins Data 2007-09"
   )+geom_smooth(method = "lm")
 
+#to save the graph on as a file 
+
+png(file = "penguin.png")
+
+ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y= body_mass_g))+
+  geom_point(mapping = aes(color = species, shape = species))+
+  geom_smooth(method = "lm")
+
+dev.off()
 
