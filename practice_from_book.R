@@ -86,3 +86,9 @@ penguins |> ggplot(mapping = aes(x = flipper_length_mm, y= body_mass_g))+geom_po
 penguins |> ggplot(mapping = aes(x = flipper_length_mm, y = body_mass_g))+
   geom_point(mapping = aes(color = species, shape = species))+
   geom_smooth(method = "lm")
+
+my_bar_plot <- ggplot(mpg, aes(x = class)) + geom_bar()
+my_scatter_plot <- ggplot(mpg, aes(x= cty, y = hwy)) + geom_point()
+
+ggsave(filename = "mpg_bar_chart.png", plot = my_bar_plot)
+
