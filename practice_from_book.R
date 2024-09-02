@@ -81,6 +81,8 @@ ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y= body_mass_g))+
 
 dev.off()
 
+############################## Saving files using ggsave 
+
 penguins |> ggplot(mapping = aes(x = flipper_length_mm, y= body_mass_g))+geom_point()
 
 penguins |> ggplot(mapping = aes(x = flipper_length_mm, y = body_mass_g))+
@@ -92,3 +94,24 @@ my_scatter_plot <- ggplot(mpg, aes(x= cty, y = hwy)) + geom_point()
 
 ggsave(filename = "mpg_bar_chart.png", plot = my_bar_plot)
 
+############################### 
+install.packages("nycflights13")
+library(nycflights13)
+
+flights |> 
+  filter(dest == "IAH") |>
+  group_by(year, month, day) |>
+  summarize(arr_delay = mean(arr_delay, na.rm = T))
+
+
+flights |> filter(dep_delay>120)
+
+flights |> filter(month == 1 & day == 1)
+
+flights |> filter(month ==1 | day == 2)
+
+flights |> filter 
+
+
+
+ 
