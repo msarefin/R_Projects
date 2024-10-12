@@ -105,13 +105,15 @@ flights |>
 
 
 flights |> filter(dep_delay>120)
-
+# Filter flights to show Jan and Feb
 flights |> filter(month == 1 & day == 1)
-
+# Filter flights to show Jan or Feb
 flights |> filter(month ==1 | day == 2)
+# Filter flisght to show Jan or Feb
+flights |> filter(month %in% c(1,2))
 
-flights |> filter 
-
-
+jan1 <- flights |> filter(month ==1 & day==1)
+print(jan1)
+glimpse(jan1)
 
  
