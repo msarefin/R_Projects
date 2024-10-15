@@ -109,11 +109,90 @@ flights |> filter(dep_delay>120)
 flights |> filter(month == 1 & day == 1)
 # Filter flights to show Jan or Feb
 flights |> filter(month ==1 | day == 2)
-# Filter flisght to show Jan or Feb
+# Filter flights to show Jan or Feb
 flights |> filter(month %in% c(1,2))
 
 jan1 <- flights |> filter(month ==1 & day==1)
 print(jan1)
 glimpse(jan1)
 
- 
+# order by data using arrange
+flights |> arrange(year, month, day, dep_time)
+# order by descending order
+flights |> arrange(desc(dep_delay))
+# Find distinct data
+flights |> distinct(origin, dest) 
+# Find Distinct and keep all columns - distinct find the first occurence of the the data and discards the rest. 
+flights |> distinct(origin, dest, .keep_all = T)
+
+#Find the number of occurences of a data set
+flights |> count(origin, dest, sort = T)
+
+# In a single pipeline for each condition, find all flights that meet the condition:
+#   
+#   *Had an arrival delay of two or more hours 
+#   Flew to Houston (IAH or HOU)
+#   *Were operated by United, American, or Delta
+#   Departed in summer (July, August, and September)
+#   Arrived more than two hours late but didn’t leave late
+#   Were delayed by at least an hour, but made up over 30 minutes in flight
+
+flights |> filter(
+  arr_delay >=120,
+  dest %in% c("IAH","HOU"), 
+  carrier %in% c("UA","AA","DL"),
+  month %in% c(7:9),
+  )
+
+flights |> filter(
+  carrier %in% c("UA","AA","DL"),
+  month %in% c(7:9),
+  arr_delay >=120 & dep_delay <=0,
+)
+
+
+flights |> filter(
+  arr_delay >=120, dep_delay <=0,
+  arr_delay >=60, dep_delay - arr_delay <=30
+)
+
+# Sort flights to find the flights with the longest departure delays. Find the flights that left earliest in the morning.
+
+flights |> arrange(desc(dep_delay), hour)
+flights |> arrange(hour)
+
+summary(flights$dep_time)
+flights |> filter(dep_time<=600)
+
+# Find the fastest flight
+
+flights |> arrange(distance/air_time)
+
+# Was there a flight on every day of 2013?
+
+flights |> distinct(year, month, day)
+  
+# Which flights traveled the farthest distance? Which traveled the least distance?
+  
+flights |> arrange(desc(distance))
+
+#mutate() and select()
+
+flights |> mutate(
+  gain = dep_delay - arr_time,
+  speed = distance/air_time *60
+  )
+
+
+#mutate with .before argument
+
+flights |> mutate(gain = dep_delay - arr_delay, speed = distance/air_time * 60, .before = 1)
+
+
+#mutate with .after argument 
+
+flights |> mutate(gain = dep_delay-arr_delay, speed = distance/air_time, .after = day)
+
+#mutate with .keep argument 
+
+flights |> mutate(gain = dep_delay - arr_delay, speed = distance/air_time * 60, .keep = "used")
