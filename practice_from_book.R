@@ -213,6 +213,9 @@ flights |> select(!year:day)
 
 flights |> select(where(is.character))
 
+flights |> select (year:day,origin:distance )|> mutate(speed = distance/air_time *60, .after  = "distance")
+
+
 
 
 
