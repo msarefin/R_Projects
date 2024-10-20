@@ -215,7 +215,15 @@ flights |> select(where(is.character))
 
 flights |> select (year:day,origin:distance )|> mutate(speed = distance/air_time *60, .after  = "distance")
 
+#rename
 
+flights |> rename(tail_num = tailnum)
 
+#relocate
+
+flights |> relocate(time_hour, air_time)
+
+flights |> relocate(year:dep_time, .after = time_hour)
+flights |> relocate(starts_with("arr"),.before = dep_time)
 
 
