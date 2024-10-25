@@ -226,4 +226,54 @@ flights |> relocate(time_hour, air_time)
 flights |> relocate(year:dep_time, .after = time_hour)
 flights |> relocate(starts_with("arr"),.before = dep_time)
 
+#group by
 
+flights |> group_by(month) |> summarize(avg_delay = mean(dep_delay))
+
+
+#Styler 
+
+install.packages("styler")
+
+flights |> mutate(
+  speed = distance/air_time, 
+  dep_hour = dep_time %/% 100, 
+  dep_minute = dep_time %% 100,
+  , .keep = "used"
+)
+
+flights |> 
+  filter(!is.na(arr_delay), !is.na(tailnum)) |> 
+  count(dest)
+
+
+flights |> 
+  group_by(tailnum)|> 
+  summarize(
+    delay = mean(arr_delay, na.rm = T),
+    n = n()
+  )
+
+flights |> 
+  group_by(month) |>
+  summarize(
+    delay = mean(arr_delay, na.rm = T)
+  ) |>
+  ggplot(aes(x = month, y = delay))+
+  geom_point()+
+  geom_line()
+
+
+flights |> group_by(dest) |>
+  summarize(
+    distance = mean(distance), 
+    speed = mean(distance/ air_time, na.rm = T)
+  ) |>
+  ggplot(aes(x = distance, y = speed))+
+  geom_smooth(
+    method = "loess", 
+    span = 0.5, 
+    se = FALSE, 
+    color = "white", 
+    linewidth = 4
+  )+geom_point()
