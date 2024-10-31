@@ -277,3 +277,80 @@ flights |> group_by(dest) |>
     color = "white", 
     linewidth = 4
   )+geom_point()
+
+
+table1 |>
+  group_by(year) |>
+  summarize(total_cases = sum(cases))
+
+table1 |>
+  ggplot(mapping = aes(x = year, y = cases))+
+  geom_line(mapping = aes(group = country), color = "grey50")+
+  geom_point(mapping = aes(color = country, shape = country))+
+  scale_x_continuous(breaks = c(1999,2000))
+
+### Exercise 5.2.1
+
+# For each of the sample tables, describe what each observation and each column represents.
+# 
+# Sketch out the process you’d use to calculate the rate for table2 and table3. You will need to perform four operations:
+#   
+# Extract the number of TB cases per country per year.
+# Extract the matching population per country per year.
+# Divide cases by population, and multiply by 10000.
+# Store back in the appropriate place.
+
+
+cases <- table2 |> 
+  filter(type == "cases") |> 
+  select(country, year, cases = count)
+
+population <- table2 |> 
+  filter(type == "population") |> 
+  select(country, year, population = count)
+  
+TB_table <- merge(cases, population)
+
+TB_table |> mutate(rate = cases/population *1000)
+
+# easier way
+
+table2 |> 
+  pivot_wider(names_from = type, values_from = count) |>
+  mutate(rate = cases/population *1000)
+
+
+
+
+table3 |> 
+  separate_wider_delim(cols = rate, delim = "/", names = c("cases","population")) |>
+  mutate(rates = as.numeric(cases)/as.numeric(population) *1000)
+
+table3 |> 
+  separate_wider_delim(
+    cols = rate, 
+    delim = "/", 
+    names = c("cases","population")) |>
+  mutate(
+    cases = as.numeric(cases),
+    population = as.numeric(population),
+    rate = cases/population *1000)
+
+
+#pivoting data 
+
+billboard |> pivot_longer(
+  cols = starts_with("wk"),
+  names_to = "Week",
+  values_to = "rank"
+)
+
+
+billboard |>
+  pivot_longer(
+    cols = stats_with("wk"), 
+    name_to = "week",
+    values_to = "rank", 
+    values_drop_na = T
+  )
+
