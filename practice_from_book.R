@@ -223,7 +223,7 @@ flights |> rename(tail_num = tailnum)
 
 flights |> relocate(time_hour, air_time)
 
-flights |> relocate(year:dep_time, .after = time_hour)
+       flights |> relocate(year:dep_time, .after = time_hour)
 flights |> relocate(starts_with("arr"),.before = dep_time)
 
 #group by
