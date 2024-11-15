@@ -367,3 +367,16 @@ flights |>
   slice_max(arr_delay, n = 1) |>
   relocate(dest)
 
+daily <- flights |> group_by(year, month, day)
+daily_flights <- daily |> summarize(n = n())
+daily_flights1 <- daily |>summarize(n = n(), .groups = "drop_last")
+daily_flights2 <- daily |>summarize(n = n(), .groups = "drop")
+daily_flights3 <- daily |>summarize(n = n(), .groups = "keep")
+
+
+flights |> 
+  group_by(year, month, day) |>
+  summarise(n = n(), .groups = "drop_last")
+
+#ungroup data set
+daily |> ungroup()
