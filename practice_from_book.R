@@ -379,4 +379,11 @@ flights |>
   summarise(n = n(), .groups = "drop_last")
 
 #ungroup data set
-daily |> ungroup()
+daily |> 
+  ungroup() |> 
+  summarize(
+    avg_delay = mean(dep_delay, na.rm = T),
+    flights = n()
+  )
+
+
