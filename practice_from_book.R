@@ -228,7 +228,9 @@ flights |> relocate(starts_with("arr"),.before = dep_time)
 
 #group by
 
-flights |> group_by(month) |> summarize(avg_delay = mean(dep_delay))
+flights |> group_by(month) |> summarize(avg_delay = mean(dep_delay, na.rm = T))
+
+flights |> summarise(avg_delay = mean(dep_delay, na.rm = T), .by = month)
 
 
 #Styler 
@@ -278,6 +280,8 @@ flights |> group_by(dest) |>
     linewidth = 4
   )+geom_point()
 
+
+# Chapter 5 
 
 table1 |>
   group_by(year) |>
