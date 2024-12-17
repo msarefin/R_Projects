@@ -1,5 +1,7 @@
 #https://r4ds.hadley.nz/
 
+# Chapter 1 - https://r4ds.hadley.nz/data-visualize
+
 install.packages("tidyverse")
 library(tidyverse)
 
@@ -95,6 +97,8 @@ my_scatter_plot <- ggplot(mpg, aes(x= cty, y = hwy)) + geom_point()
 ggsave(filename = "mpg_bar_chart.png", plot = my_bar_plot)
 
 ############################### 
+#Chapter 3 - https://r4ds.hadley.nz/data-transform
+
 install.packages("nycflights13")
 library(nycflights13)
 
@@ -281,7 +285,7 @@ flights |> group_by(dest) |>
   )+geom_point()
 
 
-# Chapter 5 
+# Chapter 5 https://r4ds.hadley.nz/data-tidy
 
 table1 |>
   group_by(year) |>
