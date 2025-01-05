@@ -395,5 +395,131 @@ daily |>
   )
 
 
+# 5.3 Data Lengthening - Pivot Table - Pivot_longer
+
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"),
+    names_to = "week", 
+    values_to = "rank"
+  )
+
+billboard |> 
+  pivot_longer(
+    cols = !c(artist, track, date.entered), 
+    names_to = "week", 
+    values_to = "rank", 
+    values_drop_na = T
+  )
+
+billboard |> 
+  pivot_longer(
+    cols =! (artist:date.entered), 
+    names_to = "weeks", 
+    values_to = "rank"
+    )
+
+billboard |> 
+  pivot_longer(
+    cols = !c(artist, track, date.entered), 
+    names_to = "week", 
+    values_to = "rank", 
+    values_drop_na = T
+  )
+
+
+# readr::parse_number(). parse_number() is a handy function that will extract the first number from a string, ignoring all other text.
+
+billboard |>
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank", 
+    values_drop_na = T
+  ) |>
+  mutate(
+    week = parse_number(week)
+  )
+
+# Lets plot the graph
+
+billboard_pivot_long <- billboard |>
+  pivot_longer(
+    cols = starts_with("wk"),
+    names_to = "week", 
+    values_to = "rank", 
+    values_drop_na = T
+  ) |>
+  mutate(
+    week = parse_number(week)
+  )
+
+billboard_pivot_long |> 
+  ggplot(mapping = aes(x = week, y = rank, group = track)) + 
+  geom_line(alpha = 0.25)+
+  scale_y_reverse()
+
+
+#----------- How pivot works
+df <- tribble(
+  ~id,  ~bp1, ~bp2,
+  "A",  100,  120,
+  "B",  140,  115,
+  "C",  120,  125
+)
+
+df
+
+df_plot <- df |> pivot_longer(
+  cols = starts_with("bp"), 
+  names_to = "measurement", 
+  values_to = "value", 
+  values_drop_na = T
+  )
+
+df_plot |> ggplot(mapping = aes(x = measurement, y = value)) +
+  geom_bar()
+
+
+# 5.3.3 Many variables in column names
+
+who2 |>
+  pivot_longer(
+    cols = !(country:year),
+    names_to = c("diagnosis","gender", "age"),
+    names_sep = "_",
+    values_to = "count"
+  )
+
+# pivot data, calculate the aggrigate number of cases grouped by diagnosis and gender and arrange(sort/order by) data by gender
+
+who_cases <- who2 |> 
+  pivot_longer(
+    cols = !c(country:year),
+    names_to = c("diagnosis", "gender", "age"),
+    names_sep = "_", 
+    values_to = "count",
+    values_drop_na = T
+  ) |> mutate(
+    age = parse_number(age)
+  )|> group_by(diagnosis, gender)|> summarize(n = n()) |> arrange(desc(gender))
+
+who_cases
+
+View(who_cases)
+
+# 5.3.4 Data and variable names in the column headers
+
+household |>
+  pivot_longer(
+    cols = !family, 
+    names_to = c(".value","child"),
+    names_sep = "_",
+    values_drop_na = T
+  )
+
+
+#example 
+
 
 
