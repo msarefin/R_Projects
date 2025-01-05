@@ -1,5 +1,7 @@
 #https://r4ds.hadley.nz/
 
+# all packages can be loaded from a separate source file 
+
 # Chapter 1 - https://r4ds.hadley.nz/data-visualize
 
 install.packages("tidyverse")
@@ -520,6 +522,52 @@ household |>
 
 
 #example 
+
+who2 |>
+  pivot_longer(
+    cols = !c(country: year),
+    names_to = c("diagnosis", "gender", ".value"),
+    names_sep = "_",
+    values_drop_na = T
+  )
+
+who2 |>
+  pivot_longer(
+    cols = !c(country, year),
+    names_to = c("diagnosis",".value", "age"),
+    names_sep = "_",
+    values_drop_na = T
+    )
+
+
+#example 2 
+tbl <- tribble(
+  ~id, ~x_1, ~x_2, ~y_1, ~y_2, 
+  "A",    1,    2,    3,    4,
+  "B",    5,    6,    7,    8
+  )
+
+##
+
+tbl |> 
+  pivot_longer(
+    cols = !id, 
+    names_to = c(".value", "num"),
+    names_sep = "_",
+    values_drop_na = T
+  ) |> select(id, x, y, num)
+
+##
+
+tbl |> 
+  pivot_longer(
+    cols = !id,
+    names_to = c("type", ".value"),
+    names_sep = "_",
+    values_drop_na = T
+  )
+
+
 
 
 
