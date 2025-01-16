@@ -22,9 +22,11 @@ ggplot(data = penguins)+geom_point(mapping = aes(x= flipper_length_mm, y = body_
 ggplot(penguins, mapping = aes(flipper_length_mm,body_mass_g))+geom_point()
 ggplot(penguins)+geom_point(aes(flipper_length_mm, body_mass_g))
 
-ggplot(data = penguins, mapping = aes(x= flipper_length_mm, y = body_mass_g, color = species))+geom_point()+geom_smooth(method = "lm")
+ggplot(data = penguins, mapping = aes(x= flipper_length_mm, y = body_mass_g, color = species))+
+  geom_point()+geom_smooth(method = "lm")
 
-ggplot(data = penguins, mapping = aes(x= flipper_length_mm, y = body_mass_g))+geom_point(mapping = aes(color = species, shape = species))+geom_smooth(method = "lm")
+ggplot(data = penguins, mapping = aes(x= flipper_length_mm, y = body_mass_g))+
+  geom_point(mapping = aes(color = species, shape = species))+geom_smooth(method = "lm")
 last_plot() #This will call the last plot that was created
 
 ##
@@ -128,7 +130,7 @@ flights |> arrange(year, month, day, dep_time)
 flights |> arrange(desc(dep_delay))
 # Find distinct data
 flights |> distinct(origin, dest) 
-# Find Distinct and keep all columns - distinct find the first occurence of the the data and discards the rest. 
+# Find Distinct and keep all columns - distinct find the first occurence of the data and discards the rest. 
 flights |> distinct(origin, dest, .keep_all = T)
 
 #Find the number of occurences of a data set
@@ -162,7 +164,8 @@ flights |> filter(
   arr_delay >=60, dep_delay - arr_delay <=30
 )
 
-# Sort flights to find the flights with the longest departure delays. Find the flights that left earliest in the morning.
+# Sort flights to find the flights with the longest departure delays. 
+# Find the flights that left earliest in the morning.
 
 flights |> arrange(desc(dep_delay), hour)
 flights |> arrange(hour)
@@ -201,11 +204,15 @@ flights |> mutate(gain = dep_delay-arr_delay, speed = distance/air_time, .after 
 
 #mutate with .keep argument 
 
-# Control which columns from .data are retained in the output. Grouping columns and columns created by ... are always kept.
+# Control which columns from .data are retained in the output. 
+# Grouping columns and columns created by ... are always kept.
 # "all" retains all columns from .data. This is the default.
-# "used" retains only the columns used in ... to create new columns. This is useful for checking your work, as it displays inputs and outputs side-by-side.
-# "unused" retains only the columns not used in ... to create new columns. This is useful if you generate new columns, but no longer need the columns used to generate them.
-# "none" doesn't retain any extra columns from .data. Only the grouping variables and columns created by ... are kept.
+# "used" retains only the columns used in ... to create new columns. 
+# This is useful for checking your work, as it displays inputs and outputs side-by-side.
+# "unused" retains only the columns not used in ... to create new columns. 
+# This is useful if you generate new columns, but no longer need the columns used to generate them.
+# "none" doesn't retain any extra columns from .data. 
+# Only the grouping variables and columns created by ... are kept.
 
 flights |> mutate(gain = dep_delay - arr_delay, speed = distance/air_time * 60, .keep = "used")
 
@@ -303,7 +310,8 @@ table1 |>
 
 # For each of the sample tables, describe what each observation and each column represents.
 # 
-# Sketch out the process you’d use to calculate the rate for table2 and table3. You will need to perform four operations:
+# Sketch out the process you’d use to calculate the rate for table2 and table3. 
+# You will need to perform four operations:
 #   
 # Extract the number of TB cases per country per year.
 # Extract the matching population per country per year.
@@ -430,7 +438,8 @@ billboard |>
   )
 
 
-# readr::parse_number(). parse_number() is a handy function that will extract the first number from a string, ignoring all other text.
+# readr::parse_number(). parse_number() is a handy function that will extract 
+# the first number from a string, ignoring all other text.
 
 billboard |>
   pivot_longer(
@@ -493,7 +502,8 @@ who2 |>
     values_to = "count"
   )
 
-# pivot data, calculate the aggrigate number of cases grouped by diagnosis and gender and arrange(sort/order by) data by gender
+# pivot data, calculate the aggregate number of cases grouped by diagnosis and gender 
+# and arrange(sort/order by) data by gender
 
 who_cases <- who2 |> 
   pivot_longer(
@@ -568,6 +578,443 @@ tbl |>
   )
 
 
+# pivot_wider()
+
+cms_patient_experience |>
+  distinct(measure_cd, measure_title)
 
 
+# pivot wider
+cms_patient_experience |>
+  pivot_wider(
+    names_from = measure_cd, 
+    values_from = prf_rate
+    )
+
+# 
+
+cms_patient_experience |>
+  pivot_wider(
+    id_cols = starts_with("org"),
+    names_from = measure_cd, 
+    values_from = prf_rate
+  )
+
+# sample data 
+
+df <- tribble(
+  ~id, ~measurement, ~value,
+  "A",        "bp1",    100,
+  "B",        "bp1",    140,
+  "B",        "bp2",    115, 
+  "A",        "bp2",    120,
+  "A",        "bp3",    105
+)
+
+
+#
+df |> 
+  pivot_wider(
+    id_cols = id, 
+    names_from = measurement, 
+    values_from = value
+  )
+
+
+#example 2 
+
+df <- tribble(
+  ~id, ~measurement, ~value,
+  "A",        "bp1",    100,
+  "A",        "bp1",    102,
+  "A",        "bp2",    120,
+  "B",        "bp1",    140, 
+  "B",        "bp2",    115
+)
+
+df |> group_by(id, measurement) |> summarise(n = n(), .groups = "drop") |> filter(n > 1)
+
+
+usethis::use_blank_slate()
+
+# https://r4ds.hadley.nz/data-import
+# 7 - Data Import 
+
+
+# create a csv file 
+sample <- "Student ID,Full Name,favourite.food,mealPlan,AGE
+1,Sunil Huffmann,Strawberry yoghurt,Lunch only,4
+2,Barclay Lynn,French fries,Lunch only,5
+3,Jayendra Lyne,N/A,Breakfast and lunch,7
+4,Leon Rossini,Anchovies,Lunch only,
+5,Chidiegwu Dunkel,Pizza,Breakfast and lunch,five
+6,Güvenç Attila,Ice cream,Lunch only,6"
+
+
+# Check if the file exists
+file.exists("data/sample.csv")
+
+# Create the file 
+
+file.create("data/sample.csv")
+
+# write data to file
+writeLines(sample, "data/sample.csv")
+# OR 
+write_lines(sample, "data/sample.csv")
+
+# read csv file
+
+read.csv("data/sample.csv")
+
+# Access csv data from the web 
+
+students <- read_csv("https://pos.it/r4ds-students-csv")
+file.create("data/students.csv")
+file.remove("data/students.csv")
+
+write.csv(students, "data/students.csv") 
+# This will include the row numbers by default
+
+write_csv(students, "data/students_csv.csv")
+# This doesn't include the row number by default
+
+write.csv(students, "data/students.csv", row.names = F)
+# setting row.names to F will simply remove the row numbers from the csv export
+
+read.csv("data/students.csv")
+
+# write.csv by default you cannot remove the header row, to do that you will need write.table
+
+write.table(students, "data/students_no_header.csv",
+            sep = ",",
+            row.names = F, 
+            col.names = F,
+            )
+
+# replaces NA strings with NA 
+read.csv(file = "data/students_no_header.csv", na = "NA")
+#
+read.csv("data/students_no_header.csv", col.names = c("ID","Names","Fav_food","meal_Plan","age"))
+
+read_csv("data/students_no_header.csv", col_names = F)
+
+read_csv("data/students_no_header.csv", col_names = c("id","names", "fav_food", "meal_plan","age"))
+
+read_delim(file = "data/students_no_header.csv",delim = ",")
+
+# Read csv and ignore "" and "N/A"
+
+students <- read_csv("data/Student.csv", na = c("N/A",""))
+
+# to replace variable names separated by anything other than an _ either rename with and _
+
+students |> rename(
+  student_id  = `Student ID`, 
+  full_name = `Full Name`
+)
+
+# clean variable names using the janitor::clean_names() from Janitor package
+students |> janitor::clean_names()
+
+# Convert meal plan variable from character to factor
+
+students |> 
+  janitor::clean_names() |> 
+  mutate(
+    meal_plan = factor(meal_plan)
+    )
+
+# change the age value five to 5
+
+students <- students |> 
+  janitor::clean_names() |>
+  mutate(
+    meal_plan = factor(meal_plan),
+    age = parse_number(if_else(age == "five", "5", age))
+  )
+
+
+#7.2.2 Other arguments
+
+
+read_csv(
+  "a,b,c
+  1,2,3
+  4,5,6"
+)
+
+# if you want to skip the first row in the csv file then you can use skip = 2 option #
+
+read_csv(
+  "The first line of metadata 
+  The second line of metadata 
+  x,y,z
+  1,2,3",
+  skip = 2
+  )
+
+# if you want to skip lines that starts with # use comment = "#"
+read_csv(
+  "# The first line of metadata 
+  The second line of metadata 
+  x,y,z
+  1,2,3",
+  comment = "#"
+)
+
+# if a csv file has no header line you can use col_names = F to auto generate column names as x1,x2,..xn
+read_csv(
+  "1,2,3
+  4,5,6",
+  col_names = F
+)
+
+# alternatively you can also use col_names = c("x","y","z") to manually provide colnames 
+
+read_csv(
+  "1,2,3
+  4,5,6",
+  col_names = c("x","y","z")
+  
+)
+
+# 7.2.3 Other file types
+# Once you’ve mastered read_csv(), using readr’s other functions is straightforward; 
+# it’s just a matter of knowing which function to reach for:
+#   
+# read_csv2() reads semicolon-separated files. These use ; 
+# instead of , to separate fields and are common in countries that use , as the decimal marker.
+# 
+# read_tsv() reads tab-delimited files.
+# 
+# read_delim() reads in files with any delimiter, 
+# attempting to automatically guess the delimiter if you don’t specify it.
+# 
+# read_fwf() reads fixed-width files. 
+# You can specify fields by their widths with fwf_widths() or by their positions with fwf_positions().
+# 
+# read_table() reads a common variation of fixed-width files where columns are separated by white space.
+
+# read_log() reads Apache-style log files.
+
+
+library(tidyverse)
+
+ggplot(diamonds, aes(x = carat, y = price)) + 
+  geom_hex()
+ggsave("diamonds.png")
+
+write_csv(diamonds, "data/diamonds.csv")
+
+
+# When reading csv files it pull 1000^2 rows ignoring the missing values
+# then it runs through the collowing questions to determine the variable type for each columns 
+# Does it contain only F, T, FALSE, or TRUE (ignoring case)? If so, it’s a logical.
+# Does it contain only numbers (e.g., 1, -4.5, 5e6, Inf)? If so, it’s a number.
+# Does it match the ISO8601 standard? If so, it’s a date or date-time. 
+# (We’ll return to date-times in more detail in Section 17.2).
+# Otherwise, it must be a string.
+
+# Immagine a column that has numbers and one of the values is a . ; 
+# the entire column is now presented as a String/ char
+
+simple_csv <- "
+  x
+  10
+  .
+  20
+  30"
+
+read_csv(simple_csv)
+
+# The variable type is a char because of the missing value
+
+df <- read_csv(
+  simple_csv, 
+  col_types = list(x = col_double())
+)
+
+# Now read_csv() reports that there was a problem, 
+# and tells us we can find out more with problems():
+
+problems(df)
+
+# this gives us the list of rows and the problems with 
+#the type casue by the data entered. 
+
+# To resolve the issue we use the following 
+
+read_csv(simple_csv, na = ".")
+
+# This will replace the . with NA while reading the csv file. 
+
+
+#  https://r4ds.hadley.nz/data-import#sec-readr-directory
+# 7.4 Reading data from multiple files
+
+sales_files <- c(
+  "https://pos.it/r4ds-01-sales",
+  "https://pos.it/r4ds-02-sales",
+  "https://pos.it/r4ds-03-sales"
+)
+read_csv(sales_files, id = "file")
+
+# Visualize 
+# https://r4ds.hadley.nz/layers
+
+# 9  Layers
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy, colour = class)) + 
+  geom_point()
+mpg |> ggplot(mapping = aes(x = displ, y = hwy, shape = class)) + 
+  geom_point()
+mpg |> ggplot(mapping = aes(x = displ, y = hwy, size = class)) + 
+  geom_point()
+mpg |> ggplot(mapping = aes(x = displ, y = hwy, alpha = class)) + 
+  geom_point()
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy)) + 
+  geom_point(color = "blue")
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy)) + 
+  geom_point()
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy)) + 
+  geom_smooth()
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy, shape = drv)) + 
+  geom_smooth()
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy, linetype = drv))+ 
+  geom_smooth()
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy, color = drv)) + 
+  geom_line() + 
+  geom_smooth(mapping = aes(linetype = drv))
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy, color = drv)) + 
+  geom_point() + 
+  geom_smooth(mapping = aes(linetype = drv))
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy)) + 
+  geom_smooth()
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy)) + 
+  geom_smooth(aes(group = drv))
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy)) + 
+  geom_smooth(aes(color = drv), show.legend =  F)
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy)) + 
+  geom_point(aes(color = class)) + geom_smooth()
+
+ggplot(mpg, aes(x = displ, y = hwy))+
+  geom_point()+
+  geom_point(
+    data = mpg |> filter(class == "2seater"),
+    color = "red"
+  )+
+  geom_point(
+    data = mpg |> filter(class == "2seater"), 
+    shape = "circle open", size = 3, color = "red"
+  )
+
+
+# Histogram
+
+mpg |> ggplot(aes(x = hwy))+ geom_histogram(binwidth = 2)
+
+# Desnsity Graph 
+
+mpg |> ggplot(aes(x = hwy))+ geom_density()
+
+# boxplot 
+
+mpg |> ggplot(aes(x = hwy)) + geom_boxplot()
+
+
+# Sampling - https://exts.ggplot2.tidyverse.org/gallery/ 
+
+install.packages("ggridges")
+library(ggridges)
+ggplot(mpg, aes(x = hwy, y = drv, fill = drv, color = drv))+
+  geom_density_ridges(alpha = 0.5, show.legend = F)
+
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy, colour =  class))+
+  geom_point() + 
+  geom_smooth(se = F)
+
+
+###
+mpg |> ggplot(aes(x = displ, y = hwy))+
+  geom_point()+
+  geom_smooth(se = F)
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_smooth(aes(line = drv), se = F)
+
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy)) + 
+  geom_point(aes(color = drv)) + 
+  geom_smooth(se = F)
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy, linetype = drv)) + 
+  geom_point(aes(color = drv)) + 
+  geom_smooth(se = F)
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy, linetype = drv)) + 
+  geom_point(aes(color = drv))
+
+# 9.4 Facets
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + facet_wrap(~cyl)
+
+mpg |> ggplot(mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + facet_grid(drv~cyl)
+
+# scale allows each plot to have it's own scale 
+# This can be either "free_x", "free_y" and "free"
+mpg |> ggplot(mapping = aes(x = displ, y = hwy))+ 
+  geom_point()+ facet_grid(drv~cyl, scales = "free")
+
+
+#  9.4.1 Exercises
+
+mpg |> ggplot()+ geom_point(aes(x = drv, y = cyl))
+
+ggplot(mpg) + 
+  geom_point(aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ .)
+
+ggplot(mpg) + 
+  geom_point(aes(x = displ, y = hwy)) +
+  facet_grid(. ~ cyl)
+
+ggplot(mpg) + 
+  geom_point(aes(x = displ, y = hwy)) + 
+  facet_wrap(~ cyl, nrow = 2)
+
+ggplot(mpg, aes(x = displ)) + 
+  geom_histogram() + 
+  facet_grid(drv ~ .)
+
+ggplot(mpg, aes(x = displ)) + 
+  geom_histogram() +
+  facet_grid(. ~ drv)
+
+ggplot(mpg) + 
+  geom_point(aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ .)
+
+ggplot(diamonds) + 
+  stat_summary(
+    aes(x = cut, y = depth),
+    fun.min = min,
+    fun.max = max,
+    fun = median
+  )
 
