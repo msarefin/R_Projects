@@ -1,9 +1,10 @@
 
 #This is a package manager
-# install.packages("pacman"); 
+# install.packages("pacman");
 
 # To call another R file use source("filename.R")
 
+source("pacman_package_loader.R")
 
 #library List 
 
