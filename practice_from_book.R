@@ -1010,6 +1010,51 @@ ggplot(mpg) +
   geom_point(aes(x = displ, y = hwy)) +
   facet_grid(drv ~ .)
 
+
+
+# 9.5 Statistical transformations
+
+diamonds |> ggplot(aes(x = cut))+
+  geom_bar()
+
+# geom_bar displays a bar chart with the y-axis showing the number of occurrences
+# by default geom_bar() uses count as the default stat(statistical transformation)
+# You can change the default stat to "identity" which allows to map high of the bars to the raw variable of y.
+
+# override the default stat
+diamonds|> 
+  count(cut)|>
+  ggplot(aes(x = cut, y = n))+
+  geom_bar(stat = "identity")
+
+# override the default mapping
+# display bar chart of proportions instead of count
+
+# Computed variables
+# These are calculated by the 'stat' part of layers and can be accessed with delayed evaluation.
+# 
+# after_stat(count)
+# number of points in bin.
+# 
+# after_stat(prop)
+# groupwise proportion
+
+diamonds |> 
+  ggplot(aes(x= cut, y = after_stat(prop),group = 1))+
+  geom_bar()
+
+diamonds |> 
+  ggplot(aes(x= cut, y = after_stat(prop)))+
+  geom_bar()
+
+
+diamonds |> 
+  ggplot(aes(x= cut, y = after_stat(count),group = 1))+
+  geom_bar()
+
+
+# stat_summary()
+
 ggplot(diamonds) + 
   stat_summary(
     aes(x = cut, y = depth),
@@ -1017,4 +1062,81 @@ ggplot(diamonds) +
     fun.max = max,
     fun = median
   )
+
+
+
+# this doesn't divide the graphs by fill
+ggplot(diamonds, aes(x = cut, y = after_stat(prop))) + 
+  geom_bar()
+
+# This separetes the graph by color using fill
+
+ggplot(diamonds, aes(x = cut, fill = color, y = after_stat(prop))) + 
+  geom_bar()
+
+
+# 9.6 Position adjustments
+
+
+ggplot(mpg, aes(x = drv, color = drv))+ geom_bar()
+
+ggplot(mpg, aes(x = drv, fill = drv))+ geom_bar()
+
+ggplot(mpg, aes(x = drv, fill = class))+ geom_bar()
+
+
+#stacked data 
+# The stacking is performed automatically using the position 
+# adjustment specified by the position argument.
+# If you don’t want a stacked bar chart, you can use one of
+# three other options: "identity", "dodge" or "fill"
+
+#position = "identity" will place each object exactly where it falls
+#in the context of the graph. This is not very useful for bars, 
+#because it overlaps them. 
+#To see that overlapping we either need to make the bars slightly 
+#transparent by setting alpha to a small value, or completely 
+#transparent by setting fill = NA."
+
+# overlapping graph
+mpg |> ggplot(aes(x = drv, fill = class)) +
+  geom_bar(alpha = 1/5, position = "identity")
+
+ggplot(mpg, aes(x = drv, color = class))+
+  geom_bar(fill = NA, position = "identity")
+
+# 
+# The identity position adjustment is more useful for 2d geoms, like points, where it is the default.
+# 
+# position = "fill" works like stacking, but makes each set of stacked bars the same height. 
+# This makes it easier to compare proportions across groups.
+# 
+# position = "dodge" places overlapping objects directly beside one another. 
+# This makes it easier to compare individual values.
+
+
+ggplot(mpg, aes(x = drv,fill = class))+
+  geom_bar(position = "identity")
+
+ggplot(mpg, aes(x = drv, color = class))+
+  geom_bar(alpha = 0.5, position = "identity")
+
+# Shows the value a proportion
+ggplot(mpg, aes(x = drv, fill = class))+
+  geom_bar(position = "fill")
+
+# Shows individual values for comparison
+ggplot(mpg ,aes(x = drv, fill = class))+
+  geom_bar(position = "dodge")
+
+# position = "jitter" used in scatter plot that adds noise and avoids gridding 
+
+ggplot(mpg, aes(x = displ, y = hwy))+ 
+  geom_point()
+
+ggplot(mpg, aes(x = displ, y = hwy))+
+  geom_point(position = "jitter")
+
+ggplot(mpg, aes(x = displ, y = hwy))+ 
+  geom_jitter()
 
