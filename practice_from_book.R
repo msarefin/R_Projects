@@ -1140,3 +1140,16 @@ ggplot(mpg, aes(x = displ, y = hwy))+
 ggplot(mpg, aes(x = displ, y = hwy))+ 
   geom_jitter()
 
+# 9.6.1 Exercises
+
+ggplot(mpg, aes(x = cty, y = hwy)) + 
+  geom_point()
+
+ggplot(mpg, aes(x = cty, y = hwy)) + 
+  geom_col()
+
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point()
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(position = "identity")
