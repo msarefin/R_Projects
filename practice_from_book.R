@@ -254,7 +254,7 @@ flights |> mutate(
   speed = distance/air_time, 
   dep_hour = dep_time %/% 100, 
   dep_minute = dep_time %% 100,
-  , .keep = "used"
+   .keep = "used"
 )
 
 flights |> 
