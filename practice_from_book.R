@@ -1153,3 +1153,64 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point()
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(position = "identity")
+
+#
+ggplot(mpg, aes(cyl, hwy)) +
+  geom_jitter()
+
+ggplot(mpg, aes(cyl, hwy)) +
+  geom_jitter(width = 0.25)
+
+ggplot(mpg, aes(cyl, hwy)) +
+  geom_jitter(height = 0.25)
+
+#
+
+ggplot(mpg, aes(cyl, hwy))+
+  geom_jitter();
+
+ggplot(mpg, aes(cyl, hwy))+
+  geom_count()
+
+# 9.7 Coordinate systems
+
+nz <- map_data("nz")
+
+ggplot(nz, aes(x = long, y = lat, group = group))+
+  geom_polygon(fill = "white", color ="black")
+
+
+ggplot(nz, aes(x = long, y = lat, group = group))+
+  geom_polygon(fill = "white", color = "black")+
+  coord_quickmap()
+
+# coord_polar()
+
+bar <- ggplot(data = diamonds)+ 
+  geom_bar(
+    mapping = aes(x = clarity, fill = clarity),
+    show.legend = F, width = 1
+  )+theme(aspect.ratio = 1)
+
+bar+coord_flip()
+bar+coord_polar()
+
+
+ggplot(diamonds)+
+  geom_bar(aes(x = cut, fill = clarity),width = 1)+coord_polar()
+
+
+
+
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  geom_point() + 
+  geom_abline() +
+  coord_fixed()
+
+# Chapter 10 - https://r4ds.hadley.nz/eda#variation
+
+
+ggplot(diamonds, aes(x = carat))+ geom_histogram(binwidth = 0.5)
+
+smaller<- diamonds |> filter(carat<3)
+ggplot(smaller, aes(x = carat))+ geom_histogram(binwidth = 0.01)
