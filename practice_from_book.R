@@ -1214,3 +1214,7 @@ ggplot(diamonds, aes(x = carat))+ geom_histogram(binwidth = 0.5)
 
 smaller<- diamonds |> filter(carat<3)
 ggplot(smaller, aes(x = carat))+ geom_histogram(binwidth = 0.01)
+
+
+ggplot(mpg, aes(x = fct_reorder(class, hwy, median), y = hwy)) +
+  geom_boxplot()
