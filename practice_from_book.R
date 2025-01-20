@@ -1209,12 +1209,30 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 # Chapter 10 - https://r4ds.hadley.nz/eda#variation
 
+# 10.3 Variation
 
 ggplot(diamonds, aes(x = carat))+ geom_histogram(binwidth = 0.5)
 
+# 10.3.1 Typical values
+
+# diamonds less than 3 carats 
 smaller<- diamonds |> filter(carat<3)
+
 ggplot(smaller, aes(x = carat))+ geom_histogram(binwidth = 0.01)
 
+ggplot(data = diamonds, aes(x = y))+
+  geom_histogram(binwidth = 0.5)
+
+# Sometimes values are not qite visible on the chart.
+# We can resolve this by zooming into the values on the y-axis 
+
+diamonds |> ggplot(aes(x = y))+ 
+  geom_histogram(binwidth = 0.5)+
+  coord_cartesian(ylim = c(0,50))
+
+diamonds |> ggplot(aes(x = y))+
+  geom_histogram(binwidth = 0.5)+
+  coord_cartesian(xlim = c(50,0))
 
 ggplot(mpg, aes(x = fct_reorder(class, hwy, median), y = hwy)) +
   geom_boxplot()
