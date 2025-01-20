@@ -1230,9 +1230,14 @@ diamonds |> ggplot(aes(x = y))+
   geom_histogram(binwidth = 0.5)+
   coord_cartesian(ylim = c(0,50))
 
-diamonds |> ggplot(aes(x = y))+
-  geom_histogram(binwidth = 0.5)+
-  coord_cartesian(xlim = c(50,0))
+# diamonds |> ggplot(aes(x = y))+
+#   geom_histogram(binwidth = 0.5)+
+#   coord_cartesian(xlim = c(50,0))
+
+unusual <- diamonds |> 
+  filter (y <3 | y > 20)|>
+  select(price, x, y , z) |>
+  arrange(y)
 
 ggplot(mpg, aes(x = fct_reorder(class, hwy, median), y = hwy)) +
   geom_boxplot()
