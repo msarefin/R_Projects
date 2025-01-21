@@ -1241,3 +1241,71 @@ unusual <- diamonds |>
 
 ggplot(mpg, aes(x = fct_reorder(class, hwy, median), y = hwy)) +
   geom_boxplot()
+
+# 10.3.3 Exercises
+# Explore the distribution of each of the x, y, and z variables in diamonds. What do you learn? Think about a diamond and how you might decide which dimension is the length, width, and depth.
+#
+summary(select(diamonds, x, y, z))
+summary |> select(x,y,z) |> summary()
+
+filter(diamonds, x==0 | y==0 |z==0)
+diamonds |> filter(x==0 | y==0, z==0)
+
+diamonds %>%  arrange(desc(y)) %>% head()
+diamonds %>%  arrange(desc(z)) %>% head()
+
+filter(diamonds, x>0, x<10) %>% 
+  ggplot()+
+  geom_histogram(mapping = aes(x = x), binwidth = 0.01)+
+  scale_x_continuous(breaks = 1:10)
+
+filter(diamonds, y >0, y <10) %>% 
+  ggplot()+
+  geom_histogram(mapping = aes(x = y), binwidth = 0.01)+
+  scale_x_continuous(breaks = 1:10)
+
+summarise(diamonds, mean(x>y),mean(x>z), mean(y>z))
+
+# Explore the distribution of price. Do you discover anything unusual or surprising? (Hint: Carefully think about the binwidth and make sure you try a wide range of values.)
+# 
+ggplot(filter(diamonds, price < 2500), aes(x = price))+
+  geom_histogram(binwidth = 10, center = 0)
+
+ggplot(filter(diamonds), aes(x = price))+ geom_histogram(binwidth = 100, center = 0)
+
+# How many diamonds are 0.99 carat? How many are 1 carat? What do you think is the cause of the difference?
+#
+diamonds %>% 
+  filter(carat >=0.99, carat <=1) %>% 
+  count(carat)
+
+diamonds %>% 
+  filter(carat >=0.9, carat <= 1.1) %>% 
+  count(carat) %>% 
+  print(n = Inf)
+
+#   Compare and contrast coord_cartesian() vs. xlim() or ylim() when zooming in on a histogram. What happens if you leave binwidth unset? What happens if you try and zoom so only half a bar shows?
+
+ggplot(diamonds)+
+  geom_histogram(mapping = aes(x = price))+
+  coord_cartesian(xlim =c(100,5000), ylim = c(0,3000))
+
+ggplot(diamonds)+ geom_histogram(mapping =  aes(x= price))+
+  xlim(100,5000)+
+  ylim(0,3000)
+
+# 10.4 Unusual values
+# There are 2 ways to handle unsusal data
+# 1. drop rows that have strange values
+
+diamonds2 <- diamonds |>
+  filter(between(y, 3, 20))
+
+# 2.Replace the unusual rows with missing values
+
+diamonds3 <- diamonds %>% 
+  mutate(y = if_else(y <3 | y >20, NA, y))
+
+diamonds3 |> ggplot(aes(x = y , y = y ))+geom_point()
+
+diamonds3 |> ggplot(aes(x = y , y = y ))+geom_point(na.rm = T)
