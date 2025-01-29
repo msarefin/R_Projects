@@ -1309,3 +1309,81 @@ diamonds3 <- diamonds %>%
 diamonds3 |> ggplot(aes(x = y , y = y ))+geom_point()
 
 diamonds3 |> ggplot(aes(x = y , y = y ))+geom_point(na.rm = T)
+
+
+library("nycflights13")
+flights
+
+flights %>% 
+  mutate(
+    cancelled = is.na(dep_time),
+    sched_hour = sched_dep_time %/% 100, 
+    sched_min = sched_dep_time %% 100, 
+    sched_dep_time = sched_hour + (sched_min/60)
+  ) |> relocate(c(cancelled, sched_hour, sched_min, sched_dep_time), 1)
+
+
+# 10.5 Covariation https://r4ds.hadley.nz/eda#covariation
+
+# 10.5.1 A categorical and a numerical variable
+
+ggplot(diamonds, aes(x = price)) + 
+  geom_freqpoly(aes(color = cut), binwidth = 500, linewidth = 0.75)
+
+
+ggplot(diamonds, aes(x = price, y = after_stat(density))) + 
+  geom_freqpoly(aes(color = cut), binwidth = 500, linewidth = 0.75)
+
+ggplot(diamonds, aes(x = cut, y = price)) +
+  geom_boxplot()
+
+
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot()
+
+
+ggplot(mpg, aes(x = fct_reorder(class, hwy, median), y = hwy)) +
+  geom_boxplot()
+
+ggplot(mpg, aes(x = hwy, y = fct_reorder(class, hwy, median))) +
+  geom_boxplot()
+
+
+# 10.5.2 Two categorical variables https://r4ds.hadley.nz/eda#two-categorical-variables
+
+ggplot(diamonds, aes(x = cut, y = color)) +
+  geom_count()
+
+
+diamonds |> 
+  count(color, cut)
+
+
+diamonds |> 
+  count(color, cut) |>  
+  ggplot(aes(x = color, y = cut)) +
+  geom_tile(aes(fill = n))
+
+
+# 10.5.3 Two numerical variables https://r4ds.hadley.nz/eda#two-numerical-variables
+
+
+ggplot(smaller, aes(x = carat, y = price)) +
+  geom_point()
+
+
+ggplot(smaller, aes(x = carat, y = price)) +
+  geom_bin2d()
+
+# install.packages("hexbin")
+ggplot(smaller, aes(x = carat, y = price)) +
+  geom_hex()
+
+
+ggplot(smaller, aes(x = carat, y = price)) + 
+  geom_boxplot(aes(group = cut_width(carat, 0.1)))
+
+
+
+
+
