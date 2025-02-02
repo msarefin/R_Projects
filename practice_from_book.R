@@ -1385,5 +1385,20 @@ ggplot(smaller, aes(x = carat, y = price)) +
 
 
 
+# 11  Communication https://r4ds.hadley.nz/communication#introduction
+
+# 11.2 Labels https://r4ds.hadley.nz/communication#labels
+
+ggplot(mpg, aes(x = displ, y = hwy))+
+  geom_point(aes(color = class))+
+  geom_smooth(se = F)+
+  labs(
+    x = "Engine Displacemet(L)", 
+    y = "Highway fuel economy (mpg)", 
+    color = "Car Type", 
+    title = "Fel Efficincy generally decreases with engine size",
+    subtitle = "Two seater (sports car) are an exception becasue of their light weight",
+    caption = "Data from fueleconomy.gov"
+  )
 
 
