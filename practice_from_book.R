@@ -1401,4 +1401,17 @@ ggplot(mpg, aes(x = displ, y = hwy))+
     caption = "Data from fueleconomy.gov"
   )
 
+# replace x and y axis with formula using quote()
 
+df <- tibble(
+  x = 1:10, 
+  y = cumsum(x^2)
+)
+
+
+ggplot(df, aes(x, y))+
+  geom_point()+
+  labs(
+    x = quote(x[i]),
+    y = quote(sum(x[i]^2, i ==1, n))
+  )
