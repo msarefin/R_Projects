@@ -6,6 +6,8 @@
 
 source("pacman_package_loader.R")
 
+install.packages("ggrepel")
+
 #library List 
 
 library(pacman)
@@ -24,3 +26,4 @@ library(janitor)
 #rmakrdown
 
 library(rmarkdown)
+library(ggrepel)
