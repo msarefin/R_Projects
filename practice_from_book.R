@@ -1536,3 +1536,9 @@ ggplot(data = diamonds, mapping = aes(x = price, y = cut))+
   geom_boxplot(alpha = 0.5)+
   scale_x_continuous(labels = label_dollar())
 
+ggplot(data = diamonds, mapping = aes(x = price, y = cut))+
+  geom_boxplot(alpha = 0.5)+
+  scale_x_continuous(
+    labels = label_dollar(scale = 1/1000, suffix = "K"),
+    breaks = seq(1000, 19000, by = 6000)
+  )
