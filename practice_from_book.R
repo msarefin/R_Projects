@@ -1401,8 +1401,8 @@ ggplot(mpg, aes(x = displ, y = hwy))+
     caption = "Data from fueleconomy.gov"
   )
 
-# replace x and y axis with formula using quote()
 
+<<<<<<< HEAD
 df <- tibble(
   x = 1:10, 
   y = cumsum(x^2)
@@ -1548,3 +1548,5 @@ ggplot(data = diamonds, mapping = aes(x = price, y = cut))+
   scale_x_continuous(labels = label_dollar())
 
 
+=======
+>>>>>>> parent of 80f1d0a... learned to add labels to chart instead of default names to make graph more informative
