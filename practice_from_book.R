@@ -1527,6 +1527,17 @@ ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
   scale_y_continuous(labels = NULL) +
   scale_color_discrete(labels = c("4" = "4-wheel", "f" = "front", "r" = "rear"))
 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv))+
+  geom_point()+
+  scale_x_continuous()+
+  scale_y_continuous()+
+  scale_color_discrete(labels = c("4" = "4-Wheel","f" = "Front Wheel","r" = "Rear Wheel"))+
+  labs(
+    title = "Fuel Efficiency",
+    subtitle = "Two seater (Sports Car) are an exceptio due to the light weight",
+    color = "Car Type",
+    caption = "Data provided by fueleconomy.gov",
+    x = "Engine Displacement", y = "Highway Feul Economy")
 
 #
 install.packages("scales")
@@ -1535,4 +1546,5 @@ library(scales)
 ggplot(data = diamonds, mapping = aes(x = price, y = cut))+
   geom_boxplot(alpha = 0.5)+
   scale_x_continuous(labels = label_dollar())
+
 
