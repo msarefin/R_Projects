@@ -1575,5 +1575,27 @@ presidential |>
   scale_color_manual(values = c(Republican = "#E81B23", Democratic = "#00AEF3"))
 
 
+df <- tibble(
+  x = rnorm(10000),
+  y = rnorm(10000)
+)
+
+
+ggplot(df, aes(x, y))+
+  geom_hex()+
+  coord_fixed()+
+  labs(title = "Default Continuous", x = NULL, y = NULL)
+
+ggplot(df, aes(x, y))+
+  geom_hex()+
+  coord_fixed()+
+  scale_fill_viridis_c()+
+  labs(title = "Virdis, Continuous", NULL, NULL)
+  
+ggplot(df, aes(x, y))+
+  geom_hex()+
+  coord_fixed()+
+  scale_fill_viridis_b()+
+  labs(title = "Virdis, binned", NULL, NULL)
 
 
