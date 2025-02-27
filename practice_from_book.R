@@ -1567,6 +1567,13 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy))+
 
 
 
+presidential |>
+  mutate(id = 33 + row_number())|>
+  ggplot(aes(x = start, y = id, color = party))+
+  geom_point()+
+  geom_segment(aes(xend = end, yend = id))+
+  scale_color_manual(values = c(Republican = "#E81B23", Democratic = "#00AEF3"))
+
 
 
 
