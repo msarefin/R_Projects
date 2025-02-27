@@ -1542,3 +1542,31 @@ ggplot(data = diamonds, mapping = aes(x = price, y = cut))+
     labels = label_dollar(scale = 1/1000, suffix = "K"),
     breaks = seq(1000, 19000, by = 6000)
   )
+
+# https://r4ds.hadley.nz/communication.html#replacing-a-scale
+
+ggplot(diamonds, aes(x = carat, y = price))+
+  geom_bin2d();
+
+
+ggplot(diamonds, aes(x=log10(carat),y = log10(price)))+
+  geom_bin2d()
+
+ggplot(diamonds, aes(x = carat, y = price))+
+  geom_bin2d()+
+  scale_x_log10()+
+  scale_y_log10()
+
+
+ggplot(mpg, aes(x = displ, y = hwy))+
+  geom_point(aes(color= drv))
+
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy))+
+  geom_point(aes(color = drv))+
+  scale_color_brewer(palette = "Set1")
+
+
+
+
+
+
