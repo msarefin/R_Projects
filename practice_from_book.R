@@ -1655,7 +1655,7 @@ ggplot(compact, aes(x = displ, y = hwy, color = drv))+
    x_scale+ y_scale+ col_scale
 
  
- # 11.4.6 Exercise
+ # 11.4.6 Exercise - https://r4ds.hadley.nz/communication.html#exercises-2
  
  df <- tibble(
    x = rnorm(10000), 
@@ -1667,6 +1667,13 @@ ggplot(compact, aes(x = displ, y = hwy, color = drv))+
    scale_color_gradient(low = "white", high = "red")+ 
    coord_fixed()
    
+ 
+ # Themes - https://r4ds.hadley.nz/communication.html#sec-themes
+ 
+ggplot(mpg, aes(x=displ, y = hwy))+
+ geom_point(aes(colour = class))+
+ geom_smooth(se = F)+ 
+ theme_bw()
  
  
  
