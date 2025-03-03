@@ -1599,3 +1599,75 @@ ggplot(df, aes(x, y))+
   labs(title = "Virdis, binned", NULL, NULL)
 
 
+# Zooming - https://r4ds.hadley.nz/communication.html#zooming
+
+
+ggplot(mpg, aes(x = displ, y = hwy))+
+  geom_point(aes(color = drv))+
+  geom_smooth()
+
+
+mpg |> 
+  filter(displ >= 5 & displ <= 6 & hwy >= 10 & hwy <=25) |>
+  ggplot(aes(x = displ, y = hwy))+
+  geom_point(aes(color = drv))+
+  geom_smooth()
+
+
+ggplot(mpg, aes(x = displ, y = hwy))+
+  geom_point(aes(color = drv))+
+  geom_smooth()+
+  scale_x_continuous(limits = c(5,6))+
+  scale_y_continuous(limits = c(10, 25))
+
+
+ggplot(mpg, aes(x = displ, y = hwy))+
+  geom_point(aes(color = drv))+
+  geom_smooth()+
+  coord_cartesian(xlim = c(5,6),ylim = c(10,25))
+
+
+suv <- mpg %>%  filter(class== "suv")
+compact <- mpg %>%  filter(class == "compact")
+
+ggplot(suv, aes(x = displ, y = hwy, color = drv))+
+  geom_point()
+
+ggplot(compact, aes(x = displ, y = hwy, color = drv))+
+  geom_point()
+
+
+ x_scale<- scale_x_continuous(limits = range(mpg$displ))
+ y_scale<- scale_y_continuous(limits = range(mpg$hwy))
+ col_scale<- scale_color_discrete(limit = unique(mpg$drv))
+
+ #left
+ 
+ ggplot(suv, aes(x = displ, y = hwy, color = drv))+
+   geom_point()+
+   x_scale + y_scale + col_scale
+
+ 
+ #right
+ 
+ ggplot(compact, aes(x = displ, y = hwy, color = drv))+
+   geom_point()+
+   x_scale+ y_scale+ col_scale
+
+ 
+ # 11.4.6 Exercise
+ 
+ df <- tibble(
+   x = rnorm(10000), 
+   y = rnorm(10000)
+ )
+ 
+ ggplot(df, aes(x, y))+
+   geom_hex()+
+   scale_color_gradient(low = "white", high = "red")+ 
+   coord_fixed()
+   
+ 
+ 
+ 
+ 
