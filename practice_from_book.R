@@ -1675,6 +1675,104 @@ ggplot(mpg, aes(x=displ, y = hwy))+
  geom_smooth(se = F)+ 
  theme_bw()
  
+
+ggplot(mpg, aes(x=displ, y = hwy))+
+  geom_point(aes(colour = class))+
+  geom_smooth(se = F)+ 
+  theme_dark() 
+
+ggplot(mpg, aes(x=displ, y = hwy))+
+  geom_point(aes(colour = class))+
+  geom_smooth(se = F)+ 
+  theme_classic() 
  
- 
- 
+ggplot(mpg, aes(x=displ, y = hwy))+
+  geom_point(aes(colour = class))+
+  geom_smooth(se = F)+ 
+  theme_light()
+
+
+ggplot(mpg, aes(x=displ, y = hwy))+
+  geom_point(aes(colour = class))+
+  geom_smooth(se = F)+ 
+  theme_minimal()
+
+ggplot(mpg, aes(x=displ, y = hwy))+
+  geom_point(aes(colour = class))+
+  geom_smooth(se = F)+ 
+  theme_grey()
+
+ggplot(mpg, aes(x=displ, y = hwy))+
+  geom_point(aes(colour = class))+
+  geom_smooth(se = F)+ 
+  theme_void()
+
+
+ggplot(mpg, aes(x = displ, y = hwy, color = drv))+
+  geom_point()+
+  labs(
+    title = "Large engine sizes tend to have lower fuel economy",
+    caption = "Souce: https//fueleconoy.gov"
+  )+
+  theme(
+    legend.position = c(0.6 , 0.7),
+    legend.direction = "horizontal",
+    legend.box.background = element_rect(color = "black"),
+    plot.title = element_text(face = "bold"),
+    plot.title.position = "plot", 
+    plot.caption.position = "plot",
+    plot.caption = element_text(hjust = 0)
+  )
+
+
+# Layout https://r4ds.hadley.nz/communication.html#layout
+
+p1 <- ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  labs(title = "Plot 1")
+p2 <- ggplot(mpg, aes(x = drv, y = hwy)) + 
+  geom_boxplot() + 
+  labs(title = "Plot 2")
+
+library(patchwork)
+
+p1 + p2
+
+p3 <- ggplot(mpg, aes(x = cty, y = hwy)) + 
+  geom_point() + 
+  labs(title = "Plot 3")
+(p1 | p3) / p2
+
+##
+
+p1 <- ggplot(mpg, aes(x = drv, y = cty, color = drv)) + 
+  geom_boxplot(show.legend = FALSE) + 
+  labs(title = "Plot 1")
+
+p2 <- ggplot(mpg, aes(x = drv, y = hwy, color = drv)) + 
+  geom_boxplot(show.legend = FALSE) + 
+  labs(title = "Plot 2")
+
+p3 <- ggplot(mpg, aes(x = cty, color = drv, fill = drv)) + 
+  geom_density(alpha = 0.5) + 
+  labs(title = "Plot 3")
+
+p4 <- ggplot(mpg, aes(x = hwy, color = drv, fill = drv)) + 
+  geom_density(alpha = 0.5) + 
+  labs(title = "Plot 4")
+
+p5 <- ggplot(mpg, aes(x = cty, y = hwy, color = drv)) + 
+  geom_point(show.legend = FALSE) + 
+  facet_wrap(~drv) +
+  labs(title = "Plot 5")
+
+(guide_area() / (p1 + p2) / (p3 + p4) / p5) +
+  plot_annotation(
+    title = "City and highway mileage for cars with different drive trains",
+    caption = "Source: https://fueleconomy.gov."
+  ) +
+  plot_layout(
+    guides = "collect",
+    heights = c(1, 3, 2, 4)
+  ) &
+  theme(legend.position = "top")
