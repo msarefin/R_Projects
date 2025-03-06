@@ -1766,13 +1766,13 @@ p5 <- ggplot(mpg, aes(x = cty, y = hwy, color = drv)) +
   facet_wrap(~drv) +
   labs(title = "Plot 5")
 
-(guide_area() / (p1 + p2) / (p3 + p4) / p5) +
+(guide_area() /p5/ (p1 + p2) / (p3 + p4)) +
   plot_annotation(
     title = "City and highway mileage for cars with different drive trains",
     caption = "Source: https://fueleconomy.gov."
   ) +
   plot_layout(
     guides = "collect",
-    heights = c(1, 3, 2, 4)
+    heights = c(1,2,4,2)
   ) &
   theme(legend.position = "top")
