@@ -1805,3 +1805,7 @@ flights |>
     approx_ontime = abs(arr_delay) < 20,
   ) |> 
   filter(daytime & approx_ontime)
+
+# https://r4ds.hadley.nz/logicals.html#sec-fp-comparison
+
+
