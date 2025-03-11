@@ -1776,3 +1776,32 @@ p5 <- ggplot(mpg, aes(x = cty, y = hwy, color = drv)) +
     heights = c(1,2,4,2)
   ) &
   theme(legend.position = "top")
+
+
+# Chapter 12 - Logical vectors - 
+
+x <- c(1, 2, 3, 5, 7, 11, 13)
+x*2
+
+df <- tibble(x)
+
+df |> mutate(y = x*2)
+
+library(nycflights13)
+
+flights |>
+  filter(dep_time > 600 & dep_time <2000 & abs(arr_delay)<20)
+
+flights |> 
+  mutate(
+    daytime = dep_time > 600 & dep_time<2000,
+    approx_ontime = abs(arr_delay)<20,
+    .keep = "used"
+    )
+
+flights |> 
+  mutate(
+    daytime = dep_time > 600 & dep_time < 2000,
+    approx_ontime = abs(arr_delay) < 20,
+  ) |> 
+  filter(daytime & approx_ontime)
