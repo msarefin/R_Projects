@@ -1808,4 +1808,47 @@ flights |>
 
 # https://r4ds.hadley.nz/logicals.html#sec-fp-comparison
 
+x <- c(1 / 49 * 49, sqrt(2) ^ 2)
+
+x == c(1,2) # the vectors are not equal hence the result is FALSE FALSE
+
+print(x, digits = 16)
+
+near(x, c(1,2)) # as solution use near() whcich ignores the difference between the numbers caused during the calulation
+
+# https://r4ds.hadley.nz/logicals.html#sec-na-comparison
+
+# unknown values always yield NA for almost any operations. To determine if a variable is NA use is.na()
+
+NA >5 
+
+is.na(NA)
+
+a <- NA 
+b <- NA
+
+a==b
+
+# If you wants to retrieve data set where dep_time is NA
+flights |> filter(dep_time == NA) # this will yield no value
+
+flights |> filter(is.na(dep_time)) # this will yield data set 
+
+flights |> filter(month == 1, day == 2) |> arrange(dep_time) |> select(dep_time)
+
+# when arranging data set the NA is arrange is first. 
+flights |> filter(month ==1, day == 2) |>
+  arrange(desc(is.na(dep_time)), dep_time)
+
+# https://r4ds.hadley.nz/logicals.html#sec-na-boolean
+
+df <- tibble(x = c(T,F,NA))
+
+df |> mutate(and = x & NA, or = x | NA)
+
+tdf <- tibble(x = c(T,F,NA), y= c(NA,NA,NA))
+tdf |> mutate(and = x & y, or = x | y)
+
+# https://r4ds.hadley.nz/logicals.html#sec-order-operations-boolean
+
 
