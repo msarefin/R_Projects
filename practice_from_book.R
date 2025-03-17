@@ -1851,4 +1851,9 @@ tdf |> mutate(and = x & y, or = x | y)
 
 # https://r4ds.hadley.nz/logicals.html#sec-order-operations-boolean
 
+flights |> filter(month == 11 | month == 12)
 
+flights |> mutate(nov = month ==11, final = nov | 12, .keep = "used")
+
+# https://r4ds.hadley.nz/logicals.html#in
+1:12 %in% c(2,5,8,3)
