@@ -1870,11 +1870,20 @@ flights |> filter(dep_time %in% c(NA, 0800))
 
 # https://r4ds.hadley.nz/logicals.html#exercises-1
 
+# Find all flights where arr_delay is missing but dep_delay is not. 
+# Find all flights where neither arr_time nor sched_arr_time are missing, but arr_delay is.
+
 
 flights |> filter(arr_delay %in% NA , !dep_delay %in% NA)
 flights |> filter(is.na(arr_delay), !is.na(dep_delay))              
 flights |> filter(!is.na(arr_delay), is.na(dep_delay))                  
 flights |> filter(!arr_delay %in% NA, dep_delay %in% NA)                  
 
-flights |> group_by(dep_time) |>
-  filter(dep_time %in% NA ) |> select (dep_time , n = n())
+# How many flights have a missing dep_time?
+# What other variables are missing in these rows? What might these rows represent?
+
+flights |>group_by()|>
+  filter(dep_time %in% NA ) |>
+  summarise(n())
+
+summary(flights)
