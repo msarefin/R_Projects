@@ -1857,3 +1857,24 @@ flights |> mutate(nov = month ==11, final = nov | 12, .keep = "used")
 
 # https://r4ds.hadley.nz/logicals.html#in
 1:12 %in% c(2,5,8,3)
+
+flights |>
+  filter(month %in% c(11,12))
+
+
+c(2,3,NA) == NA 
+c(2,3, NA) %in% NA
+
+
+flights |> filter(dep_time %in% c(NA, 0800))
+
+# https://r4ds.hadley.nz/logicals.html#exercises-1
+
+
+flights |> filter(arr_delay %in% NA , !dep_delay %in% NA)
+flights |> filter(is.na(arr_delay), !is.na(dep_delay))              
+flights |> filter(!is.na(arr_delay), is.na(dep_delay))                  
+flights |> filter(!arr_delay %in% NA, dep_delay %in% NA)                  
+
+flights |> group_by(dep_time) |>
+  filter(dep_time %in% NA ) |> select (dep_time , n = n())
