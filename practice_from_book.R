@@ -1878,3 +1878,67 @@ flights |> filter(!arr_delay %in% NA, dep_delay %in% NA)
 
 flights |> group_by(dep_time) |>
   filter(dep_time %in% NA ) |> select (dep_time , n = n())
+
+# https://r4ds.hadley.nz/logicals.html#logical-summaries
+
+# using all() -All values are true - all(c(T,F,T,T,T)) this returns False
+# any() - atleast one value is true - any(c(T,F,T,T,T)) - this returns ture
+
+flights |> 
+  group_by(year, month, day) |>
+  summarise(
+    all_delayed = all(dep_delay <= 60, na.rm = T),
+    any_long_delay = any(arr_delay >=300, na.rm = T),
+    .groups = "drop"
+  )
+
+#https://r4ds.hadley.nz/logicals.html#sec-numeric-summaries-of-logicals
+
+# True represents 1 and False represents 0 
+# sum(c(T,F,T,T,T)) returns 4
+# mean(c(T,F,T,T,T)) returns 0.8 (sum(T)/length of vector)
+
+sum(c(T,F,T,T,T))
+
+mean(c(T,F,T,T,T))
+
+flights |>
+  group_by(year, month, day)|>
+  summarise(
+    proportion_delay = mean(dep_delay<= 60, na.rm = T),
+    count_long_delay = sum(arr_delay >= 300, na.rm = T),
+    .groups = "drop"
+    
+  )
+
+# https://r4ds.hadley.nz/logicals.html#logical-subsetting
+
+# Imagine we wanted to look at the average delay 
+# just for flights that were actually delayed. 
+# One way to do so would be to first filter the 
+# flights and then calculate the average delay:
+
+flights |>
+  filter(arr_delay > 0) |>
+  group_by(year, month, day) |>
+  summarise(
+    behind  = mean(arr_delay),
+    n = n(), 
+    .groups = "drop"
+  )
+
+#inline filtering - vector[vector >= value]
+
+v <- c(65,46,98,47,65,98,4,65,49,8,74)
+
+v[v>65]
+
+flights |>
+  group_by(year, month, day) |>
+  summarise(
+    behind = mean(arr_delay[arr_delay > 0],na.rm = T),
+    ahead = mean(arr_delay[arr_delay < 0], na.rm = T), 
+    n = n(),
+    .groups = "drop"
+  )
+
