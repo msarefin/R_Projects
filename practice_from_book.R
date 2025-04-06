@@ -1879,7 +1879,7 @@ flights |> filter(is.na(arr_delay), !is.na(dep_delay))
 flights |> filter(!is.na(arr_delay), is.na(dep_delay))                  
 flights |> filter(!arr_delay %in% NA, dep_delay %in% NA)                  
 
-<<<<<<< HEAD
+
 flights |> group_by(dep_time) |>
   filter(dep_time %in% NA ) |> select (dep_time , n = n())
 
@@ -1946,7 +1946,7 @@ flights |>
     .groups = "drop"
   )
 
-=======
+
 # How many flights have a missing dep_time?
 # What other variables are missing in these rows? What might these rows represent?
 
@@ -1955,4 +1955,3 @@ flights |>group_by()|>
   summarise(n())
 
 summary(flights)
->>>>>>> f610e9d3a04e6849c773aa568bd00fea346f422b
