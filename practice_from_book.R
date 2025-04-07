@@ -1955,3 +1955,17 @@ flights |>group_by()|>
   summarise(n())
 
 summary(flights)
+
+
+# What does prod() return when applied to a logical vector? 
+# What logical summary function is it equivalent to? 
+# What does min() return when applied to a logical vector? 
+# What logical summary function is it equivalent to? 
+# Read the documentation and perform a few experiments.
+
+# When prod() is applied to a logical vector, it returns a numeric value: 
+# 1 if all elements are TRUE, and 0 if any element is FALSE. 
+# It's equivalent to the logical summary function all(). 
+# min() applied to a logical vector returns FALSE if any element is FALSE, 
+# and TRUE if all elements are TRUE, equivalent to any(). 
+
