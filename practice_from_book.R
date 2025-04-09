@@ -1963,9 +1963,69 @@ summary(flights)
 # What logical summary function is it equivalent to? 
 # Read the documentation and perform a few experiments.
 
+v1 <- c(T,T,T,F,F,T,T)
+v2 <- c(T,T,T,T,T,T,T)
+
+# In logocal vectors True (T) represents 1 and False (F) represents 0
+
+prod(v1) # This returns 0 
+prod(v2) # This will return 1
+
+# This is similar to all() 
+all(v1) # This returns FALSE
+all(v2) # This returns TRUE
+
+min(v1) # This will return 0
+min(v2) # This will return 1
+
+max(v1) # This will return 1
+max(v2) # This will return 1
+
+any(v1) # This will return TRUE
+any(v2) # This will return TRUE
+
+sum(v1) # This returns the sum of all TRUE Vectors
+sum(v2) # This returns the sum of all TRUE Vectors
+
+mean(v1) # This returns the mean of all TRUE Vectors
+mean(v2) # This returns the mean of all TRUE Vectors
+
 # When prod() is applied to a logical vector, it returns a numeric value: 
 # 1 if all elements are TRUE, and 0 if any element is FALSE. 
 # It's equivalent to the logical summary function all(). 
 # min() applied to a logical vector returns FALSE if any element is FALSE, 
 # and TRUE if all elements are TRUE, equivalent to any(). 
+
+# inline filters
+
+v3 = c(12,NA,15,25,11,18,39,40,55,28,32, NA, NA, T, F) # T and F are represented as 1 and 0
+
+v3[v3>25] # all vector elements greater than 25 but will also include NA
+
+v3[!is.na(v3)] # all vector elements except NA
+
+v3[v3>25 & !is.na(v3)] # all vector elements greater than 25 except NA
+
+v3[(v3>25 | v3 < 40) & !is.na(v3)] # all vector elements except NA
+
+v3[(v3 > 25 & v3 < 40) & !is.na(v3)] # all vector elements greater than 25 and less than 40 except NA 
+
+
+# https://r4ds.hadley.nz/logicals.html#conditional-transformations 
+
+# https://r4ds.hadley.nz/logicals.html#if_else
+
+v4 <- c(-3:3,NA)
+
+if_else(v4, "yes", "no")
+ifelse(v4, "yes","no")
+
+if_else(v3>25, "yes", "no")
+ifelse(v3>25, "yes", "no")
+
+if_else(v3>25, "yes", "no", "???")
+ifelse(is.na(v3),"???",ifelse(v3>25, "yes", "no"))
+
+
+
 
