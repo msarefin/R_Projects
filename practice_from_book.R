@@ -2026,6 +2026,46 @@ ifelse(v3>25, "yes", "no")
 if_else(v3>25, "yes", "no", "???")
 ifelse(is.na(v3),"???",ifelse(v3>25, "yes", "no"))
 
+# Case statement 
+
+x <- c(-3:3, NA)
+
+case_when(
+  x == 0 ~ "zero", 
+  x > 0 ~ "+ve",
+  x <0 ~ "-ve",
+  is.na(x) ~ "???"
+)
+
+case_when(
+  x > 0 ~ "+ve", 
+  x < 0 ~ "-ve", 
+)
+
+case_when(
+  x > 0 ~ "+ve", 
+  x < 0 ~ "-ve", 
+  .default = "???"
+)
+
+case_when(
+  x > 0 ~ "+ve", 
+  x > 2 ~ "This will be ignored"
+)
+
+
+flights |> 
+  mutate(
+    status = case_when(
+      is.na(arr_delay) ~ "Canceled", 
+      arr_delay < -30 ~ "Very Early", 
+      arr_delay < 15 ~ "Early", 
+      abs(arr_delay) <= 15 ~"On Time",
+      arr_delay < 60 ~ "Late",
+      arr_delay < Inf ~ "Very Late"
+    ), 
+    .keep = "used"
+  )
 
 
 
