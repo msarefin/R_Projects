@@ -2026,7 +2026,7 @@ ifelse(v3>25, "yes", "no")
 if_else(v3>25, "yes", "no", "???")
 ifelse(is.na(v3),"???",ifelse(v3>25, "yes", "no"))
 
-# Case statement 
+# Case statement - https://r4ds.hadley.nz/logicals.html#case_when
 
 x <- c(-3:3, NA)
 
@@ -2059,13 +2059,92 @@ flights |>
     status = case_when(
       is.na(arr_delay) ~ "Canceled", 
       arr_delay < -30 ~ "Very Early", 
-      arr_delay < 15 ~ "Early", 
+      arr_delay < -15 ~ "Early", 
       abs(arr_delay) <= 15 ~"On Time",
       arr_delay < 60 ~ "Late",
       arr_delay < Inf ~ "Very Late"
     ), 
     .keep = "used"
   )
+
+# https://r4ds.hadley.nz/logicals.html#compatible-types
+
+# Both the if_else() and case_when() require compatable types in the output
+# The following are compatable types
+# - numeric and logic - (TRUE, FALSE) and (1, 0)
+if_else(1==1, T, 0)
+if_else(1==-1, 1, F)
+
+case_when(x< -1 ~ T, x> 1 ~ 0, .default = F)
+
+# - String and factors
+
+if_else(1==1, "True",factor(T, F))
+if_else(1==-1, "True",factor(T, F))
+if_else(x>0,factor(T,F),"negative")
+
+# - dated and date-time
+# - NA is compatable with everything (logical, numeric, String, factors, dates and date-time)
+
+# The Following are incompatabe types
+
+if_else(TRUE, "a",1)
+
+case_when(
+  x < -1 ~ T, 
+  x > 0 ~ now()
+)
+
+
+# https://r4ds.hadley.nz/logicals.html#exercises-3
+
+
+num <- c(-10:10)
+
+if_else(num %% 2 == 0, "even", "odd")
+
+days_of_week <- c("Monday", "Saturday", "Wednesday", NA, "landi")
+
+if_else(tolower(days_of_week) %in% c("monday", "tuesday", "wednesday", "thursday", "friday"),"Weekday", "Weekend", "???")
+
+if_else(tolower(days_of_week) %in% c("saturday", "sunday"),"Weekend", "Weekday","???")
+
+
+case_when( 
+  is.na(tolower(days_of_week)) ~ "???",
+  tolower(days_of_week) %in% c("monday", "tuesday", "wednesday", "thursday", "friday") ~ "Weekday",
+  tolower(days_of_week) %in% c("saturday","sunday") ~ "Weekend",
+  .default = "not at day of week"
+)
+
+
+flights |> head()
+
+
+flights |> group_by(month , day )|>
+  mutate(
+    Holiday = case_when(
+      month == 1 & day == 1 ~ "New Year", 
+      month ==1 & day == 20 ~ "Martin Luther King's Birthday",
+      month == 2 & day == 17 ~ "Washington's Birthday",
+      month == 5 & day == 26 ~ "Memorial Day",
+      month == 6 & day == 19 ~ "Junteenth National Independence Day",
+      month == 7 & day == 4 ~ "Independence Day",
+      month == 9 & day == 1 ~ "Labor Day",
+      month == 10 & day == 13 ~ "Columbus Day",
+      month == 11 & day == 11 ~ "Vaterns Day", 
+      month == 11 & day == 27 ~ "Thanks Giving",
+      month == 12 & day == 25 ~ "Christmas Day"
+      
+    ), .keep = "used"
+  ) |> distinct(month, day, Holiday, rm.na = T) |> select(month, day, Holiday)
+
+flights |> 
+  mutate(date = format(as.Date(paste(year, month, day, sep = "/")),"%m/%d/%y" ), .keep = "used")
+
+
+
+# https://r4ds.hadley.nz/numbers.html#making-numbers
 
 
 
