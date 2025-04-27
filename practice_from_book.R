@@ -2139,12 +2139,159 @@ flights |> group_by(month , day )|>
     ), .keep = "used"
   ) |> distinct(month, day, Holiday, rm.na = T) |> select(month, day, Holiday)
 
-flights |> 
-  mutate(date = format(as.Date(paste(year, month, day, sep = "/")),"%m/%d/%y" ), .keep = "used")
+myflight <- flights |> 
+  mutate(
+    date = format(
+      as.Date(
+        paste(year, month, day, sep = "/")
+        ),format = "%m/%d/%Y" ), .keep = "used"
+    )
+
+
+myflight
+
+myflight |> mutate(weeknum = format(as.Date(date), "%U"))
+myflight |> mutate(dd = as.Date(date, format = "%d/%m/%Y")) # This will formate the date as YYYY-MM-DD
+
+myflight |> mutate(weeknum = format(as.Date(date), "%U")) # Sunday starts with 0 
+
+myflight |> mutate(weeknum = format(as.Date(date), "%W"))
+myflight |> mutate(weeknum = format(as.Date(date), "%V"))
+
+myflight |> mutate(date = as.Date(date, format = "%m/%d/%y"), weekday = strftime(as.Date(date), "%U"))
+myflight |> mutate(date = as.Date(date, format = "%m/%d/%y"), weekday = strftime(as.Date(date), "%W"))
+myflight |> mutate(date = as.Date(date, format = "%m/%d/%y"), weekday = strftime(as.Date(date), "%V"))
+
+myflights <- flights |> mutate(date = as.Date(paste(year, month, day, sep = "/")), .keep = "used")
+
+myflights
+
+myflights |> mutate(weeknum = format(date, "%U"))
+
+
+strftime(as.Date("01/01/2025", format = "%m/%d/%y"), format = "%U")
+
+
+# Sample date
+date <- as.Date("2025-01-01")
+
+
+# Extract week number using strftime()
+week_number_sunday <- strftime(date, format = "%U")
+week_number_iso <- strftime(date, format = "%V")
+
+
+# Print results
+cat("Week number (starting from Sunday):", week_number_sunday, "\n")
+cat("ISO 8601 week number:", week_number_iso, "\n")
 
 
 
 # https://r4ds.hadley.nz/numbers.html#making-numbers
 
+x <- c("1.2", "5.6", "1e3")
+parse_double(x)
 
 
+x <- c("$1,234", "USD 3,513", "59%")
+parse_number(x)
+parse_character(x)
+
+# https://r4ds.hadley.nz/numbers.html#sec-counts
+
+flights |> count(dest)
+
+flights |> count(dest, sort = T)
+
+
+flights |> group_by(dest) |>
+  summarise(
+    n = n(), 
+    delay = mean(arr_delay, na.rm = T)
+  )
+
+
+# n_distinct(x) counts the number of distinct (unique) values of one or more variables.
+
+flights |> 
+  group_by(dest) |>
+  summarise(carrier = n_distinct(carrier)) |>
+  arrange(desc(carrier))
+
+# A weighted count is a sum. For example you could “count” the number of miles each plane flew:
+
+flights |> 
+  group_by(tailnum)|>
+  summarise(miles = sum(distance))
+
+
+# Weighted counts are a common problem so count() has a wt argument that does the same thing:
+
+flights |> count(tailnum, wt = distance)
+
+
+flights |> 
+  group_by(dest) |>
+  summarise(n_cancled = sum(is.na(dep_time)))
+
+
+
+flights |> count(dest,wt = is.na(dep_time))
+
+
+flights |> count(dest, sort = T)
+
+flights |> group_by(dest)|> summarise(n = n()) |> arrange(desc(n))
+
+
+flights |> count(tailnum, wt = distance)
+
+flights |> group_by(tailnum) |> summarise(n = sum(distance))
+
+
+# https://r4ds.hadley.nz/numbers.html#numeric-transformations
+
+# if you are looking for flights for Jan and Feb
+
+flights |> filter(month == c(1,2)) # This will give you incorrect results becasue the filter cycles through 1 and 2
+
+flights |> filter(month %in% c(1,2)) # this will give you the correct result. 
+
+# https://r4ds.hadley.nz/numbers.html#minimum-and-maximum
+
+df <- tribble(
+  ~x, ~y, 
+  1,3,
+  5,2,
+  7,NA
+)
+
+df
+
+# pmin and pmax compares the values within a row
+
+df |>
+  mutate(
+    min = pmin(x, y, na.rm = T),
+    max = pmax(x,y, na.rm = T)
+  )
+
+# The follwoing is incorrect as it only the min and max within the same column
+df |> 
+  mutate(
+    min = min(x,y,na.rm = T),
+    max = max(x,y,na.rm = T)
+  )
+
+
+# https://r4ds.hadley.nz/numbers.html#modular-arithmetic
+
+1:10 %/% 3
+1:10 %% 3
+
+flights |> 
+  mutate(
+    hour = sched_dep_time %/% 100,
+    minute = sched_dep_time %% 100,
+    .keep = "used"
+  )
