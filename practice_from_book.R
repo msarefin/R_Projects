@@ -2295,3 +2295,18 @@ flights |>
     minute = sched_dep_time %% 100,
     .keep = "used"
   )
+
+
+flights |> 
+  group_by(hour= sched_dep_time %/% 100) |>
+  summarise(prop_cancelled = mean(is.na(dep_time)), n = n()) |>
+  filter(hour >1) |>
+  ggplot(aes(x = hour, y = prop_cancelled))+
+  geom_line(color = "grey50")+
+  geom_point(aes(size = n))
+
+# https://r4ds.hadley.nz/numbers.html#logarithms
+
+
+
+
