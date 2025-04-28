@@ -2307,6 +2307,20 @@ flights |>
 
 # https://r4ds.hadley.nz/numbers.html#logarithms
 
+log(100, 10) # log 100 = 2 (log 100 base 10 = 2) 
+
+
+# https://r4ds.hadley.nz/numbers.html#sec-rounding
+
+round(123.321)
+round(123.321, 1)
+round(123.321, 2)
+
+round(123.321,-1)
+round(123.321,-2)
+
+
+
 
 
 
