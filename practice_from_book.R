@@ -2312,15 +2312,128 @@ log(100, 10) # log 100 = 2 (log 100 base 10 = 2)
 
 # https://r4ds.hadley.nz/numbers.html#sec-rounding
 
-round(123.321)
-round(123.321, 1)
-round(123.321, 2)
+x <- 123.321
 
-round(123.321,-1)
-round(123.321,-2)
+round(x)
+round(x, 1)
+round(x, 2)
+
+round(x,-1)
+round(x,-2)
+
+floor(x)
+ceiling(x)
 
 
+round(x/4)*4
+round(x/0.25)*0.25
 
 
+# https://r4ds.hadley.nz/numbers.html#cutting-numbers-into-ranges
 
+x<- c(1,2,5,10,15,20)
+cut(
+  x, 
+  breaks = c(0,5,10,15,20),
+  labels = c("sm","md","lg","xl")
+  )
+
+# Any thing outside the range will be noted as NA
+y <- c(NA, -10, 5,10,30)
+cut(y, breaks = c(0,5,10,15,20))
+
+# https://r4ds.hadley.nz/numbers.html#sec-cumulative-and-rolling-aggregates
+
+x <- 1:10
+
+cumsum(x)
+cumprod(x)
+cummin(x)
+cummax(x)
+cummean(x)
+
+# https://r4ds.hadley.nz/numbers.html#general-transformations
+
+
+x <- c(1,2,2,3,4,NA)
+min_rank(x)
+
+min_rank(desc(x))
+
+df <- tibble(x = x)
+df |>
+  mutate(
+    row_number = row_number(x), 
+    dense_rank = dense_rank(x),
+    percent_rank = percent_rank(x),
+    cume_dist = cume_dist(x)
+  )
+
+df <- tibble(id = 1:10)
+
+df |> 
+  mutate(
+    row0 = row_number() - 1,
+    three_groups = row0 %% 3,
+    three_in_each_group = row0 %/% 3
+  )
+
+# https://r4ds.hadley.nz/numbers.html#offsets
+
+x <- c(2, 5, 11, 11, 19, 35)
+lag(x) # the previous value win the vector
+lead(x) # the next value in the vector
+
+x - lag(x)
+x == lag(x)
+
+lead(x) - x
+
+# this will be useful to get the time lapse between between first time and the next time 
+# for example the time difference bwtween the two bookings
+
+# https://r4ds.hadley.nz/numbers.html#consecutive-identifiers
+
+events <- tibble(
+  time=c(0,1,2,3,5,10,12,15,17,19,20,27,28,30)
+)
+
+events
+
+events |> 
+  mutate(
+    diff = time - lag(time, default = first(time)), 
+    has_gap = diff >=5
+  ) |>
+  mutate(
+    group = cumsum(has_gap)
+  )
+
+df <- tibble(
+  x = c("a", "a", "a", "b", "c", "c", "d", "e", "a", "a", "b", "b"),
+  y = c(1, 2, 3, 2, 4, 1, 3, 9, 4, 8, 10, 199)
+)
+
+
+df
+
+df |> 
+  group_by(id = consecutive_id(x)) |>
+  slice_head(n = 1)
+  
+  
+flights |>
+  group_by(year, month, day) |>
+  summarize(
+    mean = mean(dep_delay, na.rm = TRUE),
+    median = median(dep_delay, na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  ) |> 
+  ggplot(aes(x = mean, y = median)) + 
+  geom_abline(slope = 1, intercept = 0, color = "white", linewidth = 2) +
+  geom_point()
+
+
+# https://r4ds.hadley.nz/numbers.html#sec-min-max-summary
 
