@@ -2437,3 +2437,66 @@ flights |>
 
 # https://r4ds.hadley.nz/numbers.html#sec-min-max-summary
 
+flights |>
+  group_by(year, month, day) |>
+  summarize(
+    max = max(dep_delay, na.rm = T),
+    q95 = quantile(dep_delay, 0.95, na.rm = T), 
+    .groups = "drop"
+  )
+
+# https://r4ds.hadley.nz/numbers.html#spread
+
+flights |> group_by(origin,dest) |>
+  summarise(
+    distance_iqr = IQR(distance), n = n(), .groups = "drop"
+  ) |> filter(distance_iqr>0)
+
+
+# Interquantile range - https://www.scribbr.com/statistics/interquartile-range/
+
+v1 = c(48,52,57,64,72,76,77,81,85,88)
+
+median(v1)
+q1 = quantile(v1, 0.25)
+q1
+q3 = quantile(v1, 0.75)
+q3
+InterQuantileRange = q3 - q1
+InterQuantileRange
+
+v2 <- c(48,52,57,61,64,72,76,77,81,85,88)
+
+q1 <- quantile(v2, 0.25)
+q3 <- quantile(v2, 0.75)
+
+q3-q1
+
+IQR(v2)
+
+# https://r4ds.hadley.nz/numbers.html#distributions
+
+flights |> 
+  filter(dep_delay <120) |>
+  ggplot(aes(x = dep_delay, group = interaction(day, month)))+
+  geom_freqpoly(binwidth = 5, alpha = 1/5)
+
+# https://r4ds.hadley.nz/numbers.html#positions
+
+flights |>
+  group_by(year, month, day) |>
+  summarize(
+    first_dep = first(dep_time, na_rm = T),
+    fifth_dep = nth(dep_time, 5, na_rm = T),
+    last_dep = last(dep_time, na_rm = T)
+  )
+
+
+flights |> 
+  group_by(year, month, day) |>
+  mutate(r = min_rank(sched_dep_time), .keep = "used") |>
+  filter(r %in% c(1, max(r)))
+
+
+# https://r4ds.hadley.nz/strings.html
+
