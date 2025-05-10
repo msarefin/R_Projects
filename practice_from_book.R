@@ -2500,3 +2500,22 @@ flights |>
 
 # https://r4ds.hadley.nz/strings.html
 
+library(tidyverse)
+install.packages("babynames")
+library(babynames)
+babynames
+
+# https://r4ds.hadley.nz/strings.html#creating-a-string
+
+string1 <- "This is a Srting"
+string2 <- 'If you wnat to use "Double Quotes" within a String, create string with single quote'
+
+
+# https://r4ds.hadley.nz/strings.html#escapes
+
+double_quote <- "\"" # or '"'
+single_quote <- '\'' # or "'"
+
+backslash <- "\\"
+
+
