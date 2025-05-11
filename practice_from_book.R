@@ -2515,7 +2515,17 @@ string2 <- 'If you wnat to use "Double Quotes" within a String, create string wi
 
 double_quote <- "\"" # or '"'
 single_quote <- '\'' # or "'"
-
 backslash <- "\\"
 
 
+x <- c(single_quote, double_quote, backslash)
+
+str_view(x)
+
+
+tricky <- "double_quote <- \"\\\"\" # or '\"'
+single_quote <- '\\'' # or \"'\""
+
+tricky
+str_view(tricky)
+  
