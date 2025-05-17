@@ -2210,6 +2210,23 @@ flights |> group_by(dest) |>
     delay = mean(arr_delay, na.rm = T)
   )
 
+# Starwars https://dplyr.tidyverse.org/reference/count.html
+
+starwars |> count(species, sex, gender, sort = T)
+
+starwars |> count(birth_decade = round(birth_year, -1))
+
+
+df <- tribble(
+  ~name, ~ gender, ~runs, 
+  "Max", "male", 10, 
+  "Sandra", "female", 1, 
+  "Susan", "female", 4
+)
+
+df %>%  count(gender)
+
+df %>%  count(gender, wt = runs)
 
 # n_distinct(x) counts the number of distinct (unique) values of one or more variables.
 
@@ -2529,3 +2546,21 @@ single_quote <- '\\'' # or \"'\""
 tricky
 str_view(tricky)
   
+
+z<- "\"This is a text between two double quotes\"\nThis text is in the next line
+  So is this one
+  \\ This is a backslash
+  '\'' this is a single quote between two single quotes
+  '\\'' this is a backslash and a single quote between single quote"
+str_view(z)
+
+y <- '\\\' this ia a slash and a single quote '
+str_view(y)
+
+x<- c("one\ntwo", "one\ttwo", "\u00b5","\U0001f604")
+x
+
+str_view(x)
+
+
+# https://r4ds.hadley.nz/strings.html#creating-many-strings-from-data
