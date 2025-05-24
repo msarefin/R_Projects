@@ -2601,4 +2601,64 @@ df |> mutate(greeting = str_glue("Hi {name}"))
 
 df |> mutate(greeting = str_glue("{{Hi {name}!}}"))
 
+# https://r4ds.hadley.nz/strings.html#str_flatten
 
+str_flatten(c("x","y","z"))
+
+str_flatten(c("x","y","x"),",")
+
+str_flatten(c("Alice", "Samantha","James"),",", last = ", and ")
+
+df <- tribble(
+  ~ name, ~ fruit,
+  "Carmen", "banana",
+  "Carmen", "apple",
+  "Marvin", "nectarine",
+  "Terence", "cantaloupe",
+  "Terence", "papaya",
+  "Terence", "mandarin"
+)
+
+df
+
+df |> group_by(name) |> summarise(fruit = str_flatten(fruit, ",",last = ", and "))
+
+str_c("hi ", NA)
+str_c(letters[1:2], letters[1:3])
+
+paste0("hi ", NA)
+paste0(letters[1:2], letters[1:3])
+
+# https://r4ds.hadley.nz/strings.html#extracting-data-from-strings
+# df |> separate_longer_delim(col, delim)
+# df |> separate_longer_position(col, width)
+# df |> separate_wider_delim(col, delim, names)
+# df |> separate_wider_position(col, widths)
+  
+df1 <- tibble(x = c("a,b,c", "d,e","f"))
+
+df1 |> separate_longer_delim(x, delim = ",")
+
+
+df2 <- tibble(x = c("1211","131","21"))
+
+df2 |> separate_longer_position(x , width = 1)
+
+df3 <- tibble(x = c("a10.1.2022","b10.2.2011", "e15.1.2015"))
+
+df3 |> separate_wider_delim(
+  x, 
+  delim = ".", 
+  names = c("code","edition","year")
+)
+
+df3 |> separate_wider_delim(x, delim = ".", names = c("code", NA, "year"))
+  
+  
+  
+  
+  
+  
+  
+  
+  
