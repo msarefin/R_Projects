@@ -2635,6 +2635,9 @@ paste0(letters[1:2], letters[1:3])
 # df |> separate_wider_delim(col, delim, names)
 # df |> separate_wider_position(col, widths)
   
+
+# https://r4ds.hadley.nz/strings.html#sec-string-columns
+
 df1 <- tibble(x = c("a,b,c", "d,e","f"))
 
 df1 |> separate_longer_delim(x, delim = ",")
@@ -2654,11 +2657,51 @@ df3 |> separate_wider_delim(
 
 df3 |> separate_wider_delim(x, delim = ".", names = c("code", NA, "year"))
   
+df4 <- tibble(x = c("202215TX", "202122LA", "202325CA")) 
   
+df4 |> separate_wider_position(
+  x, 
+  widths = c(year = 4, age = 2, state = 2)
+)  
+
   
+# https://r4ds.hadley.nz/strings.html#diagnosing-widening-problems
+
+df <- tibble(x = c("1-1-1", "1-1-2", "1-3", "1-3-2", "1"))
+
+df |> separate_wider_delim(x, delim = "-", names = c("x","y","z"))
+
+debug <- df |> separate_wider_delim(x, delim = "-",names = c("x","y","z"), too_few = "debug")
+
+debug |> filter(!x_ok)
   
-  
-  
-  
-  
-  
+df |> separate_wider_delim(x, delim = "-", names = c("x","y","z"), too_few = "align_start")
+
+df |> 
+  separate_wider_delim(
+    x,
+    delim = "-",
+    names = c("x", "y", "z"),
+    too_few = "align_start"
+  )
+
+df <- tibble(x = c("1-1-1", "1-1-2", "1-3-5-6", "1-3-2", "1-3-5-7-9"))
+
+
+df |> separate_wider_delim(x, delim = "-", names = c("X","y","Z"))
+
+debug <- df |> separate_wider_delim(x, delim = "-", names = c("x","y","z"), too_many = "debug")  
+
+debug |> filter(!x_ok)
+
+df |> separate_wider_delim(x, delim = "-", names = c("x","y","z"), too_many = "drop")
+df |> separate_wider_delim(x, delim = "-", names = c("x","y","z"), too_many = "merge")
+
+# https://r4ds.hadley.nz/strings.html#letters
+
+# https://r4ds.hadley.nz/strings.html#letters
+
+str_length(c("d", "This is just a string of text to check length", NA))
+
+library(babynames)
+babynames |> count(length = str_length(name), wt = n)
