@@ -2216,7 +2216,6 @@ starwars |> count(species, sex, gender, sort = T)
 
 starwars |> count(birth_decade = round(birth_year, -1))
 
-
 df <- tribble(
   ~name, ~ gender, ~runs, 
   "Max", "male", 10, 
@@ -2227,6 +2226,25 @@ df <- tribble(
 df %>%  count(gender)
 
 df %>%  count(gender, wt = runs)
+
+
+df2 <- tibble(
+  id = 1:5,
+  type = factor(c("a", "c", "a", NA, "a"), levels = c("a", "b", "c"))
+)
+
+df2 %>%  count(type)
+df2 %>% count(type, .drop = F)
+
+df2 %>% group_by(type, .drop = F) %>%  count()
+
+
+#tally 
+
+starwars %>%  tally()
+
+df %>%  add_count(gender, wt = runs)
+df %>%  add_tally(wt = runs)
 
 # n_distinct(x) counts the number of distinct (unique) values of one or more variables.
 
@@ -2564,3 +2582,23 @@ str_view(x)
 
 
 # https://r4ds.hadley.nz/strings.html#creating-many-strings-from-data
+
+str_c("x","y")
+
+str_c("Hello ",c("John", "Alex","Samantha") )
+
+df <- tibble(name = c("Flora","David","Terra",NA))
+df |> mutate(greetings = str_c("Hi, ", name, "!"), .keep = "none")
+
+df |> mutate(
+  greetings1 = str_c("Hi, ",coalesce(name, "you"),"!"),
+  greetings2 = coalesce(str_c("Hi, ", name, "!"), "Hi!")
+)
+
+# https://r4ds.hadley.nz/strings.html#sec-glue
+
+df |> mutate(greeting = str_glue("Hi {name}"))
+
+df |> mutate(greeting = str_glue("{{Hi {name}!}}"))
+
+
