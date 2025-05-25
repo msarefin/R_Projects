@@ -2705,3 +2705,40 @@ str_length(c("d", "This is just a string of text to check length", NA))
 
 library(babynames)
 babynames |> count(length = str_length(name), wt = n)
+
+babynames |> filter(str_length(name) == 15) |> count(name, wt = n, sort = T)
+  
+# https://r4ds.hadley.nz/strings.html#subsetting
+
+df <- c("Apple","Mango","Banana")
+df |> str_sub(1,3)
+str_sub(df, -3,-1)
+
+babynames |> 
+  mutate(
+  first_initial = str_sub(name, 1,1), 
+  last_initial = str_sub(name, -1, -1)
+)
+
+# https://r4ds.hadley.nz/strings.html#encoding
+
+
+charToRaw("Apple")
+
+x1 <- "text\nEl Ni\xf1o was particularly bad this year"
+x1
+read_csv(x1)$text
+ad_csv(x1,locale = locale(encoding = "Latin1"))$text
+
+x2 <- "text\n\x82\xb1\x82\xf1\x82\xc9\x82\xbf\x82\xcd"
+x2
+read_csv(x2)$text
+read_csv(x2, locale = locale(encoding = "Shift-JIS"))$text
+
+
+
+
+
+
+
+
