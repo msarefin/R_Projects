@@ -2736,9 +2736,21 @@ read_csv(x2)$text
 read_csv(x2, locale = locale(encoding = "Shift-JIS"))$text
 
 
+# https://r4ds.hadley.nz/strings.html#letter-variations
 
+u <- c("\u00fc", "u\u0308")
 
+str_view(u)
+str_length(u)
+str_sub(u,1,1)
 
+u[[1]]==u[[2]]
 
+str_equal(u[[1]], u[[2]])
 
+str_to_upper(u)
+str_to_upper(c("a","a"))
+str_to_upper(c("i","i"),locale = "tr")
+str_sort(c("a","c","ch","h","z"))
+str_sort(c("a","c","ch","h","z"), locale = "cs")
 
