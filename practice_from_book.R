@@ -2623,11 +2623,12 @@ df
 
 df |> group_by(name) |> summarise(fruit = str_flatten(fruit, ",",last = ", and "))
 
-df |>  
-  mutate(sentense = str_c(name, " likes ", str_flatten(fruit, ", ", last = ", and ")))|>
-  group_by(name)|>
-  summarise(sentense = str_flatten(sentense))
-  
+df |> group_by(name) |> 
+  reframe(fruit = min(str_c(name, " likes ", str_flatten(fruit, ",",last = ", and "))))
+          
+df |> group_by(name) |> 
+  summarise(fruit = min(str_c(name, " likes ", str_flatten(fruit, ",",last = ", and "))))           
+
 
 
 str_c("hi ", NA)
