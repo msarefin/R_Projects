@@ -2762,7 +2762,7 @@ str_to_upper(c("i","i"),locale = "tr")
 str_sort(c("a","c","ch","h","z"))
 str_sort(c("a","c","ch","h","z"), locale = "cs")
 
-# https://r4ds.hadley.nz/regexps.html#introduction
+# Chapter15 - https://r4ds.hadley.nz/regexps.html#introduction
 
 
 # Pattern Basics - https://r4ds.hadley.nz/regexps.html#introduction
@@ -2805,12 +2805,15 @@ str_view(fruit, "aa|ee|ii|oo|uu")
 # 15.3 Key functions - https://r4ds.hadley.nz/regexps.html#sec-stringr-regex-funs
 
 str_detect(c("a","e","i","o","u"), "a|e|i|o|u")
-str_detect(c("a","e","i","o","u"), "[aeiou]")
+str_detect(c("a","e","i","o","u","y"), "[aeiou]")
 str_detect(c("a","e","i","o","u"), "[^aeiou]")
 
-babynames |> filter(str_detect(name, "x")) |> count(name, wt = n, sort = TRUE)
+babynames |> 
+  filter(str_detect(name, "x")) |> 
+  count(name, wt = n, sort = TRUE)
 
-babynames |> group_by(year) |> 
+babynames |> 
+  group_by(year) |> 
   filter(str_detect(name, "x")) |> 
   summarise()
 
