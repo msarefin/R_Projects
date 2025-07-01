@@ -2812,9 +2812,9 @@ babynames |>
   filter(str_detect(name, "x")) |> 
   count(name, wt = n, sort = TRUE)
 
-babynames |> 
-  group_by(year) |> 
-  filter(str_detect(name, "x")) |> 
-  summarise()
+babynames |>
+  group_by(year) |>
+  summarize(prop_x = mean(str_detect(name, "x"))) |>
+  ggplot(aes(x = year, y = prop_x)) + geom_line()
 
 
