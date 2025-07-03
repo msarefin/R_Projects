@@ -1547,6 +1547,1291 @@ ggplot(data = diamonds, mapping = aes(x = price, y = cut))+
   geom_boxplot(alpha = 0.5)+
   scale_x_continuous(labels = label_dollar())
 
+<<<<<<< HEAD
 
 =======
 >>>>>>> parent of 80f1d0a... learned to add labels to chart instead of default names to make graph more informative
+=======
+ggplot(data = diamonds, mapping = aes(x = price, y = cut))+
+  geom_boxplot(alpha = 0.5)+
+  scale_x_continuous(
+    labels = label_dollar(scale = 1/1000, suffix = "K"),
+    breaks = seq(1000, 19000, by = 6000)
+  )
+
+# https://r4ds.hadley.nz/communication.html#replacing-a-scale
+
+ggplot(diamonds, aes(x = carat, y = price))+
+  geom_bin2d();
+
+
+ggplot(diamonds, aes(x=log10(carat),y = log10(price)))+
+  geom_bin2d()
+
+ggplot(diamonds, aes(x = carat, y = price))+
+  geom_bin2d()+
+  scale_x_log10()+
+  scale_y_log10()
+
+
+ggplot(mpg, aes(x = displ, y = hwy))+
+  geom_point(aes(color= drv))
+
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy))+
+  geom_point(aes(color = drv))+
+  scale_color_brewer(palette = "Set1")
+
+
+
+presidential |>
+  mutate(id = 33 + row_number())|>
+  ggplot(aes(x = start, y = id, color = party))+
+  geom_point()+
+  geom_segment(aes(xend = end, yend = id))+
+  scale_color_manual(values = c(Republican = "#E81B23", Democratic = "#00AEF3"))
+
+
+df <- tibble(
+  x = rnorm(10000),
+  y = rnorm(10000)
+)
+
+
+ggplot(df, aes(x, y))+
+  geom_hex()+
+  coord_fixed()+
+  labs(title = "Default Continuous", x = NULL, y = NULL)
+
+ggplot(df, aes(x, y))+
+  geom_hex()+
+  coord_fixed()+
+  scale_fill_viridis_c()+
+  labs(title = "Virdis, Continuous", NULL, NULL)
+  
+ggplot(df, aes(x, y))+
+  geom_hex()+
+  coord_fixed()+
+  scale_fill_viridis_b()+
+  labs(title = "Virdis, binned", NULL, NULL)
+
+
+# Zooming - https://r4ds.hadley.nz/communication.html#zooming
+
+
+ggplot(mpg, aes(x = displ, y = hwy))+
+  geom_point(aes(color = drv))+
+  geom_smooth()
+
+
+mpg |> 
+  filter(displ >= 5 & displ <= 6 & hwy >= 10 & hwy <=25) |>
+  ggplot(aes(x = displ, y = hwy))+
+  geom_point(aes(color = drv))+
+  geom_smooth()
+
+
+ggplot(mpg, aes(x = displ, y = hwy))+
+  geom_point(aes(color = drv))+
+  geom_smooth()+
+  scale_x_continuous(limits = c(5,6))+
+  scale_y_continuous(limits = c(10, 25))
+
+
+ggplot(mpg, aes(x = displ, y = hwy))+
+  geom_point(aes(color = drv))+
+  geom_smooth()+
+  coord_cartesian(xlim = c(5,6),ylim = c(10,25))
+
+
+suv <- mpg %>%  filter(class== "suv")
+compact <- mpg %>%  filter(class == "compact")
+
+ggplot(suv, aes(x = displ, y = hwy, color = drv))+
+  geom_point()
+
+ggplot(compact, aes(x = displ, y = hwy, color = drv))+
+  geom_point()
+
+
+ x_scale<- scale_x_continuous(limits = range(mpg$displ))
+ y_scale<- scale_y_continuous(limits = range(mpg$hwy))
+ col_scale<- scale_color_discrete(limit = unique(mpg$drv))
+
+ #left
+ 
+ ggplot(suv, aes(x = displ, y = hwy, color = drv))+
+   geom_point()+
+   x_scale + y_scale + col_scale
+
+ 
+ #right
+ 
+ ggplot(compact, aes(x = displ, y = hwy, color = drv))+
+   geom_point()+
+   x_scale+ y_scale+ col_scale
+
+ 
+ # 11.4.6 Exercise - https://r4ds.hadley.nz/communication.html#exercises-2
+ 
+ df <- tibble(
+   x = rnorm(10000), 
+   y = rnorm(10000)
+ )
+ 
+ ggplot(df, aes(x, y))+
+   geom_hex()+
+   scale_color_gradient(low = "white", high = "red")+ 
+   coord_fixed()
+   
+ 
+ # Themes - https://r4ds.hadley.nz/communication.html#sec-themes
+ 
+ggplot(mpg, aes(x=displ, y = hwy))+
+ geom_point(aes(colour = class))+
+ geom_smooth(se = F)+ 
+ theme_bw()
+ 
+
+ggplot(mpg, aes(x=displ, y = hwy))+
+  geom_point(aes(colour = class))+
+  geom_smooth(se = F)+ 
+  theme_dark() 
+
+ggplot(mpg, aes(x=displ, y = hwy))+
+  geom_point(aes(colour = class))+
+  geom_smooth(se = F)+ 
+  theme_classic() 
+ 
+ggplot(mpg, aes(x=displ, y = hwy))+
+  geom_point(aes(colour = class))+
+  geom_smooth(se = F)+ 
+  theme_light()
+
+
+ggplot(mpg, aes(x=displ, y = hwy))+
+  geom_point(aes(colour = class))+
+  geom_smooth(se = F)+ 
+  theme_minimal()
+
+ggplot(mpg, aes(x=displ, y = hwy))+
+  geom_point(aes(colour = class))+
+  geom_smooth(se = F)+ 
+  theme_grey()
+
+ggplot(mpg, aes(x=displ, y = hwy))+
+  geom_point(aes(colour = class))+
+  geom_smooth(se = F)+ 
+  theme_void()
+
+
+ggplot(mpg, aes(x = displ, y = hwy, color = drv))+
+  geom_point()+
+  labs(
+    title = "Large engine sizes tend to have lower fuel economy",
+    caption = "Souce: https//fueleconoy.gov"
+  )+
+  theme(
+    legend.position = c(0.6 , 0.7),
+    legend.direction = "horizontal",
+    legend.box.background = element_rect(color = "black"),
+    plot.title = element_text(face = "bold"),
+    plot.title.position = "plot", 
+    plot.caption.position = "plot",
+    plot.caption = element_text(hjust = 0)
+  )
+
+
+# Layout https://r4ds.hadley.nz/communication.html#layout
+
+p1 <- ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  labs(title = "Plot 1")
+p2 <- ggplot(mpg, aes(x = drv, y = hwy)) + 
+  geom_boxplot() + 
+  labs(title = "Plot 2")
+
+library(patchwork)
+
+p1 + p2
+
+p3 <- ggplot(mpg, aes(x = cty, y = hwy)) + 
+  geom_point() + 
+  labs(title = "Plot 3")
+(p1 | p3) / p2
+
+##
+
+p1 <- ggplot(mpg, aes(x = drv, y = cty, color = drv)) + 
+  geom_boxplot(show.legend = FALSE) + 
+  labs(title = "Plot 1")
+
+p2 <- ggplot(mpg, aes(x = drv, y = hwy, color = drv)) + 
+  geom_boxplot(show.legend = FALSE) + 
+  labs(title = "Plot 2")
+
+p3 <- ggplot(mpg, aes(x = cty, color = drv, fill = drv)) + 
+  geom_density(alpha = 0.5) + 
+  labs(title = "Plot 3")
+
+p4 <- ggplot(mpg, aes(x = hwy, color = drv, fill = drv)) + 
+  geom_density(alpha = 0.5) + 
+  labs(title = "Plot 4")
+
+p5 <- ggplot(mpg, aes(x = cty, y = hwy, color = drv)) + 
+  geom_point(show.legend = FALSE) + 
+  facet_wrap(~drv) +
+  labs(title = "Plot 5")
+
+(guide_area() /p5/ (p1 + p2) / (p3 + p4)) +
+  plot_annotation(
+    title = "City and highway mileage for cars with different drive trains",
+    caption = "Source: https://fueleconomy.gov."
+  ) +
+  plot_layout(
+    guides = "collect",
+    heights = c(1,2,4,2)
+  ) &
+  theme(legend.position = "top")
+
+
+# Chapter 12 - Logical vectors - 
+
+x <- c(1, 2, 3, 5, 7, 11, 13)
+x*2
+
+df <- tibble(x)
+
+df |> mutate(y = x*2)
+
+library(nycflights13)
+
+flights |>
+  filter(dep_time > 600 & dep_time <2000 & abs(arr_delay)<20)
+
+flights |> 
+  mutate(
+    daytime = dep_time > 600 & dep_time<2000,
+    approx_ontime = abs(arr_delay)<20,
+    .keep = "used"
+    )
+
+flights |> 
+  mutate(
+    daytime = dep_time > 600 & dep_time < 2000,
+    approx_ontime = abs(arr_delay) < 20,
+  ) |> 
+  filter(daytime & approx_ontime)
+
+# https://r4ds.hadley.nz/logicals.html#sec-fp-comparison
+
+x <- c(1 / 49 * 49, sqrt(2) ^ 2)
+
+x == c(1,2) # the vectors are not equal hence the result is FALSE FALSE
+
+print(x, digits = 16)
+
+near(x, c(1,2)) # as solution use near() whcich ignores the difference between the numbers caused during the calulation
+
+# https://r4ds.hadley.nz/logicals.html#sec-na-comparison
+
+# unknown values always yield NA for almost any operations. To determine if a variable is NA use is.na()
+
+NA >5 
+
+is.na(NA)
+
+a <- NA 
+b <- NA
+
+a==b
+
+# If you wants to retrieve data set where dep_time is NA
+flights |> filter(dep_time == NA) # this will yield no value
+
+flights |> filter(is.na(dep_time)) # this will yield data set 
+
+flights |> filter(month == 1, day == 2) |> arrange(dep_time) |> select(dep_time)
+
+# when arranging data set the NA is arrange is first. 
+flights |> filter(month ==1, day == 2) |>
+  arrange(desc(is.na(dep_time)), dep_time)
+
+# https://r4ds.hadley.nz/logicals.html#sec-na-boolean
+
+df <- tibble(x = c(T,F,NA))
+
+df |> mutate(and = x & NA, or = x | NA)
+
+tdf <- tibble(x = c(T,F,NA), y= c(NA,NA,NA))
+tdf |> mutate(and = x & y, or = x | y)
+
+# https://r4ds.hadley.nz/logicals.html#sec-order-operations-boolean
+
+flights |> filter(month == 11 | month == 12)
+
+flights |> mutate(nov = month ==11, final = nov | 12, .keep = "used")
+
+# https://r4ds.hadley.nz/logicals.html#in
+1:12 %in% c(2,5,8,3)
+
+flights |>
+  filter(month %in% c(11,12))
+
+
+c(2,3,NA) == NA 
+c(2,3, NA) %in% NA
+
+
+flights |> filter(dep_time %in% c(NA, 0800))
+
+# https://r4ds.hadley.nz/logicals.html#exercises-1
+
+# Find all flights where arr_delay is missing but dep_delay is not. 
+# Find all flights where neither arr_time nor sched_arr_time are missing, but arr_delay is.
+
+
+flights |> filter(arr_delay %in% NA , !dep_delay %in% NA)
+flights |> filter(is.na(arr_delay), !is.na(dep_delay))              
+flights |> filter(!is.na(arr_delay), is.na(dep_delay))                  
+flights |> filter(!arr_delay %in% NA, dep_delay %in% NA)                  
+
+
+flights |> group_by(dep_time) |>
+  filter(dep_time %in% NA ) |> select (dep_time , n = n())
+
+# https://r4ds.hadley.nz/logicals.html#logical-summaries
+
+# using all() -All values are true - all(c(T,F,T,T,T)) this returns False
+# any() - atleast one value is true - any(c(T,F,T,T,T)) - this returns ture
+
+flights |> 
+  group_by(year, month, day) |>
+  summarise(
+    all_delayed = all(dep_delay <= 60, na.rm = T),
+    any_long_delay = any(arr_delay >=300, na.rm = T),
+    .groups = "drop"
+  )
+
+#https://r4ds.hadley.nz/logicals.html#sec-numeric-summaries-of-logicals
+
+# True represents 1 and False represents 0 
+# sum(c(T,F,T,T,T)) returns 4
+# mean(c(T,F,T,T,T)) returns 0.8 (sum(T)/length of vector)
+
+sum(c(T,F,T,T,T))
+
+mean(c(T,F,T,T,T))
+
+flights |>
+  group_by(year, month, day)|>
+  summarise(
+    proportion_delay = mean(dep_delay<= 60, na.rm = T),
+    count_long_delay = sum(arr_delay >= 300, na.rm = T),
+    .groups = "drop"
+    
+  )
+
+# https://r4ds.hadley.nz/logicals.html#logical-subsetting
+
+# Imagine we wanted to look at the average delay 
+# just for flights that were actually delayed. 
+# One way to do so would be to first filter the 
+# flights and then calculate the average delay:
+
+flights |>
+  filter(arr_delay > 0) |>
+  group_by(year, month, day) |>
+  summarise(
+    behind  = mean(arr_delay),
+    n = n(), 
+    .groups = "drop"
+  )
+
+#inline filtering - vector[vector >= value]
+
+v <- c(65,46,98,47,65,98,4,65,49,8,74)
+
+v[v>65]
+
+flights |>
+  group_by(year, month, day) |>
+  summarise(
+    behind = mean(arr_delay[arr_delay > 0],na.rm = T),
+    ahead = mean(arr_delay[arr_delay < 0], na.rm = T), 
+    n = n(),
+    .groups = "drop"
+  )
+
+
+# How many flights have a missing dep_time?
+# What other variables are missing in these rows? What might these rows represent?
+
+flights |>group_by()|>
+  filter(dep_time %in% NA ) |>
+  summarise(n())
+
+summary(flights)
+
+
+# What does prod() return when applied to a logical vector? 
+# What logical summary function is it equivalent to? 
+# What does min() return when applied to a logical vector? 
+# What logical summary function is it equivalent to? 
+# Read the documentation and perform a few experiments.
+
+v1 <- c(T,T,T,F,F,T,T)
+v2 <- c(T,T,T,T,T,T,T)
+
+# In logocal vectors True (T) represents 1 and False (F) represents 0
+
+prod(v1) # This returns 0 
+prod(v2) # This will return 1
+
+# This is similar to all() 
+all(v1) # This returns FALSE
+all(v2) # This returns TRUE
+
+min(v1) # This will return 0
+min(v2) # This will return 1
+
+max(v1) # This will return 1
+max(v2) # This will return 1
+
+any(v1) # This will return TRUE
+any(v2) # This will return TRUE
+
+sum(v1) # This returns the sum of all TRUE Vectors
+sum(v2) # This returns the sum of all TRUE Vectors
+
+mean(v1) # This returns the mean of all TRUE Vectors
+mean(v2) # This returns the mean of all TRUE Vectors
+
+# When prod() is applied to a logical vector, it returns a numeric value: 
+# 1 if all elements are TRUE, and 0 if any element is FALSE. 
+# It's equivalent to the logical summary function all(). 
+# min() applied to a logical vector returns FALSE if any element is FALSE, 
+# and TRUE if all elements are TRUE, equivalent to any(). 
+
+# inline filters
+
+v3 = c(12,NA,15,25,11,18,39,40,55,28,32, NA, NA, T, F) # T and F are represented as 1 and 0
+
+v3[v3>25] # all vector elements greater than 25 but will also include NA
+
+v3[!is.na(v3)] # all vector elements except NA
+
+v3[v3>25 & !is.na(v3)] # all vector elements greater than 25 except NA
+
+v3[(v3>25 | v3 < 40) & !is.na(v3)] # all vector elements except NA
+
+v3[(v3 > 25 & v3 < 40) & !is.na(v3)] # all vector elements greater than 25 and less than 40 except NA 
+
+
+# https://r4ds.hadley.nz/logicals.html#conditional-transformations 
+
+# https://r4ds.hadley.nz/logicals.html#if_else
+
+v4 <- c(-3:3,NA)
+
+if_else(v4, "yes", "no")
+ifelse(v4, "yes","no")
+
+if_else(v3>25, "yes", "no")
+ifelse(v3>25, "yes", "no")
+
+if_else(v3>25, "yes", "no", "???")
+ifelse(is.na(v3),"???",ifelse(v3>25, "yes", "no"))
+
+# Case statement - https://r4ds.hadley.nz/logicals.html#case_when
+
+x <- c(-3:3, NA)
+
+case_when(
+  x == 0 ~ "zero", 
+  x > 0 ~ "+ve",
+  x <0 ~ "-ve",
+  is.na(x) ~ "???"
+)
+
+case_when(
+  x > 0 ~ "+ve", 
+  x < 0 ~ "-ve", 
+)
+
+case_when(
+  x > 0 ~ "+ve", 
+  x < 0 ~ "-ve", 
+  .default = "???"
+)
+
+case_when(
+  x > 0 ~ "+ve", 
+  x > 2 ~ "This will be ignored"
+)
+
+
+flights |> 
+  mutate(
+    status = case_when(
+      is.na(arr_delay) ~ "Canceled", 
+      arr_delay < -30 ~ "Very Early", 
+      arr_delay < -15 ~ "Early", 
+      abs(arr_delay) <= 15 ~"On Time",
+      arr_delay < 60 ~ "Late",
+      arr_delay < Inf ~ "Very Late"
+    ), 
+    .keep = "used"
+  )
+
+# https://r4ds.hadley.nz/logicals.html#compatible-types
+
+# Both the if_else() and case_when() require compatable types in the output
+# The following are compatable types
+# - numeric and logic - (TRUE, FALSE) and (1, 0)
+if_else(1==1, T, 0)
+if_else(1==-1, 1, F)
+
+case_when(x< -1 ~ T, x> 1 ~ 0, .default = F)
+
+# - String and factors
+
+if_else(1==1, "True",factor(T, F))
+if_else(1==-1, "True",factor(T, F))
+if_else(x>0,factor(T,F),"negative")
+
+# - dated and date-time
+# - NA is compatable with everything (logical, numeric, String, factors, dates and date-time)
+
+# The Following are incompatabe types
+
+if_else(TRUE, "a",1)
+
+case_when(
+  x < -1 ~ T, 
+  x > 0 ~ now()
+)
+
+
+# https://r4ds.hadley.nz/logicals.html#exercises-3
+
+
+num <- c(-10:10)
+
+if_else(num %% 2 == 0, "even", "odd")
+
+days_of_week <- c("Monday", "Saturday", "Wednesday", NA, "landi")
+
+if_else(tolower(days_of_week) %in% c("monday", "tuesday", "wednesday", "thursday", "friday"),"Weekday", "Weekend", "???")
+
+if_else(tolower(days_of_week) %in% c("saturday", "sunday"),"Weekend", "Weekday","???")
+
+
+case_when( 
+  is.na(tolower(days_of_week)) ~ "???",
+  tolower(days_of_week) %in% c("monday", "tuesday", "wednesday", "thursday", "friday") ~ "Weekday",
+  tolower(days_of_week) %in% c("saturday","sunday") ~ "Weekend",
+  .default = "not at day of week"
+)
+
+
+flights |> head()
+
+
+flights |> group_by(month , day )|>
+  mutate(
+    Holiday = case_when(
+      month == 1 & day == 1 ~ "New Year", 
+      month ==1 & day == 20 ~ "Martin Luther King's Birthday",
+      month == 2 & day == 17 ~ "Washington's Birthday",
+      month == 5 & day == 26 ~ "Memorial Day",
+      month == 6 & day == 19 ~ "Junteenth National Independence Day",
+      month == 7 & day == 4 ~ "Independence Day",
+      month == 9 & day == 1 ~ "Labor Day",
+      month == 10 & day == 13 ~ "Columbus Day",
+      month == 11 & day == 11 ~ "Vaterns Day", 
+      month == 11 & day == 27 ~ "Thanks Giving",
+      month == 12 & day == 25 ~ "Christmas Day"
+      
+    ), .keep = "used"
+  ) |> distinct(month, day, Holiday, rm.na = T) |> select(month, day, Holiday)
+
+myflight <- flights |> 
+  mutate(
+    date = format(
+      as.Date(
+        paste(year, month, day, sep = "/")
+        ),format = "%m/%d/%Y" ), .keep = "used"
+    )
+
+
+myflight
+
+myflight |> mutate(weeknum = format(as.Date(date), "%U"))
+myflight |> mutate(dd = as.Date(date, format = "%d/%m/%Y")) # This will formate the date as YYYY-MM-DD
+
+myflight |> mutate(weeknum = format(as.Date(date), "%U")) # Sunday starts with 0 
+
+myflight |> mutate(weeknum = format(as.Date(date), "%W"))
+myflight |> mutate(weeknum = format(as.Date(date), "%V"))
+
+myflight |> mutate(date = as.Date(date, format = "%m/%d/%y"), weekday = strftime(as.Date(date), "%U"))
+myflight |> mutate(date = as.Date(date, format = "%m/%d/%y"), weekday = strftime(as.Date(date), "%W"))
+myflight |> mutate(date = as.Date(date, format = "%m/%d/%y"), weekday = strftime(as.Date(date), "%V"))
+
+myflights <- flights |> mutate(date = as.Date(paste(year, month, day, sep = "/")), .keep = "used")
+
+myflights
+
+myflights |> mutate(weeknum = format(date, "%U"))
+
+
+strftime(as.Date("01/01/2025", format = "%m/%d/%y"), format = "%U")
+
+
+# Sample date
+date <- as.Date("2025-01-01")
+
+
+# Extract week number using strftime()
+week_number_sunday <- strftime(date, format = "%U")
+week_number_iso <- strftime(date, format = "%V")
+
+
+# Print results
+cat("Week number (starting from Sunday):", week_number_sunday, "\n")
+cat("ISO 8601 week number:", week_number_iso, "\n")
+
+
+
+# https://r4ds.hadley.nz/numbers.html#making-numbers
+
+x <- c("1.2", "5.6", "1e3")
+parse_double(x)
+
+
+x <- c("$1,234", "USD 3,513", "59%")
+parse_number(x)
+parse_character(x)
+
+# https://r4ds.hadley.nz/numbers.html#sec-counts
+
+flights |> count(dest)
+
+flights |> count(dest, sort = T)
+
+
+flights |> group_by(dest) |>
+  summarise(
+    n = n(), 
+    delay = mean(arr_delay, na.rm = T)
+  )
+
+# Starwars https://dplyr.tidyverse.org/reference/count.html
+
+starwars |> count(species, sex, gender, sort = T)
+
+starwars |> count(birth_decade = round(birth_year, -1))
+
+df <- tribble(
+  ~name, ~ gender, ~runs, 
+  "Max", "male", 10, 
+  "Sandra", "female", 1, 
+  "Susan", "female", 4
+)
+
+df %>%  count(gender)
+
+df %>%  count(gender, wt = runs)
+
+
+df2 <- tibble(
+  id = 1:5,
+  type = factor(c("a", "c", "a", NA, "a"), levels = c("a", "b", "c"))
+)
+
+df2 %>%  count(type)
+df2 %>% count(type, .drop = F)
+
+df2 %>% group_by(type, .drop = F) %>%  count()
+
+
+#tally 
+
+starwars %>%  tally()
+
+df %>%  add_count(gender, wt = runs)
+df %>%  add_tally(wt = runs)
+
+# n_distinct(x) counts the number of distinct (unique) values of one or more variables.
+
+flights |> 
+  group_by(dest) |>
+  summarise(carrier = n_distinct(carrier)) |>
+  arrange(desc(carrier))
+
+# A weighted count is a sum. For example you could “count” the number of miles each plane flew:
+
+flights |> 
+  group_by(tailnum)|>
+  summarise(miles = sum(distance))
+
+
+# Weighted counts are a common problem so count() has a wt argument that does the same thing:
+
+flights |> count(tailnum, wt = distance)
+
+
+flights |> 
+  group_by(dest) |>
+  summarise(n_cancled = sum(is.na(dep_time)))
+
+
+
+flights |> count(dest,wt = is.na(dep_time))
+
+
+flights |> count(dest, sort = T)
+
+flights |> group_by(dest)|> summarise(n = n()) |> arrange(desc(n))
+
+
+flights |> count(tailnum, wt = distance)
+
+flights |> group_by(tailnum) |> summarise(n = sum(distance))
+
+
+# https://r4ds.hadley.nz/numbers.html#numeric-transformations
+
+# if you are looking for flights for Jan and Feb
+
+flights |> filter(month == c(1,2)) # This will give you incorrect results becasue the filter cycles through 1 and 2
+
+flights |> filter(month %in% c(1,2)) # this will give you the correct result. 
+
+# https://r4ds.hadley.nz/numbers.html#minimum-and-maximum
+
+df <- tribble(
+  ~x, ~y, 
+  1,3,
+  5,2,
+  7,NA
+)
+
+df
+
+# pmin and pmax compares the values within a row
+
+df |>
+  mutate(
+    min = pmin(x, y, na.rm = T),
+    max = pmax(x,y, na.rm = T)
+  )
+
+# The follwoing is incorrect as it only the min and max within the same column
+df |> 
+  mutate(
+    min = min(x,y,na.rm = T),
+    max = max(x,y,na.rm = T)
+  )
+
+
+# https://r4ds.hadley.nz/numbers.html#modular-arithmetic
+
+1:10 %/% 3
+1:10 %% 3
+
+flights |> 
+  mutate(
+    hour = sched_dep_time %/% 100,
+    minute = sched_dep_time %% 100,
+    .keep = "used"
+  )
+
+
+flights |> 
+  group_by(hour= sched_dep_time %/% 100) |>
+  summarise(prop_cancelled = mean(is.na(dep_time)), n = n()) |>
+  filter(hour >1) |>
+  ggplot(aes(x = hour, y = prop_cancelled))+
+  geom_line(color = "grey50")+
+  geom_point(aes(size = n))
+
+# https://r4ds.hadley.nz/numbers.html#logarithms
+
+log(100, 10) # log 100 = 2 (log 100 base 10 = 2) 
+
+
+# https://r4ds.hadley.nz/numbers.html#sec-rounding
+
+x <- 123.321
+
+round(x)
+round(x, 1)
+round(x, 2)
+
+round(x,-1)
+round(x,-2)
+
+floor(x)
+ceiling(x)
+
+
+round(x/4)*4
+round(x/0.25)*0.25
+
+
+# https://r4ds.hadley.nz/numbers.html#cutting-numbers-into-ranges
+
+x<- c(1,2,5,10,15,20)
+cut(
+  x, 
+  breaks = c(0,5,10,15,20),
+  labels = c("sm","md","lg","xl")
+  )
+
+# Any thing outside the range will be noted as NA
+y <- c(NA, -10, 5,10,30)
+cut(y, breaks = c(0,5,10,15,20))
+
+# https://r4ds.hadley.nz/numbers.html#sec-cumulative-and-rolling-aggregates
+
+x <- 1:10
+
+cumsum(x)
+cumprod(x)
+cummin(x)
+cummax(x)
+cummean(x)
+
+# https://r4ds.hadley.nz/numbers.html#general-transformations
+
+
+x <- c(1,2,2,3,4,NA)
+min_rank(x)
+
+min_rank(desc(x))
+
+df <- tibble(x = x)
+df |>
+  mutate(
+    row_number = row_number(x), 
+    dense_rank = dense_rank(x),
+    percent_rank = percent_rank(x),
+    cume_dist = cume_dist(x)
+  )
+
+df <- tibble(id = 1:10)
+
+df |> 
+  mutate(
+    row0 = row_number() - 1,
+    three_groups = row0 %% 3,
+    three_in_each_group = row0 %/% 3
+  )
+
+# https://r4ds.hadley.nz/numbers.html#offsets
+
+x <- c(2, 5, 11, 11, 19, 35)
+lag(x) # the previous value win the vector
+lead(x) # the next value in the vector
+
+x - lag(x)
+x == lag(x)
+
+lead(x) - x
+
+# this will be useful to get the time lapse between between first time and the next time 
+# for example the time difference bwtween the two bookings
+
+# https://r4ds.hadley.nz/numbers.html#consecutive-identifiers
+
+events <- tibble(
+  time=c(0,1,2,3,5,10,12,15,17,19,20,27,28,30)
+)
+
+events
+
+events |> 
+  mutate(
+    diff = time - lag(time, default = first(time)), 
+    has_gap = diff >=5
+  ) |>
+  mutate(
+    group = cumsum(has_gap)
+  )
+
+df <- tibble(
+  x = c("a", "a", "a", "b", "c", "c", "d", "e", "a", "a", "b", "b"),
+  y = c(1, 2, 3, 2, 4, 1, 3, 9, 4, 8, 10, 199)
+)
+
+
+df
+
+df |> 
+  group_by(id = consecutive_id(x)) |>
+  slice_head(n = 1)
+  
+  
+flights |>
+  group_by(year, month, day) |>
+  summarize(
+    mean = mean(dep_delay, na.rm = TRUE),
+    median = median(dep_delay, na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  ) |> 
+  ggplot(aes(x = mean, y = median)) + 
+  geom_abline(slope = 1, intercept = 0, color = "white", linewidth = 2) +
+  geom_point()
+
+
+# https://r4ds.hadley.nz/numbers.html#sec-min-max-summary
+
+flights |>
+  group_by(year, month, day) |>
+  summarize(
+    max = max(dep_delay, na.rm = T),
+    q95 = quantile(dep_delay, 0.95, na.rm = T), 
+    .groups = "drop"
+  )
+
+# https://r4ds.hadley.nz/numbers.html#spread
+
+flights |> group_by(origin,dest) |>
+  summarise(
+    distance_iqr = IQR(distance), n = n(), .groups = "drop"
+  ) |> filter(distance_iqr>0)
+
+
+# Interquantile range - https://www.scribbr.com/statistics/interquartile-range/
+
+v1 = c(48,52,57,64,72,76,77,81,85,88)
+
+median(v1)
+q1 = quantile(v1, 0.25)
+q1
+q3 = quantile(v1, 0.75)
+q3
+InterQuantileRange = q3 - q1
+InterQuantileRange
+
+v2 <- c(48,52,57,61,64,72,76,77,81,85,88)
+
+q1 <- quantile(v2, 0.25)
+q3 <- quantile(v2, 0.75)
+
+q3-q1
+
+IQR(v2)
+
+# https://r4ds.hadley.nz/numbers.html#distributions
+
+flights |> 
+  filter(dep_delay <120) |>
+  ggplot(aes(x = dep_delay, group = interaction(day, month)))+
+  geom_freqpoly(binwidth = 5, alpha = 1/5)
+
+# https://r4ds.hadley.nz/numbers.html#positions
+
+flights |>
+  group_by(year, month, day) |>
+  summarize(
+    first_dep = first(dep_time, na_rm = T),
+    fifth_dep = nth(dep_time, 5, na_rm = T),
+    last_dep = last(dep_time, na_rm = T)
+  )
+
+
+flights |> 
+  group_by(year, month, day) |>
+  mutate(r = min_rank(sched_dep_time), .keep = "used") |>
+  filter(r %in% c(1, max(r)))
+
+
+# https://r4ds.hadley.nz/strings.html
+
+library(tidyverse)
+install.packages("babynames")
+library(babynames)
+babynames
+
+# https://r4ds.hadley.nz/strings.html#creating-a-string
+
+string1 <- "This is a Srting"
+string2 <- 'If you wnat to use "Double Quotes" within a String, create string with single quote'
+
+
+# https://r4ds.hadley.nz/strings.html#escapes
+
+double_quote <- "\"" # or '"'
+single_quote <- '\'' # or "'"
+backslash <- "\\"
+
+
+x <- c(single_quote, double_quote, backslash)
+
+str_view(x)
+
+
+tricky <- "double_quote <- \"\\\"\" # or '\"'
+single_quote <- '\\'' # or \"'\""
+
+tricky
+str_view(tricky)
+  
+
+z<- "\"This is a text between two double quotes\"\nThis text is in the next line
+  So is this one
+  \\ This is a backslash
+  '\'' this is a single quote between two single quotes
+  '\\'' this is a backslash and a single quote between single quote"
+str_view(z)
+
+y <- '\\\' this ia a slash and a single quote '
+str_view(y)
+
+x<- c("one\ntwo", "one\ttwo", "\u00b5","\U0001f604")
+x
+
+str_view(x)
+
+
+# https://r4ds.hadley.nz/strings.html#creating-many-strings-from-data
+
+str_c("x","y")
+
+str_c("Hello ",c("John", "Alex","Samantha") )
+
+df <- tibble(name = c("Flora","David","Terra",NA))
+df |> mutate(greetings = str_c("Hi, ", name, "!"), .keep = "none")
+
+df |> mutate(
+  greetings1 = str_c("Hi, ",coalesce(name, "you"),"!"),
+  greetings2 = coalesce(str_c("Hi, ", name, "!"), "Hi!")
+)
+
+# https://r4ds.hadley.nz/strings.html#sec-glue
+
+df |> mutate(greeting = str_glue("Hi {name}"))
+
+df |> mutate(greeting = str_glue("{{Hi {name}!}}"))
+
+# https://r4ds.hadley.nz/strings.html#str_flatten
+
+str_flatten(c("x","y","z"))
+
+str_flatten(c("x","y","x"),",")
+
+str_flatten(c("Alice", "Samantha","James"),",", last = ", and ")
+
+df <- tribble(
+  ~ name, ~ fruit,
+  "Carmen", "banana",
+  "Carmen", "apple",
+  "Marvin", "nectarine",
+  "Terence", "cantaloupe",
+  "Terence", "papaya",
+  "Terence", "mandarin"
+)
+
+df
+
+df |> group_by(name) |> summarise(fruit = str_flatten(fruit, ",",last = ", and "))
+
+df |> group_by(name) |> 
+  reframe(fruit = min(str_c(name, " likes ", str_flatten(fruit, ",",last = ", and "))))
+          
+df |> group_by(name) |> 
+  summarise(fruit = min(str_c(name, " likes ", str_flatten(fruit, ",",last = ", and "))))           
+
+
+
+str_c("hi ", NA)
+str_c(letters[1:2], letters[1:3])
+
+paste0("hi ", NA)
+paste0(letters[1:2], letters[1:3])
+
+# https://r4ds.hadley.nz/strings.html#extracting-data-from-strings
+# df |> separate_longer_delim(col, delim)
+# df |> separate_longer_position(col, width)
+# df |> separate_wider_delim(col, delim, names)
+# df |> separate_wider_position(col, widths)
+  
+
+# https://r4ds.hadley.nz/strings.html#sec-string-columns
+
+df1 <- tibble(x = c("a,b,c", "d,e","f"))
+
+df1 |> separate_longer_delim(x, delim = ",")
+
+
+df2 <- tibble(x = c("1211","131","21"))
+
+df2 |> separate_longer_position(x , width = 1)
+
+df3 <- tibble(x = c("a10.1.2022","b10.2.2011", "e15.1.2015"))
+
+df3 |> separate_wider_delim(
+  x, 
+  delim = ".", 
+  names = c("code","edition","year")
+)
+
+df3 |> separate_wider_delim(x, delim = ".", names = c("code", NA, "year"))
+  
+df4 <- tibble(x = c("202215TX", "202122LA", "202325CA")) 
+  
+df4 |> separate_wider_position(
+  x, 
+  widths = c(year = 4, age = 2, state = 2)
+)  
+
+  
+# https://r4ds.hadley.nz/strings.html#diagnosing-widening-problems
+
+df <- tibble(x = c("1-1-1", "1-1-2", "1-3", "1-3-2", "1"))
+
+df |> separate_wider_delim(x, delim = "-", names = c("x","y","z"))
+
+debug <- df |> separate_wider_delim(x, delim = "-",names = c("x","y","z"), too_few = "debug")
+
+debug |> filter(!x_ok)
+  
+df |> separate_wider_delim(x, delim = "-", names = c("x","y","z"), too_few = "align_start")
+
+df |> 
+  separate_wider_delim(
+    x,
+    delim = "-",
+    names = c("x", "y", "z"),
+    too_few = "align_start"
+  )
+
+df <- tibble(x = c("1-1-1", "1-1-2", "1-3-5-6", "1-3-2", "1-3-5-7-9"))
+
+
+df |> separate_wider_delim(x, delim = "-", names = c("X","y","Z"))
+
+debug <- df |> separate_wider_delim(x, delim = "-", names = c("x","y","z"), too_many = "debug")  
+
+debug |> filter(!x_ok)
+
+df |> separate_wider_delim(x, delim = "-", names = c("x","y","z"), too_many = "drop")
+df |> separate_wider_delim(x, delim = "-", names = c("x","y","z"), too_many = "merge")
+
+# https://r4ds.hadley.nz/strings.html#letters
+
+# https://r4ds.hadley.nz/strings.html#letters
+
+str_length(c("d", "This is just a string of text to check length", NA))
+
+library(babynames)
+babynames |> count(length = str_length(name), wt = n)
+
+babynames |> filter(str_length(name) == 15) |> count(name, wt = n, sort = T)
+  
+# https://r4ds.hadley.nz/strings.html#subsetting
+
+df <- c("Apple","Mango","Banana")
+df |> str_sub(1,3)
+str_sub(df, -3,-1)
+
+babynames |> 
+  mutate(
+  first_initial = str_sub(name, 1,1), 
+  last_initial = str_sub(name, -1, -1)
+)
+
+# https://r4ds.hadley.nz/strings.html#encoding
+
+
+charToRaw("Apple")
+
+x1 <- "text\nEl Ni\xf1o was particularly bad this year"
+x1
+read_csv(x1)$text
+ad_csv(x1,locale = locale(encoding = "Latin1"))$text
+
+x2 <- "text\n\x82\xb1\x82\xf1\x82\xc9\x82\xbf\x82\xcd"
+x2
+read_csv(x2)$text
+read_csv(x2, locale = locale(encoding = "Shift-JIS"))$text
+
+
+# https://r4ds.hadley.nz/strings.html#letter-variations
+
+u <- c("\u00fc", "u\u0308")
+
+str_view(u)
+str_length(u)
+str_sub(u,1,1)
+
+u[[1]]==u[[2]]
+
+str_equal(u[[1]], u[[2]])
+
+str_to_upper(u)
+str_to_upper(c("a","a"))
+str_to_upper(c("i","i"),locale = "tr")
+str_sort(c("a","c","ch","h","z"))
+str_sort(c("a","c","ch","h","z"), locale = "cs")
+
+# Chapter15 - https://r4ds.hadley.nz/regexps.html#introduction
+
+
+# Pattern Basics - https://r4ds.hadley.nz/regexps.html#introduction
+
+# Most punctuation characters, like ., +, *, [, ], and ?, 
+# have special meanings2 and are called metacharacters. 
+
+str_view(fruit, "berry")
+str_view(c("a", "ab", "ae", "bd", "ea", "eab"), "a.")
+str_view(fruit, "a...e")
+
+# ? makes a pattern optional (i.e. it matches 0 or 1 times)
+# + lets a pattern repeat (i.e. it matches at least once)
+# * lets a pattern be optional or repeat (i.e. it matches any number of times, including 0).
+
+# ab? matches an "a", optionally followed by a "b".
+str_view(c("a", "ab", "abb"), "ab?")
+
+# ab+ matches an "a", followed by at least one "b".
+str_view(c("a", "ab", "abb"), "ab+")
+
+# ab* matches an "a", followed by any number of "b"s.
+str_view(c("a", "ab", "abb"), "ab*")
+
+# Character classes are defined by [] and let you match a set of characters, 
+# e.g., [abcd] matches “a”, “b”, “c”, or “d”. You can also invert the match 
+# by starting with ^: [^abcd] matches anything except “a”, “b”, “c”, or “d”. 
+
+str_view(words, "[aeiou]x[aeiou]")
+str_view(words, "[^aeiou]y[^aeiou]")
+
+
+# You can use alternation, |, to pick between one or more alternative patterns.
+
+str_view(fruit, "apple|melon|nut")
+str_view(fruit, "aa|ee|ii|oo|uu")
+
+
+
+# 15.3 Key functions - https://r4ds.hadley.nz/regexps.html#sec-stringr-regex-funs
+
+str_detect(c("a","e","i","o","u"), "a|e|i|o|u")
+str_detect(c("a","e","i","o","u","y"), "[aeiou]")
+str_detect(c("a","e","i","o","u"), "[^aeiou]")
+
+babynames |> 
+  filter(str_detect(name, "x")) |> 
+  count(name, wt = n, sort = TRUE)
+
+babynames |>
+  group_by(year) |>
+  summarize(prop_x = mean(str_detect(name, "x"))) |>
+  ggplot(aes(x = year, y = prop_x)) + geom_line()
+
+
+>>>>>>> 32993a8bb32f5dc3bf16350520814f17d5938647
