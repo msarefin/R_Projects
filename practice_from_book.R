@@ -2860,7 +2860,7 @@ babynames |>
 # 2. Use str_to_lower(name) to convert the name to lower case before counting
 # 3. Tell Regex to ignore case
 
-<<<<<<< HEAD
+
 # str_detect - returns a logical vector indicating whether each string matches the pattern - returns TRUE or FALSE
 # str_subset - returns the subset of strings that match the pattern - returns a character vector
 # str_which - returns the indices of the strings that match the pattern - returns an integer vector
@@ -2889,8 +2889,6 @@ babynames |>
 # 2. Use str_to_lower(name) to convert the name to lower case before counting
 # 3. Tell Regex to ignore case
 
-=======
->>>>>>> 7601e35d674c3dbee165141e4d614575e6c9b2fd
 babynames |>
   count(name) |>
   mutate(vowels = str_count(name, "[aeiouAEIOU]"), consonants = str_count(name, "[^aeiouAEIOU]"))
@@ -2899,14 +2897,8 @@ babynames |>
   count(name) |>
   mutate(vowels = str_count(name, regex("[aeiou]", ignore_case = TRUE)), 
          consonants = str_count(name, regex("[^aeiou]", ignore_case = TRUE)))
-<<<<<<< HEAD
 
-babynames |> 
+babynames |>
   count(name) |>
-  mutate(vowels = str_count(name, "[aeiou]", locale = "en"))
-=======
->>>>>>> 7601e35d674c3dbee165141e4d614575e6c9b2fd
-
-babynames |> 
-  count(name) |>
-  mutate(vowels = str_count(name, "[aeiou]", locale = "en"))
+  mutate(vowels = str_count(str_to_lower(name), "[aeiou]"), 
+         consonants = str_count(str_to_lower(name), "[^aeiou]"))
