@@ -2817,4 +2817,42 @@ babynames |>
   filter(str_detect(name, "x")) |> 
   summarise()
 
+# str_detect - returns a logical vector indicating whether each string matches the pattern - returns TRUE or FALSE
+# str_subset - returns the subset of strings that match the pattern - returns a character vector
+# str_which - returns the indices of the strings that match the pattern - returns an integer vector
 
+babynames |> 
+  filter(str_detect(name, "x")) |>
+  mutate(str_subset(name, "x"), str_which(name, "x"), .keep = "used")
+
+# - 15.3.2 Count matches - https://r4ds.hadley.nz/regexps.html#count-matches
+
+# str_count - counts the number of matches of the pattern in each string - returns an integer vector
+
+babynames |> 
+  filter(str_detect(name, "x")) |>
+  mutate(count = str_count(name, "x")) |>
+  count(name, wt = count, sort = TRUE)
+
+
+babynames |>
+  count(name) |>
+  mutate(vowels = str_count(name, "[aeiou]"), consonants = str_count(name, "[^aeiou]")) 
+# this will return incorrect number of vowels because str_count is case sensitive, therefore it "aeiou" does not match "AEIOU"
+# There are 3 ways to resolve this 
+# 1. Use str_count(name, "[aeiouAEIOU]") to count both lower and upper case vowels
+# 2. Use str_to_lower(name) to convert the name to lower case before counting
+# 3. Tell Regex to ignore case
+
+babynames |>
+  count(name) |>
+  mutate(vowels = str_count(name, "[aeiouAEIOU]"), consonants = str_count(name, "[^aeiouAEIOU]"))
+
+babynames |>
+  count(name) |>
+  mutate(vowels = str_count(name, regex("[aeiou]", ignore_case = TRUE)), 
+         consonants = str_count(name, regex("[^aeiou]", ignore_case = TRUE)))
+
+babynames |> 
+  count(name) |>
+  mutate(vowels = str_count(name, "[aeiou]", locale = "en"))
