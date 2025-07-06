@@ -2904,4 +2904,4 @@ babynames |>
          consonants = str_count(str_to_lower(name), "[^aeiou]"))
 
 
-babynames | count(name) |> select(vowels = str_count(name, regex("[aeiou]", ignore_case = T)))
+babynames |> count(name) |> select(vowels = str_count(name, regex("[aeiou]", ignore_case = T)))
