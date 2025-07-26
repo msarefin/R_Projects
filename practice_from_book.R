@@ -2905,3 +2905,26 @@ babynames |>
 
 
 babynames |> count(name) |> select(vowels = str_count(name, regex("[aeiou]", ignore_case = T)))
+
+
+# - 15.3.4 Extract variables - https://r4ds.hadley.nz/regexps.html#sec-extract-variables
+
+df <- tribble(
+  ~str,
+  "<Sheryl>-F_34",
+  "<Kisha>-F_45", 
+  "<Brandon>-N_33",
+  "<Sharon>-F_38", 
+  "<Penny>-F_58",
+  "<Justin>-M_41", 
+  "<Patricia>-F_84", 
+)
+
+
+
+
+df |>
+  separate_wider_regex(
+    str,
+    pattern = c("<",name = "[A-Za-z]+",">-", gender = ".", "_", age = "[0-9]+")
+  )
