@@ -2744,7 +2744,7 @@ babynames |>
   last_initial = str_sub(name, -1, -1)
 )
 
-# https://r4ds.hadley.nz/strings.html#encoding
+# 14.6.1 Encoding - https://r4ds.hadley.nz/strings.html#encoding
 
 
 charToRaw("Apple")
