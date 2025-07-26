@@ -87,7 +87,7 @@ ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y= body_mass_g))+
 
 dev.off()
 
-############################## Saving files using ggsave 
+
 
 penguins |> ggplot(mapping = aes(x = flipper_length_mm, y= body_mass_g))+geom_point()
 
@@ -100,7 +100,7 @@ my_scatter_plot <- ggplot(mpg, aes(x= cty, y = hwy)) + geom_point()
 
 ggsave(filename = "mpg_bar_chart.png", plot = my_bar_plot)
 
-############################### 
+
 #Chapter 3 - https://r4ds.hadley.nz/data-transform
 
 install.packages("nycflights13")
@@ -1402,7 +1402,7 @@ ggplot(mpg, aes(x = displ, y = hwy))+
   )
 
 
-<<<<<<< HEAD
+
 df <- tibble(
   x = 1:10, 
   y = cumsum(x^2)
@@ -1547,11 +1547,9 @@ ggplot(data = diamonds, mapping = aes(x = price, y = cut))+
   geom_boxplot(alpha = 0.5)+
   scale_x_continuous(labels = label_dollar())
 
-<<<<<<< HEAD
 
-=======
->>>>>>> parent of 80f1d0a... learned to add labels to chart instead of default names to make graph more informative
-=======
+# learned to add labels to chart instead of default names to make graph more informative
+
 ggplot(data = diamonds, mapping = aes(x = price, y = cut))+
   geom_boxplot(alpha = 0.5)+
   scale_x_continuous(
