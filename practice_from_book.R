@@ -2933,29 +2933,7 @@ df |>
   )
 
 
-df |> 
-  separate_wider_regex(
-    str,
-    patterns = c(
-      "<", 
-      name = "[A-Za-z]+", 
-      ">-", 
-      gender = ".",
-      "_",
-      age = "[0-9]+"
-    )
-  )
 
 
-df |> separate_wider_regex(
-  str, 
-  pattern = c(
-    "<",
-    name ="[a-zA-Z]+",
-    ">-",
-    gender = ".",
-    "_", 
-    age = "[0-9]+"
-    )
-  )
+
 
