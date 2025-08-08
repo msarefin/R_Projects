@@ -2951,7 +2951,7 @@ str_view(c("abc", "a.c", "a*c", "a C"), "a[.]c")
 str_view(c("abc", "a.c", "a*c", "a c"), ".[*]c")
 
 
-# 15..4.2 Anchors - https://r4ds.hadley.nz/regexps.html#anchors
+# 15.4.2 Anchors - https://r4ds.hadley.nz/regexps.html#anchors
 
 str_view(fruit, "^a")
 str_view(fruit, "a$")
@@ -2967,6 +2967,7 @@ str_view(x, "^sum$")
 
 str_view("abc", c("$", "^", "\\b"))
 str_view(c("Stranger Things", "Things that are strange"), "\\bThings")
+str_view(c("Stranger Things", "Things that are strange"), "\\bThings\\b")
 
 str_replace_all("abc", c("$","^","\\b"), "--")
 
@@ -2977,3 +2978,63 @@ str_view(x, "[^a-z0-9]+")
 
 str_view("a-b-c","[a-c]")
 str_view("a-b-c","[a\\-c]")
+
+# 15.4.3 Character classes - https://r4ds.hadley.nz/regexps.html#character-classes
+
+# \d matches any digit;
+# \D matches anything that isn’t a digit.
+# \s matches any whitespace (e.g., space, tab, newline);
+# \S matches anything that isn’t whitespace.
+# \w matches any “word” character, i.e. letters and numbers;
+# \W matches any “non-word” character.
+
+x <- "abcd ABCD 12345 -!@#%."
+str_view(x, "\\d+")
+str_view(x, "\\D+")
+str_view(x, "\\s+")
+str_view(x, "\\S+")
+str_view(x, "\\w+")
+str_view(x, "\\W+")
+
+# 15.4.4 Quantifiers - https://r4ds.hadley.nz/regexps.html#quantifiers
+
+# ? - matches 0 or 1 times
+# + - matches 1 or more times
+# * - matches 0 or more times
+# {n} - matches exactly n size
+# {n,} - matches n or more size
+# {n,m} - matches between n and m size
+
+str_view(x, "\\d?")
+str_view(x, "\\d+")
+str_view(x, "\\d*")
+str_view(x, "\\d{2}")
+str_view(x, "\\d{2,}")
+str_view(x, "\\d{2,4}")
+
+str_view(x ,"^a | d$")
+
+# 15.4.6 Grouping and capturing - https://r4ds.hadley.nz/regexps.html#grouping-and-capturing
+
+str_view(fruit, "(..)\\1")
+str_view(words, "^(..).*\\1$")
+
+str_view("omnanarorofafapeeeooommmrrrom", "(..)\\1")
+str_view("omnanarorofafapeeeooommmrrrom", "(..)(.)\\2")
+str_view("omnanarorofafapeeeooommmrrrom", "(..)(..)\\2")
+str_view("omnanarorofafapeeeooommmrrrom", "(...)(.)\\2")
+str_view("omnanarorofafapeeeooommmrrrom", "(.)(..)\\2")
+str_view("omnanarorofafapeeeooommmrrrom", "(.)(.)\\2")
+
+str_view("massachussettes", "(..)(.)\\2")
+
+
+
+
+
+
+
+
+
+
+
