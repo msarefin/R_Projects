@@ -2933,7 +2933,47 @@ df |>
   )
 
 
+# 15.4 Pattern details - https://r4ds.hadley.nz/regexps.html#pattern-details
+
+dot <- "\\."
+
+str_view(dot)
+
+str_view(c("abc","a.c","bef"), "a\\.c")
 
 
+x<- "a\\b"
+str_view(x)
+str_view(x, "\\\\")
+str_view(x, r"{\\}")
+
+str_view(c("abc", "a.c", "a*c", "a C"), "a[.]c")
+str_view(c("abc", "a.c", "a*c", "a c"), ".[*]c")
 
 
+# 15..4.2 Anchors - https://r4ds.hadley.nz/regexps.html#anchors
+
+str_view(fruit, "^a")
+str_view(fruit, "a$")
+str_view(fruit, "^apple$")
+str_view(fruit, "\\bapple\\b")
+
+
+x <- c("summary(x)", "summarize(df)", "rowsum(x)","sum(x)")
+str_view(x, "sum")
+str_view(x, "\\bsum\\b")
+str_view(x, "^sum$")
+
+
+str_view("abc", c("$", "^", "\\b"))
+str_view(c("Stranger Things", "Things that are strange"), "\\bThings")
+
+str_replace_all("abc", c("$","^","\\b"), "--")
+
+x<- "abcd ABCD 1234 !@#$%"
+str_view(x, "[abc]+")
+str_view(x, "[a-z]+")
+str_view(x, "[^a-z0-9]+")
+
+str_view("a-b-c","[a-c]")
+str_view("a-b-c","[a\\-c]")
