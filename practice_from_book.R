@@ -2929,7 +2929,7 @@ df |>
       gender = ".",
       "_",
       age = "[0-9]+"
-    ), ignore_case = T
+    )
   )
 
 
