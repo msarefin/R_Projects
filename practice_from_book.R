@@ -3028,7 +3028,7 @@ str_view("omnanarorofafapeeeooommmrrrom", "(.)(.)\\2")
 
 str_view("massachussettes", "(..)(.)\\2")
 
-
+sentences[1] |> str_replace("(\\w+) (\\w+) (\\w+)", "\\1\\3\\2") |> str_view()
 
 
 
