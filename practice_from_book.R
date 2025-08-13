@@ -3028,13 +3028,153 @@ str_view("omnanarorofafapeeeooommmrrrom", "(.)(.)\\2")
 
 str_view("massachussettes", "(..)(.)\\2")
 
-sentences[1] |> str_replace("(\\w+) (\\w+) (\\w+)", "\\1\\3\\2") |> str_view()
+sentences[1]  
+sentences[1] |> str_replace("(\\w+) (\\w+) (\\w+)", "\\1 \\3 \\2") |> str_view()
+
+str_view("nanna torroro", "(..)(.)\\2")
+
+sentences |> str_match("the (\\w+) (\\w+)") |> head()
+
+sentences |> str_match("the (\\w+) (\\w+)") |>
+  as_tibble(.name_repair = "minimal") |>
+  set_names("match", "word1", "word2")  
+
+x <- c("a gray cat", "a grey dog")
+
+str_match(x, "gr(e|a)y") 
+
+str_match(x, "gr(?:e|a)y") 
+
+# 15.5 Pattern control - https://r4ds.hadley.nz/regexps.html#pattern-control
+
+# 15.5.1 Regex flags - https://r4ds.hadley.nz/regexps.html#regex-flags
+
+bananas <- c("banana", "Banana", "BANANA")
+str_view(bananas, "banana")
+str_view(bananas, regex("banana", ignore_case = T))
+
+# if you want to match the pattern across multiple lines, you can use the dotall flag.
+x <- "Line 1\nLine 2\nLine 3"
+str_view(x, ".Line")
+str_view(x, regex(".Line", dotall = TRUE))
+
+x <- "Line 1\nLine 2\nLine 3"
+
+str_view(x, "^Line")
+str_view(x, regex("^Line", multiline = T))
 
 
+phone <- regex(
+  r"(
+    \(?     # optional opening parens
+    (\d{3}) # area code
+    [)\-]?  # optional closing parens or dash
+    \ ?     # optional space
+    (\d{3}) # another three numbers
+    [\ -]?  # optional space or dash
+    (\d{4}) # four more numbers
+  )", 
+  comments = TRUE
+)
+
+str_extract(c("514-791-8141", "(123) 456 7890", "123456"), phone)
 
 
+## Just got this example from online and is not related to the book ##
+
+# Set a seed for reproducibility
+set.seed(123)
+
+# Generate 10 random 10-digit numbers and format them as phone numbers
+sample_phone_numbers <- character(10)
+for (i in 1:10) {
+  # Generate 10 random digits
+  digits <- sample(0:9, 10, replace = TRUE)
+  
+  # Format as (XXX) XXX-XXXX
+  sample_phone_numbers[i] <- paste0("(", paste0(digits[1:3], collapse = ""), ") ",
+                                    paste0(digits[4:6], collapse = ""), "-",
+                                    paste0(digits[7:10], collapse = ""))
+}
+
+# Display the sample phone numbers
+print(sample_phone_numbers)
 
 
+tibble(phone = sample_phone_numbers)
 
+tibble(number = str_extract(c("(123) 456-7890", "987-654-3210", "(555) 123 4567", "(443)", "95436", "8576571234"), 
+            regex(
+              R"(
+                \(?     # optional opening parens
+                (\d{3}) # area code
+                [)\ -]?  # optional closing parens or dash
+                \ ?     # optional space
+                (\d{3}) # another three numbers
+                [\ -]?  # optional space or dash
+                (\d{4}) # four more numbers
+              )", 
+              comments = TRUE
+            )
+            
+            )
+       )
+
+
+str_extract(c("514-791-8141", "(123) 456 7890", "123456"), phone)
+
+#You can write raw strings using the following formats:
+# 
+# r"( ... )"
+# r"{ ... }"
+# r"[ ... ]"
+# R"( ... )"
+# R"{ ... }"
+# R"[ ... ]"
+# You can even trickier by adding dashes between the quote and the delimter. The dashes need to be symmetrical though. So the following is also valid.
+# 
+# r"-{ ... }"-
+# r"--{ ... }--"
+# r"--{ * _ * }--"
+# It kinda looks like a crab
+# Alright so back to the example
+# 
+#  r"{nav\to\file\path.ext}"
+# 
+# [1] "nav\\to\\file\\path.ext"
+
+
+num <- tibble(numbers = c("5126541234", "(658) 795 2543","854 954 5567","$8000","(354)-852-4545","(795)6841379"))
+
+num |> 
+  mutate(
+    phone = str_extract(numbers, 
+      regex(
+        r"( 
+          [\(]? 
+          (\d{3})
+          [\) -]?
+          [\ ]?
+          (\d{3})
+          [\-]?
+          [\ ]?
+          (\d{4})
+        )", 
+        comments = TRUE
+      )
+    )
+  )
+
+num |> mutate(phone_numbers = str_extract(numbers,
+            regex(
+              r"( 
+                ^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$
+              )", 
+              comments = TRUE
+            )
+            ))
+
+
+num |> mutate(phone_number = str_extract(numbers, phone))
 
 
