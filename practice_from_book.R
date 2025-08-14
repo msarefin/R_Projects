@@ -3165,16 +3165,24 @@ num |>
     )
   )
 
+# To test regex use https://regexr.com/
+
 num |> mutate(phone_numbers = str_extract(numbers,
             regex(
               r"( 
-                ^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$
+                \(?           # optional opening parens
+                (\d{3})       # area code
+                [\)\-\.\s]?   # optional closing parens, dash, dot or space
+                [\)\-\.\s]?   # optional closing parens, dash, dot or space 
+                (\d{3})       # three digit number
+                [\-\.\s]?     # optional dash, dot or space
+                (\d{4})       # four digit number
               )", 
               comments = TRUE
             )
             ))
 
 
-num |> mutate(phone_number = str_extract(numbers, phone))
+
 
 
