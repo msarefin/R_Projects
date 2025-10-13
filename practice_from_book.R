@@ -3183,6 +3183,72 @@ num |> mutate(phone_numbers = str_extract(numbers,
             ))
 
 
+# 15.5.2 Fixed matches - https://r4ds.hadley.nz/regexps.html#fixed-matches
+
+str_view(c(""," ","."), fixed("."))
+str_view("x X","X")
+str_view("x X", fixed("x", ignore_case = TRUE))
+
+str_view("i İ ı I", fixed("İ", ignore_case = TRUE))
+str_view("i İ ı I", coll("İ", ignore_case = TRUE, locale = "tr")) # coll() allows you to use locale to determine the language 
 
 
 
+# 15.6.1 Check your work - https://r4ds.hadley.nz/regexps.html#check-your-work
+
+str_view(sentences, "^The\\b")
+
+str_view(sentences, "^(He|She|It|They)\\b")
+
+#  15.6.2 Boolean operations - https://r4ds.hadley.nz/regexps.html#boolean-operations
+
+str_view(words, "^[^aeiou]+$") 
+str_view(words[!str_detect(words, "[aeiou]")])
+
+
+# regex has no AND operator 
+str_view(words, "a.*b|b.*a")
+
+
+
+library(tidyverse)
+library(stringr)
+
+# 16.2 Factor basics - https://r4ds.hadley.nz/factors.html#factor-basics 
+
+x1 <- c("Dec","Apr", "Jan", "Mar")
+x2 <- c("Dec","Apr", "Jam", "Mar")
+
+sort(x1)
+
+month_levels <- c(
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+)
+
+y1 <- factor(x1, levels = month_levels)
+y2 <- factor(x2, levels = month_levels)
+sort(y1)
+sort(y2)
+
+y3 <- fct(x2, levels = month_levels)
+y4<- fct(x1, levels = month_levels)
+y4
+
+sort(y4)
+
+factor(x1)
+fct(x1)
+
+levels(y2)
+
+csv <- "
+month, value
+Jan, 12
+Feb, 56
+Mar, 12"
+
+df<- read_csv(csv, col_types = cols(month = col_factor(month_levels)))
+df$month
+df$value
+df
