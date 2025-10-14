@@ -3228,8 +3228,10 @@ month_levels <- c(
 
 y1 <- factor(x1, levels = month_levels)
 y2 <- factor(x2, levels = month_levels)
-sort(y1)
-sort(y2)
+sort(y1) # This will sort and display the Months in order of the levels
+sort(y2) # This will sort and display the Months in order of the levels, but Jam will be shown as NA as it is not in the levels
+
+# fct() is part of the stringr package and is a wrapper around factor() with some additional features.
 
 y3 <- fct(x2, levels = month_levels)
 y4<- fct(x1, levels = month_levels)
