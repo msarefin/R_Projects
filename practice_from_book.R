@@ -3254,3 +3254,11 @@ df<- read_csv(csv, col_types = cols(month = col_factor(month_levels)))
 df$month
 df$value
 df
+
+# 16.3 - https://r4ds.hadley.nz/factors.html#general-social-survey
+
+head(gss_cat, 5)
+glimpse(gss_cat)
+view(gss_cat)
+
+gss_cat |> count(race)
