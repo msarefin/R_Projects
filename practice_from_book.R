@@ -3262,3 +3262,9 @@ glimpse(gss_cat)
 view(gss_cat)
 
 gss_cat |> count(race)
+
+
+# 16.3.1 - Exercises - https://r4ds.hadley.nz/factors.html#exercises
+
+
+gss_cat |> ggplot(mapping = aes(rincome))+ geom_bar()
