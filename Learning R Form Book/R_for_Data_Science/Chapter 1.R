@@ -118,3 +118,20 @@ penguins |>
 penguins |>
   ggplot(mapping = aes(x = body_mass_g)) +
   geom_histogram(binwidth = 20)
+
+
+penguins |> 
+  ggplot(mapping = aes(x = body_mass_g))+
+  geom_density()
+
+penguins |>
+  ggplot(mapping = aes(y = species))+ geom_bar()
+
+
+penguins |>
+  ggplot(mapping = aes(x = species))+
+  geom_bar(color = "red")
+
+penguins |>
+  ggplot(mapping = aes(x = species))+
+  geom_bar(fill = "red")
