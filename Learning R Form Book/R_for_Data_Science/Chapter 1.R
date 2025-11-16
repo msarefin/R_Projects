@@ -1,6 +1,7 @@
 # Chapter 1 - https://r4ds.hadley.nz/data-visualize.html
 
 install.packages("tidyverse")
+install.packages("palmerpenguins")
 library(tidyverse)
 
 library(palmerpenguins)
